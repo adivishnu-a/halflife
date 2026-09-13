@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 import { DeckForm } from "@/components/deck-form";
 import { DeckTile } from "@/components/deck-tile";
@@ -40,7 +39,7 @@ export default async function DecksPage() {
       </div>
 
       {decks.length === 0 ? (
-        <section className="stock p-6 sm:p-8">
+        <section className="sheet p-6 sm:p-8">
           <h2 className="text-2xl font-bold">Start with a deck</h2>
           <p className="mt-2 max-w-prose muted">
             Halflife shows you a card, you say whether you remembered it, and the scheduler picks the day it comes back.
@@ -54,7 +53,7 @@ export default async function DecksPage() {
             </form>
             <span className="text-sm faint">300 common words, CC BY-SA 4.0</span>
           </div>
-          <div className="mt-8 border-t border-stock-edge pt-6">
+          <div className="mt-8 border-t border-line pt-6">
             <h3 className="text-base font-semibold">Or make your own</h3>
             <DeckForm />
           </div>

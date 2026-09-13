@@ -63,6 +63,7 @@ test("guest reviews a card, keeps it with a username, and finds it after signing
   await signOut(page);
 
   await page.goto("/account");
+  await page.getByRole("tab", { name: "Sign in" }).click();
   const signInForm = page.locator("form").filter({ hasText: "Sign in" });
   await signInForm.getByLabel("Username").fill(username);
   await signInForm.getByLabel("Password").fill(password);
@@ -96,6 +97,7 @@ test("recovery code signs in and sets a new password", async ({ page }) => {
   // The old password is dead, the new one works.
   await signOut(page);
   await page.goto("/account");
+  await page.getByRole("tab", { name: "Sign in" }).click();
   const form = page.locator("form").filter({ hasText: "Sign in" });
   await form.getByLabel("Username").fill(username);
   await form.getByLabel("Password").fill(password);

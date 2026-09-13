@@ -37,7 +37,7 @@ export default async function StatsPage({ searchParams }: { searchParams: Promis
       </div>
 
       {stats.totalReviews === 0 ? (
-        <p className="stock p-6 muted">No reviews yet. Numbers appear here after your first session.</p>
+        <p className="sheet p-6 muted">No reviews yet. Numbers appear here after your first session.</p>
       ) : (
         <>
           <dl className="grid gap-6 border-y border-line py-5 sm:grid-cols-3">

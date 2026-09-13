@@ -19,7 +19,11 @@ export function SiteFooter() {
           <a className="underline" href="https://github.com/adivishnu-a/halflife">
             Source on GitHub
           </a>
-          . 2026 Adi Vishnu Avula.
+          . 2026 Adi Vishnu Avula.{" "}
+          <a className="underline" href="/about">
+            About Halflife
+          </a>
+          .
         </p>
       </div>
     </footer>

@@ -25,7 +25,7 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
           <span aria-hidden="true"> / </span>
           <Link href={`/decks/${deck.id}`} className="hover:underline">{deck.name}</Link>
         </nav>
-        <div className="stock p-6">
+        <div className="sheet p-6">
           <h1 className="text-xl font-semibold">Nothing to review in {deck.name}</h1>
           <p className="mt-2 muted">
             No cards are due and today&apos;s new cards are done. Come back tomorrow, or raise new cards per day in settings.

@@ -21,7 +21,7 @@ export function DeckTools({ deckId, deckName, cardCount }: { deckId: string; dec
 
   return (
     <div className="space-y-4">
-      <section className="stock p-5">
+      <section className="sheet p-5">
         <h2 className="text-lg font-bold">Add a card</h2>
         <form action={addAction} className="mt-3 grid gap-3 sm:grid-cols-2" key={addState?.ok ? addState.message : "add"}>
           <input type="hidden" name="deckId" value={deckId} />

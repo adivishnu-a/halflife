@@ -161,7 +161,7 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
       </div>
 
       {failed.length > 0 && (
-        <div role="alert" className="stock mt-4 flex flex-wrap items-center justify-between gap-3 p-4 text-sm">
+        <div role="alert" className="mt-4 flex flex-wrap rounded-lg border border-mat-line bg-mat-2 text-on-mat items-center justify-between gap-3 p-4 text-sm">
           <span>
             {failed.length === 1 ? "One review did not save" : `${failed.length} reviews did not save`}: {failed.map((f) => f.front).join(", ")}.
             Your grades are kept here until they do.
@@ -274,22 +274,22 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
 
             <details className="mt-3 text-sm">
               <summary className="min-h-11 cursor-pointer py-2 on-mat-2">Why this date</summary>
-              <div className="stock mt-2 p-4">
+              <div className="mt-2 rounded-lg border border-mat-line bg-mat-2 p-4 text-on-mat">
                 {modelView ? (
                   <dl className="grid gap-x-6 gap-y-1 sm:grid-cols-[auto_1fr]">
-                    <dt className="muted">Recall now</dt>
+                    <dt className="on-mat-2">Recall now</dt>
                     <dd>{modelView.p !== null ? <RecallMeter p={modelView.p} target={targetRetention} /> : "–"}</dd>
-                    <dt className="muted">Predicted half-life</dt>
+                    <dt className="on-mat-2">Predicted half-life</dt>
                     <dd>{formatDays(modelView.h)}</dd>
-                    <dt className="muted">History</dt>
+                    <dt className="on-mat-2">History</dt>
                     <dd>
                       seen {current.seen}, remembered {current.correct}, forgot {current.seen - current.correct}
                     </dd>
-                    <dt className="muted">Scheduler</dt>
+                    <dt className="on-mat-2">Scheduler</dt>
                     <dd>{scheduler === "classic" ? "Classic (SM-2)" : "Halflife (model)"} · target {formatPercent(targetRetention)}</dd>
                   </dl>
                 ) : (
-                  <p className="muted">
+                  <p className="on-mat-2">
                     First time you see this card, so there is nothing to predict yet. After you grade it the model gives it a
                     half-life and the scheduler sets its first date.
                   </p>

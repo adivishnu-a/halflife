@@ -29,7 +29,7 @@ export function StartSession() {
 
   if (failed) {
     return (
-      <div role="alert" className="stock p-6">
+      <div role="alert" className="sheet p-6">
         <h1 className="text-xl font-semibold">Could not start a session</h1>
         <p className="mt-2 muted">
           The database did not answer. Nothing was saved. Try again in a moment.

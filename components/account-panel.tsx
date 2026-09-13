@@ -38,6 +38,7 @@ function useSubmit<T>(run: (form: FormData) => Promise<T | { error: string }>, a
 
 function Guest({ hasSession, onCode }: { hasSession: boolean; onCode: (c: string) => void }) {
   const router = useRouter();
+  const [tab, setTab] = useState<"create" | "signin">("create");
 
   const signUp = useSubmit(
     async (form) => {
@@ -80,69 +81,81 @@ function Guest({ hasSession, onCode }: { hasSession: boolean; onCode: (c: string
     },
   );
 
-  return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <section className="stock p-5 sm:p-6">
-        <h2 className="text-lg font-semibold">Pick a username and password</h2>
-        <p className="mt-1 text-sm muted">
-          {hasSession ? "Everything in this browser comes with you. " : ""}No email, nothing to verify.
-        </p>
-        <form onSubmit={signUp.onSubmit} className="mt-4 space-y-3">
-          <div>
-            <label htmlFor="su-username" className="label">Username</label>
-            <input id="su-username" name="username" className="field" autoComplete="username" required minLength={3} maxLength={24} pattern="[A-Za-z0-9_]{3,24}" spellCheck={false} />
-            <p className="mt-1 text-xs faint">3 to 24 letters, digits or underscores.</p>
-          </div>
-          <div>
-            <label htmlFor="su-password" className="label">Password</label>
-            <input id="su-password" name="password" type="password" className="field" autoComplete="new-password" required minLength={8} maxLength={128} />
-            <p className="mt-1 text-xs faint">At least 8 characters.</p>
-          </div>
-          <p className="text-sm muted">
-            There is no password reset by email. You get one recovery code next; without it a lost password means a lost
-            account.
-          </p>
-          <button type="submit" className="btn btn-primary" disabled={signUp.pending}>
-            {signUp.pending ? "Creating" : "Create account"}
-          </button>
-          {signUp.error && <p role="alert" className="text-sm text-forgot">{signUp.error}</p>}
-        </form>
-      </section>
+  const tabClass = (active: boolean) =>
+    `min-h-11 flex-1 rounded-md px-3 text-sm font-semibold transition-colors ${active ? "bg-accent text-on-accent" : "muted hover:bg-paper-2 hover:text-ink"}`;
 
-      <section className="stock p-5 sm:p-6">
-        <h2 className="text-lg font-semibold">Already have an account</h2>
-        <p className="mt-1 text-sm muted">
-          {hasSession ? "This browser's decks move into that account." : "Sign in to pick up where you left off."}
-        </p>
-        <form onSubmit={signIn.onSubmit} className="mt-4 space-y-3">
-          <div>
-            <label htmlFor="si-username" className="label">Username</label>
-            <input id="si-username" name="username" className="field" autoComplete="username" required spellCheck={false} />
-          </div>
-          <div>
-            <label htmlFor="si-password" className="label">Password</label>
-            <input id="si-password" name="password" type="password" className="field" autoComplete="current-password" required />
-          </div>
-          <button type="submit" className="btn btn-secondary" disabled={signIn.pending}>
-            {signIn.pending ? "Signing in" : "Sign in"}
-          </button>
-          {signIn.error && <p role="alert" className="text-sm text-forgot">{signIn.error}</p>}
-          <p className="text-sm">
-            <Link href="/account/recover" className="underline">Forgot the password? Use your recovery code</Link>
+  return (
+    <div className="mx-auto max-w-md space-y-4">
+      <div role="tablist" aria-label="Account" className="panel flex gap-1 p-1">
+        <button type="button" role="tab" id="tab-create" aria-selected={tab === "create"} aria-controls="panel-create" className={tabClass(tab === "create")} onClick={() => setTab("create")}>
+          Create account
+        </button>
+        <button type="button" role="tab" id="tab-signin" aria-selected={tab === "signin"} aria-controls="panel-signin" className={tabClass(tab === "signin")} onClick={() => setTab("signin")}>
+          Sign in
+        </button>
+      </div>
+
+      {tab === "create" ? (
+        <section id="panel-create" role="tabpanel" aria-labelledby="tab-create" className="sheet p-5 sm:p-6">
+          <h2 className="text-lg font-bold">Pick a username and password</h2>
+          <p className="mt-1 text-sm muted">
+            {hasSession ? "Everything in this browser comes with you. " : ""}No email, nothing to verify.
           </p>
-        </form>
-      </section>
+          <form onSubmit={signUp.onSubmit} className="mt-4 space-y-3">
+            <div>
+              <label htmlFor="su-username" className="label">Username</label>
+              <input id="su-username" name="username" className="field" autoComplete="username" required minLength={3} maxLength={24} pattern="[A-Za-z0-9_]{3,24}" spellCheck={false} />
+              <p className="mt-1 text-xs faint">3 to 24 letters, digits or underscores.</p>
+            </div>
+            <div>
+              <label htmlFor="su-password" className="label">Password</label>
+              <input id="su-password" name="password" type="password" className="field" autoComplete="new-password" required minLength={8} maxLength={128} />
+              <p className="mt-1 text-xs faint">At least 8 characters.</p>
+            </div>
+            <p className="text-sm muted">
+              There is no password reset by email. You get one recovery code next; without it a lost password means a lost
+              account.
+            </p>
+            <button type="submit" className="btn btn-primary w-full" disabled={signUp.pending}>
+              {signUp.pending ? "Creating your account" : "Create account"}
+            </button>
+            {signUp.error && <p role="alert" className="text-sm text-forgot">{signUp.error}</p>}
+          </form>
+        </section>
+      ) : (
+        <section id="panel-signin" role="tabpanel" aria-labelledby="tab-signin" className="sheet p-5 sm:p-6">
+          <h2 className="text-lg font-bold">Sign in</h2>
+          <p className="mt-1 text-sm muted">
+            {hasSession ? "This browser's decks move into that account." : "Pick up where you left off."}
+          </p>
+          <form onSubmit={signIn.onSubmit} className="mt-4 space-y-3">
+            <div>
+              <label htmlFor="si-username" className="label">Username</label>
+              <input id="si-username" name="username" className="field" autoComplete="username" required spellCheck={false} />
+            </div>
+            <div>
+              <label htmlFor="si-password" className="label">Password</label>
+              <input id="si-password" name="password" type="password" className="field" autoComplete="current-password" required />
+            </div>
+            <button type="submit" className="btn btn-primary w-full" disabled={signIn.pending}>
+              {signIn.pending ? "Signing in" : "Sign in"}
+            </button>
+            {signIn.error && <p role="alert" className="text-sm text-forgot">{signIn.error}</p>}
+            <p className="text-center text-sm">
+              <Link href="/account/recover" className="underline">Forgot the password? Use your recovery code</Link>
+            </p>
+          </form>
+        </section>
+      )}
 
       {hasSession && (
-        <section className="md:col-span-2">
-          <details>
-            <summary className="min-h-11 cursor-pointer py-2 text-sm muted">Delete this guest session</summary>
-            <form action={deleteGuestAccount} className="mt-2 flex flex-wrap items-center gap-3 text-sm">
-              <span>Removes every deck and review made in this browser. There is no undo.</span>
-              <button type="submit" className="btn btn-danger">Delete guest session and its data</button>
-            </form>
-          </details>
-        </section>
+        <details>
+          <summary className="min-h-11 cursor-pointer py-2 text-sm muted">Delete this guest session</summary>
+          <form action={deleteGuestAccount} className="mt-2 flex flex-wrap items-center gap-3 text-sm">
+            <span>Removes every deck and review made in this browser. There is no undo.</span>
+            <button type="submit" className="btn btn-danger">Delete guest session and its data</button>
+          </form>
+        </details>
       )}
     </div>
   );
@@ -181,8 +194,8 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
   );
 
   return (
-    <div className="space-y-6">
-      <section className="stock p-5 sm:p-6">
+    <div className="mx-auto max-w-md space-y-4">
+      <section className="sheet p-5 sm:p-6">
         <p>
           Signed in as <strong>{username}</strong>. Your decks and reviews are saved to this account and open on any device.
         </p>
@@ -202,7 +215,7 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
         </div>
       </section>
 
-      <section className="stock p-5 sm:p-6">
+      <section className="sheet p-5 sm:p-6">
         <h2 className="text-lg font-semibold">Recovery code</h2>
         <p className="mt-1 text-sm muted">
           The only way back in without the password. Getting a new one cancels the old one.
@@ -223,7 +236,7 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
         </button>
       </section>
 
-      <section className="stock p-5 sm:p-6">
+      <section className="sheet p-5 sm:p-6">
         <h2 className="text-lg font-semibold">Delete account</h2>
         <p className="mt-1 text-sm muted">Deletes the account, every deck, every review. Export first if you want a copy. There is no undo.</p>
         {confirmDelete ? (
@@ -252,7 +265,7 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
 function RecoveryCodeOnce({ code, onDone }: { code: string; onDone: () => void }) {
   const [copied, setCopied] = useState(false);
   return (
-    <section className="stock rise p-5 sm:p-6" aria-live="polite">
+    <section className="sheet rise p-5 sm:p-6" aria-live="polite">
       <h2 className="text-lg font-semibold">Save this recovery code</h2>
       <p className="mt-1 text-sm muted">
         It is shown once. It signs you in if you forget your password. Halflife cannot recover it for you.

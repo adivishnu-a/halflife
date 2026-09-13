@@ -23,7 +23,8 @@ export function ReviewsPerDay({ days }: { days: DayCount[] }) {
 
   return (
     <figure>
-      <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Reviews per day for the last 90 days" className="w-full">
+      <div className="overflow-x-auto">
+      <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Reviews per day for the last 90 days" className="w-full min-w-[560px]">
         {Array.from({ length: yMax / tick + 1 }, (_, k) => k * tick).map((v) => (
           <g key={v}>
             <line x1={pad.left} x2={width - pad.right} y1={y(v)} y2={y(v)} stroke="var(--color-line)" strokeWidth={1} />
@@ -54,6 +55,7 @@ export function ReviewsPerDay({ days }: { days: DayCount[] }) {
           </text>
         ))}
       </svg>
+      </div>
       <details className="mt-2 text-sm">
         <summary className="min-h-11 cursor-pointer py-2 muted">Table of days with reviews</summary>
         <table className="w-full max-w-xs text-left">

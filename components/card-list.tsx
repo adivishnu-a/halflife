@@ -19,7 +19,7 @@ export function CardList({
 }) {
   if (cards.length === 0) {
     return (
-      <p className="stock p-5 muted">
+      <p className="sheet p-5 muted">
         No cards yet. Add one above, or import a CSV.
       </p>
     );
