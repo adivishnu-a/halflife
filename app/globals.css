@@ -1,1 +1,205 @@
 @import "tailwindcss";
+
+/*
+  Halflife design tokens. One family (Archivo), ink chrome, colour reserved for
+  what the model says: the recall meter and the two grades. Light by default,
+  dark when the system asks for it; the same tokens drive both.
+*/
+@theme {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  --color-paper: #f7f6f2;
+  --color-paper-2: #edece6;
+  --color-line: #d6d4cc;
+  --color-ink: #17171a;
+  --color-ink-2: #55544f;
+  --color-ink-3: #85837b;
+  --color-on-ink: #f7f6f2;
+  --color-remembered: #1c7a48;
+  --color-remembered-tint: #dcefe3;
+  --color-forgot: #b5432a;
+  --color-forgot-tint: #f5e1dc;
+  --color-focus: #2b5bd7;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.375rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #151517;
+    --color-paper-2: #1f1f23;
+    --color-line: #3a3a40;
+    --color-ink: #ecebe5;
+    --color-ink-2: #b3b1a9;
+    --color-ink-3: #85837b;
+    --color-on-ink: #151517;
+    --color-remembered: #4fbf82;
+    --color-remembered-tint: #1a3326;
+    --color-forgot: #e2745a;
+    --color-forgot-tint: #3d221b;
+    --color-focus: #7fa3ff;
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--color-line) transparent;
+  }
+  body {
+    min-height: 100dvh;
+    font-size: var(--text-base);
+    line-height: 1.55;
+    font-feature-settings: "tnum" 1, "cv11" 1;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  a {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+  }
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+    caret-color: var(--color-ink);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-ink-3);
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-medium transition-[background-color,color,border-color,transform] duration-150;
+    border: 1px solid transparent;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: color-mix(in oklab, var(--color-ink) 86%, var(--color-paper));
+  }
+  .btn-secondary {
+    background: transparent;
+    border-color: var(--color-line);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--color-paper-2);
+  }
+  .btn-danger {
+    background: transparent;
+    border-color: var(--color-forgot);
+    color: var(--color-forgot);
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: var(--color-forgot-tint);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-ink-2);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+  }
+  .field {
+    @apply block w-full min-h-11 rounded-md px-3 text-base;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+  }
+  .field:hover {
+    border-color: var(--color-ink-3);
+  }
+  .field[aria-invalid="true"] {
+    border-color: var(--color-forgot);
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium;
+    color: var(--color-ink-2);
+  }
+  .card {
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+  }
+  .muted {
+    color: var(--color-ink-2);
+  }
+  .faint {
+    color: var(--color-ink-3);
+  }
+  .rise {
+    animation: rise 320ms var(--ease-out) both;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* Keyboard hints mean nothing on a touch screen. */
+@media (pointer: coarse) {
+  kbd {
+    display: none;
+  }
+}

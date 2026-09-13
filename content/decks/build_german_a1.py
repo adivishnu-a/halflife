@@ -16,6 +16,7 @@ Run: python3 content/decks/build_german_a1.py
 """
 
 import csv
+import json
 from pathlib import Path
 
 # (rank, front, back, example, note)
@@ -323,6 +324,11 @@ CARDS = [
 ]
 
 OUT = Path(__file__).with_name("german-a1.csv")
+OUT_JSON = Path(__file__).with_name("german-a1.json")
+DESCRIPTION = (
+    "300 common German words for a beginner, chosen from the FrequencyWords list "
+    "(OpenSubtitles, CC BY-SA 4.0), with English and an example sentence each."
+)
 
 
 def main() -> None:
@@ -337,7 +343,24 @@ def main() -> None:
         w.writerow(["front", "back", "example", "note"])
         for _, front, back, example, note in CARDS:
             w.writerow([front, back, example, note])
-    print(f"wrote {OUT} with {len(CARDS)} cards")
+    OUT_JSON.write_text(
+        json.dumps(
+            {
+                "key": "german-a1",
+                "name": "German A1",
+                "description": DESCRIPTION,
+                "license": "CC BY-SA 4.0",
+                "cards": [
+                    {"key": f"german-a1:{rank}", "front": f, "back": b, "example": e, "note": n or None}
+                    for rank, f, b, e, n in CARDS
+                ],
+            },
+            ensure_ascii=False,
+            indent=1,
+        )
+        + "\n"
+    )
+    print(f"wrote {OUT} and {OUT_JSON} with {len(CARDS)} cards")
 
 
 if __name__ == "__main__":

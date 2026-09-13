@@ -7,6 +7,10 @@ export const authClient = createAuthClient({
   plugins: [
     usernameClient(),
     anonymousClient(),
-    { id: "recovery-code", $InferServerPlugin: {} as ReturnType<typeof recoveryCode> },
+    {
+      id: "recovery-code",
+      $InferServerPlugin: {} as ReturnType<typeof recoveryCode>,
+      pathMethods: { "/recovery/generate": "POST", "/recovery/reset": "POST" },
+    },
   ],
 });

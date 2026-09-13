@@ -1,0 +1,2108 @@
+{
+ "key": "german-a1",
+ "name": "German A1",
+ "description": "300 common German words for a beginner, chosen from the FrequencyWords list (OpenSubtitles, CC BY-SA 4.0), with English and an example sentence each.",
+ "license": "CC BY-SA 4.0",
+ "cards": [
+  {
+   "key": "german-a1:51",
+   "front": "können",
+   "back": "can, to be able to",
+   "example": "Ich kann heute nicht kommen.",
+   "note": "I cannot come today. ich kann, du kannst, er kann"
+  },
+  {
+   "key": "german-a1:52",
+   "front": "gut",
+   "back": "good, well",
+   "example": "Das Essen ist sehr gut.",
+   "note": "The food is very good."
+  },
+  {
+   "key": "german-a1:56",
+   "front": "sein",
+   "back": "to be",
+   "example": "Wir sind zu Hause.",
+   "note": "We are at home. ich bin, du bist, er ist, wir sind"
+  },
+  {
+   "key": "german-a1:79",
+   "front": "wollen",
+   "back": "to want",
+   "example": "Ich will ein Eis.",
+   "note": "I want an ice cream. ich will, du willst, er will"
+  },
+  {
+   "key": "german-a1:89",
+   "front": "immer",
+   "back": "always",
+   "example": "Er ist immer müde.",
+   "note": "He is always tired."
+  },
+  {
+   "key": "german-a1:91",
+   "front": "warum",
+   "back": "why",
+   "example": "Warum lachst du?",
+   "note": "Why are you laughing?"
+  },
+  {
+   "key": "german-a1:92",
+   "front": "vor",
+   "back": "in front of, before",
+   "example": "Das Auto steht vor dem Haus.",
+   "note": "The car is in front of the house."
+  },
+  {
+   "key": "german-a1:94",
+   "front": "wieder",
+   "back": "again",
+   "example": "Bis morgen, wir sehen uns wieder.",
+   "note": "See you tomorrow, we will see each other again."
+  },
+  {
+   "key": "german-a1:96",
+   "front": "sagen",
+   "back": "to say",
+   "example": "Was sagst du?",
+   "note": "What are you saying?"
+  },
+  {
+   "key": "german-a1:97",
+   "front": "machen",
+   "back": "to make, to do",
+   "example": "Was machst du heute?",
+   "note": "What are you doing today?"
+  },
+  {
+   "key": "german-a1:98",
+   "front": "danke",
+   "back": "thank you",
+   "example": "Danke für das Buch.",
+   "note": "Thank you for the book."
+  },
+  {
+   "key": "german-a1:99",
+   "front": "sehr",
+   "back": "very",
+   "example": "Das Wasser ist sehr kalt.",
+   "note": "The water is very cold."
+  },
+  {
+   "key": "german-a1:100",
+   "front": "alle",
+   "back": "all, everyone",
+   "example": "Alle sind hier.",
+   "note": "Everyone is here."
+  },
+  {
+   "key": "german-a1:102",
+   "front": "der Mann",
+   "back": "the man",
+   "example": "Der Mann liest die Zeitung.",
+   "note": "The man is reading the newspaper. Plural: die Männer"
+  },
+  {
+   "key": "german-a1:103",
+   "front": "tun",
+   "back": "to do",
+   "example": "Ich habe viel zu tun.",
+   "note": "I have a lot to do."
+  },
+  {
+   "key": "german-a1:106",
+   "front": "gehen",
+   "back": "to go, to walk",
+   "example": "Wir gehen in die Stadt.",
+   "note": "We are going into town."
+  },
+  {
+   "key": "german-a1:107",
+   "front": "sehen",
+   "back": "to see",
+   "example": "Ich sehe einen Hund.",
+   "note": "I see a dog. du siehst, er sieht"
+  },
+  {
+   "key": "german-a1:108",
+   "front": "vielleicht",
+   "back": "maybe",
+   "example": "Vielleicht regnet es morgen.",
+   "note": "Maybe it will rain tomorrow."
+  },
+  {
+   "key": "german-a1:116",
+   "front": "über",
+   "back": "over, about",
+   "example": "Wir sprechen über den Film.",
+   "note": "We are talking about the film."
+  },
+  {
+   "key": "german-a1:117",
+   "front": "es gibt",
+   "back": "there is, there are",
+   "example": "Es gibt hier keinen Bus.",
+   "note": "There is no bus here."
+  },
+  {
+   "key": "german-a1:119",
+   "front": "wissen",
+   "back": "to know (a fact)",
+   "example": "Ich weiß es nicht.",
+   "note": "I do not know. ich weiß, du weißt, er weiß"
+  },
+  {
+   "key": "german-a1:124",
+   "front": "nie",
+   "back": "never",
+   "example": "Ich trinke nie Kaffee.",
+   "note": "I never drink coffee."
+  },
+  {
+   "key": "german-a1:125",
+   "front": "wirklich",
+   "back": "really",
+   "example": "Ist das wirklich dein Auto?",
+   "note": "Is that really your car?"
+  },
+  {
+   "key": "german-a1:134",
+   "front": "einfach",
+   "back": "simple, simply",
+   "example": "Die Aufgabe ist einfach.",
+   "note": "The task is simple."
+  },
+  {
+   "key": "german-a1:135",
+   "front": "das Leben",
+   "back": "the life",
+   "example": "Das Leben in Berlin ist teuer.",
+   "note": "Life in Berlin is expensive."
+  },
+  {
+   "key": "german-a1:137",
+   "front": "die Zeit",
+   "back": "the time",
+   "example": "Ich habe keine Zeit.",
+   "note": "I have no time."
+  },
+  {
+   "key": "german-a1:140",
+   "front": "kommen",
+   "back": "to come",
+   "example": "Kommst du mit?",
+   "note": "Are you coming along?"
+  },
+  {
+   "key": "german-a1:142",
+   "front": "heute",
+   "back": "today",
+   "example": "Heute ist Montag.",
+   "note": "Today is Monday."
+  },
+  {
+   "key": "german-a1:151",
+   "front": "sicher",
+   "back": "sure, safe",
+   "example": "Bist du sicher?",
+   "note": "Are you sure?"
+  },
+  {
+   "key": "german-a1:153",
+   "front": "die Frau",
+   "back": "the woman, the wife",
+   "example": "Die Frau arbeitet im Büro.",
+   "note": "The woman works in the office. Plural: die Frauen"
+  },
+  {
+   "key": "german-a1:157",
+   "front": "leid tun",
+   "back": "to be sorry",
+   "example": "Es tut mir leid.",
+   "note": "I am sorry."
+  },
+  {
+   "key": "german-a1:162",
+   "front": "zurück",
+   "back": "back",
+   "example": "Ich komme um acht zurück.",
+   "note": "I will come back at eight."
+  },
+  {
+   "key": "german-a1:163",
+   "front": "lassen",
+   "back": "to let, to leave",
+   "example": "Lass mich in Ruhe.",
+   "note": "Leave me alone. du lässt, er lässt"
+  },
+  {
+   "key": "german-a1:164",
+   "front": "hallo",
+   "back": "hello",
+   "example": "Hallo, wie geht es dir?",
+   "note": "Hello, how are you?"
+  },
+  {
+   "key": "german-a1:169",
+   "front": "zwei",
+   "back": "two",
+   "example": "Ich habe zwei Brüder.",
+   "note": "I have two brothers."
+  },
+  {
+   "key": "german-a1:171",
+   "front": "genau",
+   "back": "exactly",
+   "example": "Das ist genau richtig.",
+   "note": "That is exactly right."
+  },
+  {
+   "key": "german-a1:176",
+   "front": "morgen",
+   "back": "tomorrow",
+   "example": "Morgen habe ich frei.",
+   "note": "Tomorrow I have the day off. Der Morgen: the morning"
+  },
+  {
+   "key": "german-a1:177",
+   "front": "die Leute",
+   "back": "the people",
+   "example": "Die Leute warten auf den Bus.",
+   "note": "The people are waiting for the bus. Plural only"
+  },
+  {
+   "key": "german-a1:178",
+   "front": "der Vater",
+   "back": "the father",
+   "example": "Mein Vater kocht gern.",
+   "note": "My father likes to cook. Plural: die Väter"
+  },
+  {
+   "key": "german-a1:179",
+   "front": "schön",
+   "back": "beautiful, nice",
+   "example": "Das Wetter ist schön.",
+   "note": "The weather is nice."
+  },
+  {
+   "key": "german-a1:183",
+   "front": "gerade",
+   "back": "right now, just",
+   "example": "Ich esse gerade.",
+   "note": "I am eating right now."
+  },
+  {
+   "key": "german-a1:184",
+   "front": "der Tag",
+   "back": "the day",
+   "example": "Der Tag ist lang.",
+   "note": "The day is long. Plural: die Tage"
+  },
+  {
+   "key": "german-a1:186",
+   "front": "reden",
+   "back": "to talk",
+   "example": "Wir reden über die Arbeit.",
+   "note": "We are talking about work."
+  },
+  {
+   "key": "german-a1:188",
+   "front": "lieben",
+   "back": "to love",
+   "example": "Ich liebe Musik.",
+   "note": "I love music."
+  },
+  {
+   "key": "german-a1:192",
+   "front": "jemand",
+   "back": "someone",
+   "example": "Jemand klopft an die Tür.",
+   "note": "Someone is knocking at the door."
+  },
+  {
+   "key": "german-a1:193",
+   "front": "das Geld",
+   "back": "the money",
+   "example": "Ich habe kein Geld dabei.",
+   "note": "I have no money with me."
+  },
+  {
+   "key": "german-a1:194",
+   "front": "durch",
+   "back": "through",
+   "example": "Wir gehen durch den Park.",
+   "note": "We walk through the park."
+  },
+  {
+   "key": "german-a1:197",
+   "front": "die Mutter",
+   "back": "the mother",
+   "example": "Meine Mutter ist Ärztin.",
+   "note": "My mother is a doctor. Plural: die Mütter"
+  },
+  {
+   "key": "german-a1:204",
+   "front": "besser",
+   "back": "better",
+   "example": "Heute geht es mir besser.",
+   "note": "I feel better today."
+  },
+  {
+   "key": "german-a1:211",
+   "front": "möchten",
+   "back": "would like",
+   "example": "Ich möchte einen Tee.",
+   "note": "I would like a tea. ich möchte, du möchtest"
+  },
+  {
+   "key": "german-a1:218",
+   "front": "helfen",
+   "back": "to help",
+   "example": "Kannst du mir helfen?",
+   "note": "Can you help me? du hilfst, er hilft"
+  },
+  {
+   "key": "german-a1:219",
+   "front": "die Nacht",
+   "back": "the night",
+   "example": "Die Nacht ist kalt.",
+   "note": "The night is cold. Plural: die Nächte"
+  },
+  {
+   "key": "german-a1:220",
+   "front": "finden",
+   "back": "to find",
+   "example": "Ich finde meinen Schlüssel nicht.",
+   "note": "I cannot find my key."
+  },
+  {
+   "key": "german-a1:224",
+   "front": "lange",
+   "back": "for a long time",
+   "example": "Wir warten schon lange.",
+   "note": "We have been waiting for a long time."
+  },
+  {
+   "key": "german-a1:225",
+   "front": "natürlich",
+   "back": "of course, natural",
+   "example": "Natürlich komme ich.",
+   "note": "Of course I am coming."
+  },
+  {
+   "key": "german-a1:228",
+   "front": "gar nicht",
+   "back": "not at all",
+   "example": "Das ist gar nicht schwer.",
+   "note": "That is not hard at all."
+  },
+  {
+   "key": "german-a1:232",
+   "front": "weiter",
+   "back": "further, on",
+   "example": "Wir gehen weiter.",
+   "note": "We keep going."
+  },
+  {
+   "key": "german-a1:233",
+   "front": "geben",
+   "back": "to give",
+   "example": "Gib mir bitte das Salz.",
+   "note": "Please give me the salt. du gibst, er gibt"
+  },
+  {
+   "key": "german-a1:235",
+   "front": "gleich",
+   "back": "right away, same",
+   "example": "Ich komme gleich.",
+   "note": "I am coming right away."
+  },
+  {
+   "key": "german-a1:237",
+   "front": "recht haben",
+   "back": "to be right",
+   "example": "Du hast recht.",
+   "note": "You are right."
+  },
+  {
+   "key": "german-a1:239",
+   "front": "richtig",
+   "back": "right, correct",
+   "example": "Die Antwort ist richtig.",
+   "note": "The answer is correct."
+  },
+  {
+   "key": "german-a1:240",
+   "front": "in Ordnung",
+   "back": "all right, okay",
+   "example": "Alles in Ordnung?",
+   "note": "Everything all right?"
+  },
+  {
+   "key": "german-a1:242",
+   "front": "hören",
+   "back": "to hear, to listen",
+   "example": "Ich höre Musik.",
+   "note": "I am listening to music."
+  },
+  {
+   "key": "german-a1:249",
+   "front": "zu Hause",
+   "back": "at home",
+   "example": "Ich bleibe heute zu Hause.",
+   "note": "I am staying at home today. nach Hause: (going) home"
+  },
+  {
+   "key": "german-a1:251",
+   "front": "das Mädchen",
+   "back": "the girl",
+   "example": "Das Mädchen spielt im Garten.",
+   "note": "The girl is playing in the garden. Plural: die Mädchen"
+  },
+  {
+   "key": "german-a1:254",
+   "front": "der Abend",
+   "back": "the evening",
+   "example": "Am Abend lese ich.",
+   "note": "In the evening I read. Plural: die Abende"
+  },
+  {
+   "key": "german-a1:255",
+   "front": "das Haus",
+   "back": "the house",
+   "example": "Das Haus ist alt.",
+   "note": "The house is old. Plural: die Häuser"
+  },
+  {
+   "key": "german-a1:257",
+   "front": "viel",
+   "back": "much, a lot",
+   "example": "Er arbeitet viel.",
+   "note": "He works a lot. viele: many"
+  },
+  {
+   "key": "german-a1:258",
+   "front": "drei",
+   "back": "three",
+   "example": "Der Kurs dauert drei Wochen.",
+   "note": "The course lasts three weeks."
+  },
+  {
+   "key": "german-a1:260",
+   "front": "der Freund",
+   "back": "the friend, the boyfriend",
+   "example": "Mein Freund wohnt in Köln.",
+   "note": "My friend lives in Cologne. Plural: die Freunde"
+  },
+  {
+   "key": "german-a1:265",
+   "front": "der Mensch",
+   "back": "the human, the person",
+   "example": "Viele Menschen mögen Kaffee.",
+   "note": "Many people like coffee. Plural: die Menschen"
+  },
+  {
+   "key": "german-a1:266",
+   "front": "essen",
+   "back": "to eat",
+   "example": "Wir essen um sieben.",
+   "note": "We eat at seven. du isst, er isst"
+  },
+  {
+   "key": "german-a1:267",
+   "front": "die Angst",
+   "back": "the fear",
+   "example": "Ich habe Angst vor Hunden.",
+   "note": "I am afraid of dogs. Plural: die Ängste"
+  },
+  {
+   "key": "german-a1:268",
+   "front": "bleiben",
+   "back": "to stay",
+   "example": "Bleib hier.",
+   "note": "Stay here."
+  },
+  {
+   "key": "german-a1:269",
+   "front": "zusammen",
+   "back": "together",
+   "example": "Wir lernen zusammen.",
+   "note": "We study together."
+  },
+  {
+   "key": "german-a1:270",
+   "front": "die Welt",
+   "back": "the world",
+   "example": "Die Welt ist groß.",
+   "note": "The world is big."
+  },
+  {
+   "key": "german-a1:271",
+   "front": "unter",
+   "back": "under, among",
+   "example": "Die Katze liegt unter dem Tisch.",
+   "note": "The cat is lying under the table."
+  },
+  {
+   "key": "german-a1:273",
+   "front": "schnell",
+   "back": "fast, quick",
+   "example": "Das Auto ist schnell.",
+   "note": "The car is fast."
+  },
+  {
+   "key": "german-a1:275",
+   "front": "tot",
+   "back": "dead",
+   "example": "Die Pflanze ist tot.",
+   "note": "The plant is dead."
+  },
+  {
+   "key": "german-a1:280",
+   "front": "stimmen",
+   "back": "to be correct",
+   "example": "Das stimmt.",
+   "note": "That is right."
+  },
+  {
+   "key": "german-a1:281",
+   "front": "nehmen",
+   "back": "to take",
+   "example": "Ich nehme den Bus.",
+   "note": "I take the bus. du nimmst, er nimmt"
+  },
+  {
+   "key": "german-a1:282",
+   "front": "das Kind",
+   "back": "the child",
+   "example": "Das Kind schläft.",
+   "note": "The child is sleeping. Plural: die Kinder"
+  },
+  {
+   "key": "german-a1:284",
+   "front": "glauben",
+   "back": "to believe, to think",
+   "example": "Ich glaube, es regnet.",
+   "note": "I think it is raining."
+  },
+  {
+   "key": "german-a1:285",
+   "front": "bringen",
+   "back": "to bring",
+   "example": "Bring bitte Brot mit.",
+   "note": "Please bring bread."
+  },
+  {
+   "key": "german-a1:286",
+   "front": "ganz",
+   "back": "whole, quite",
+   "example": "Ich habe den ganzen Tag gearbeitet.",
+   "note": "I worked the whole day."
+  },
+  {
+   "key": "german-a1:287",
+   "front": "genug",
+   "back": "enough",
+   "example": "Wir haben genug Zeit.",
+   "note": "We have enough time."
+  },
+  {
+   "key": "german-a1:289",
+   "front": "brauchen",
+   "back": "to need",
+   "example": "Ich brauche eine Pause.",
+   "note": "I need a break."
+  },
+  {
+   "key": "german-a1:291",
+   "front": "der Moment",
+   "back": "the moment",
+   "example": "Einen Moment, bitte.",
+   "note": "One moment, please. Plural: die Momente"
+  },
+  {
+   "key": "german-a1:292",
+   "front": "der Junge",
+   "back": "the boy",
+   "example": "Der Junge spielt Fußball.",
+   "note": "The boy plays football. Plural: die Jungen"
+  },
+  {
+   "key": "german-a1:295",
+   "front": "die Musik",
+   "back": "the music",
+   "example": "Ich mag laute Musik.",
+   "note": "I like loud music."
+  },
+  {
+   "key": "german-a1:296",
+   "front": "die Arbeit",
+   "back": "the work, the job",
+   "example": "Die Arbeit beginnt um neun.",
+   "note": "Work starts at nine."
+  },
+  {
+   "key": "german-a1:299",
+   "front": "fragen",
+   "back": "to ask",
+   "example": "Frag den Lehrer.",
+   "note": "Ask the teacher."
+  },
+  {
+   "key": "german-a1:300",
+   "front": "der Herr",
+   "back": "the gentleman, Mr",
+   "example": "Guten Tag, Herr Müller.",
+   "note": "Good day, Mr Müller. Plural: die Herren"
+  },
+  {
+   "key": "german-a1:302",
+   "front": "heißen",
+   "back": "to be called",
+   "example": "Ich heiße Anna.",
+   "note": "My name is Anna. du heißt, er heißt"
+  },
+  {
+   "key": "german-a1:303",
+   "front": "die Familie",
+   "back": "the family",
+   "example": "Meine Familie ist groß.",
+   "note": "My family is big. Plural: die Familien"
+  },
+  {
+   "key": "german-a1:304",
+   "front": "warten",
+   "back": "to wait",
+   "example": "Wir warten auf den Zug.",
+   "note": "We are waiting for the train."
+  },
+  {
+   "key": "german-a1:305",
+   "front": "niemand",
+   "back": "nobody",
+   "example": "Niemand ist zu Hause.",
+   "note": "Nobody is at home."
+  },
+  {
+   "key": "german-a1:306",
+   "front": "sofort",
+   "back": "immediately",
+   "example": "Komm sofort her.",
+   "note": "Come here immediately."
+  },
+  {
+   "key": "german-a1:307",
+   "front": "bevor",
+   "back": "before",
+   "example": "Wasch die Hände, bevor du isst.",
+   "note": "Wash your hands before you eat."
+  },
+  {
+   "key": "german-a1:308",
+   "front": "das Jahr",
+   "back": "the year",
+   "example": "Das Jahr hat zwölf Monate.",
+   "note": "The year has twelve months. Plural: die Jahre"
+  },
+  {
+   "key": "german-a1:309",
+   "front": "einmal",
+   "back": "once",
+   "example": "Ich war einmal in Wien.",
+   "note": "I was in Vienna once."
+  },
+  {
+   "key": "german-a1:310",
+   "front": "das Problem",
+   "back": "the problem",
+   "example": "Das ist kein Problem.",
+   "note": "That is no problem. Plural: die Probleme"
+  },
+  {
+   "key": "german-a1:311",
+   "front": "der Sohn",
+   "back": "the son",
+   "example": "Ihr Sohn ist zehn Jahre alt.",
+   "note": "Her son is ten years old. Plural: die Söhne"
+  },
+  {
+   "key": "german-a1:312",
+   "front": "wann",
+   "back": "when",
+   "example": "Wann kommt der Bus?",
+   "note": "When does the bus come?"
+  },
+  {
+   "key": "german-a1:314",
+   "front": "fertig",
+   "back": "finished, ready",
+   "example": "Bist du fertig?",
+   "note": "Are you finished?"
+  },
+  {
+   "key": "german-a1:318",
+   "front": "sprechen",
+   "back": "to speak",
+   "example": "Sprechen Sie Deutsch?",
+   "note": "Do you speak German? du sprichst, er spricht"
+  },
+  {
+   "key": "german-a1:319",
+   "front": "beide",
+   "back": "both",
+   "example": "Beide Kinder sind müde.",
+   "note": "Both children are tired."
+  },
+  {
+   "key": "german-a1:323",
+   "front": "die Hilfe",
+   "back": "the help",
+   "example": "Danke für deine Hilfe.",
+   "note": "Thanks for your help."
+  },
+  {
+   "key": "german-a1:331",
+   "front": "halten",
+   "back": "to hold, to stop",
+   "example": "Halt die Tasche fest.",
+   "note": "Hold the bag tight. du hältst, er hält"
+  },
+  {
+   "key": "german-a1:338",
+   "front": "wahr",
+   "back": "true",
+   "example": "Das ist nicht wahr.",
+   "note": "That is not true."
+  },
+  {
+   "key": "german-a1:341",
+   "front": "der Bruder",
+   "back": "the brother",
+   "example": "Mein Bruder ist älter als ich.",
+   "note": "My brother is older than me. Plural: die Brüder"
+  },
+  {
+   "key": "german-a1:344",
+   "front": "denken",
+   "back": "to think",
+   "example": "Ich denke an dich.",
+   "note": "I am thinking of you."
+  },
+  {
+   "key": "german-a1:348",
+   "front": "lieber",
+   "back": "rather, preferably",
+   "example": "Ich trinke lieber Tee.",
+   "note": "I would rather drink tea."
+  },
+  {
+   "key": "german-a1:355",
+   "front": "vergessen",
+   "back": "to forget",
+   "example": "Vergiss den Schlüssel nicht.",
+   "note": "Do not forget the key. du vergisst, er vergisst"
+  },
+  {
+   "key": "german-a1:356",
+   "front": "die Frage",
+   "back": "the question",
+   "example": "Ich habe eine Frage.",
+   "note": "I have a question. Plural: die Fragen"
+  },
+  {
+   "key": "german-a1:368",
+   "front": "die Uhr",
+   "back": "the clock, o'clock",
+   "example": "Es ist drei Uhr.",
+   "note": "It is three o'clock. Plural: die Uhren"
+  },
+  {
+   "key": "german-a1:369",
+   "front": "die Stadt",
+   "back": "the city, the town",
+   "example": "Die Stadt ist laut.",
+   "note": "The city is loud. Plural: die Städte"
+  },
+  {
+   "key": "german-a1:371",
+   "front": "das Baby",
+   "back": "the baby",
+   "example": "Das Baby weint.",
+   "note": "The baby is crying. Plural: die Babys"
+  },
+  {
+   "key": "german-a1:372",
+   "front": "fahren",
+   "back": "to drive, to ride, to go (by vehicle)",
+   "example": "Wir fahren nach Hamburg.",
+   "note": "We are going to Hamburg. du fährst, er fährt"
+  },
+  {
+   "key": "german-a1:373",
+   "front": "der Name",
+   "back": "the name",
+   "example": "Wie ist Ihr Name?",
+   "note": "What is your name? Plural: die Namen"
+  },
+  {
+   "key": "german-a1:374",
+   "front": "bekommen",
+   "back": "to get, to receive",
+   "example": "Ich bekomme ein Paket.",
+   "note": "I am getting a parcel."
+  },
+  {
+   "key": "german-a1:375",
+   "front": "der Kopf",
+   "back": "the head",
+   "example": "Mein Kopf tut weh.",
+   "note": "My head hurts. Plural: die Köpfe"
+  },
+  {
+   "key": "german-a1:378",
+   "front": "klein",
+   "back": "small",
+   "example": "Die Wohnung ist klein.",
+   "note": "The flat is small."
+  },
+  {
+   "key": "german-a1:379",
+   "front": "später",
+   "back": "later",
+   "example": "Wir essen später.",
+   "note": "We will eat later."
+  },
+  {
+   "key": "german-a1:380",
+   "front": "das Glück",
+   "back": "the luck, the happiness",
+   "example": "Viel Glück!",
+   "note": "Good luck!"
+  },
+  {
+   "key": "german-a1:381",
+   "front": "letzte",
+   "back": "last",
+   "example": "Das ist die letzte Frage.",
+   "note": "That is the last question."
+  },
+  {
+   "key": "german-a1:386",
+   "front": "das Ende",
+   "back": "the end",
+   "example": "Das Ende des Films ist traurig.",
+   "note": "The end of the film is sad."
+  },
+  {
+   "key": "german-a1:388",
+   "front": "bald",
+   "back": "soon",
+   "example": "Bis bald!",
+   "note": "See you soon!"
+  },
+  {
+   "key": "german-a1:390",
+   "front": "das Ding",
+   "back": "the thing",
+   "example": "Was ist das für ein Ding?",
+   "note": "What kind of thing is that? Plural: die Dinge"
+  },
+  {
+   "key": "german-a1:392",
+   "front": "toll",
+   "back": "great",
+   "example": "Das Konzert war toll.",
+   "note": "The concert was great."
+  },
+  {
+   "key": "german-a1:394",
+   "front": "die Minute",
+   "back": "the minute",
+   "example": "Der Bus kommt in fünf Minuten.",
+   "note": "The bus comes in five minutes. Plural: die Minuten"
+  },
+  {
+   "key": "german-a1:396",
+   "front": "bereit",
+   "back": "ready",
+   "example": "Ich bin bereit.",
+   "note": "I am ready."
+  },
+  {
+   "key": "german-a1:397",
+   "front": "weit",
+   "back": "far",
+   "example": "Der Bahnhof ist nicht weit.",
+   "note": "The station is not far."
+  },
+  {
+   "key": "german-a1:398",
+   "front": "die Ahnung",
+   "back": "the idea, the clue",
+   "example": "Ich habe keine Ahnung.",
+   "note": "I have no idea."
+  },
+  {
+   "key": "german-a1:400",
+   "front": "ein bisschen",
+   "back": "a little",
+   "example": "Ich spreche ein bisschen Deutsch.",
+   "note": "I speak a little German."
+  },
+  {
+   "key": "german-a1:401",
+   "front": "die Tür",
+   "back": "the door",
+   "example": "Die Tür ist offen.",
+   "note": "The door is open. Plural: die Türen"
+  },
+  {
+   "key": "german-a1:402",
+   "front": "das Auto",
+   "back": "the car",
+   "example": "Das Auto ist neu.",
+   "note": "The car is new. Plural: die Autos"
+  },
+  {
+   "key": "german-a1:405",
+   "front": "das Auge",
+   "back": "the eye",
+   "example": "Sie hat blaue Augen.",
+   "note": "She has blue eyes. Plural: die Augen"
+  },
+  {
+   "key": "german-a1:406",
+   "front": "die Polizei",
+   "back": "the police",
+   "example": "Ruf die Polizei!",
+   "note": "Call the police!"
+  },
+  {
+   "key": "german-a1:407",
+   "front": "stehen",
+   "back": "to stand",
+   "example": "Der Tisch steht am Fenster.",
+   "note": "The table stands by the window."
+  },
+  {
+   "key": "german-a1:408",
+   "front": "sterben",
+   "back": "to die",
+   "example": "Die Blumen sterben ohne Wasser.",
+   "note": "The flowers die without water. er stirbt"
+  },
+  {
+   "key": "german-a1:410",
+   "front": "draußen",
+   "back": "outside",
+   "example": "Draußen ist es kalt.",
+   "note": "It is cold outside."
+  },
+  {
+   "key": "german-a1:414",
+   "front": "vorbei",
+   "back": "over, past",
+   "example": "Der Winter ist vorbei.",
+   "note": "The winter is over."
+  },
+  {
+   "key": "german-a1:415",
+   "front": "treffen",
+   "back": "to meet",
+   "example": "Wir treffen uns um sechs.",
+   "note": "We meet at six. du triffst, er trifft"
+  },
+  {
+   "key": "german-a1:416",
+   "front": "gern",
+   "back": "gladly, like to",
+   "example": "Ich lese gern.",
+   "note": "I like to read."
+  },
+  {
+   "key": "german-a1:419",
+   "front": "arbeiten",
+   "back": "to work",
+   "example": "Sie arbeitet in einer Bank.",
+   "note": "She works in a bank."
+  },
+  {
+   "key": "german-a1:421",
+   "front": "verrückt",
+   "back": "crazy",
+   "example": "Das ist eine verrückte Idee.",
+   "note": "That is a crazy idea."
+  },
+  {
+   "key": "german-a1:422",
+   "front": "neu",
+   "back": "new",
+   "example": "Ich habe ein neues Handy.",
+   "note": "I have a new phone."
+  },
+  {
+   "key": "german-a1:424",
+   "front": "hinter",
+   "back": "behind",
+   "example": "Der Garten ist hinter dem Haus.",
+   "note": "The garden is behind the house."
+  },
+  {
+   "key": "german-a1:425",
+   "front": "die Sorge",
+   "back": "the worry",
+   "example": "Mach dir keine Sorgen.",
+   "note": "Do not worry. Plural: die Sorgen"
+  },
+  {
+   "key": "german-a1:426",
+   "front": "einzig",
+   "back": "only, single",
+   "example": "Das ist mein einziges Hemd.",
+   "note": "That is my only shirt."
+  },
+  {
+   "key": "german-a1:429",
+   "front": "die Tochter",
+   "back": "the daughter",
+   "example": "Ihre Tochter studiert.",
+   "note": "Her daughter is at university. Plural: die Töchter"
+  },
+  {
+   "key": "german-a1:431",
+   "front": "die Idee",
+   "back": "the idea",
+   "example": "Gute Idee!",
+   "note": "Good idea! Plural: die Ideen"
+  },
+  {
+   "key": "german-a1:432",
+   "front": "die Schwester",
+   "back": "the sister",
+   "example": "Meine Schwester wohnt in Bonn.",
+   "note": "My sister lives in Bonn. Plural: die Schwestern"
+  },
+  {
+   "key": "german-a1:434",
+   "front": "ruhig",
+   "back": "calm, quiet",
+   "example": "Die Straße ist ruhig.",
+   "note": "The street is quiet."
+  },
+  {
+   "key": "german-a1:437",
+   "front": "spät",
+   "back": "late",
+   "example": "Es ist schon spät.",
+   "note": "It is already late."
+  },
+  {
+   "key": "german-a1:438",
+   "front": "ziemlich",
+   "back": "quite, fairly",
+   "example": "Das Buch ist ziemlich dick.",
+   "note": "The book is quite thick."
+  },
+  {
+   "key": "german-a1:442",
+   "front": "kurz",
+   "back": "short",
+   "example": "Der Weg ist kurz.",
+   "note": "The way is short."
+  },
+  {
+   "key": "german-a1:446",
+   "front": "suchen",
+   "back": "to look for",
+   "example": "Ich suche meine Brille.",
+   "note": "I am looking for my glasses."
+  },
+  {
+   "key": "german-a1:450",
+   "front": "lang",
+   "back": "long",
+   "example": "Der Fluss ist lang.",
+   "note": "The river is long."
+  },
+  {
+   "key": "german-a1:451",
+   "front": "der Job",
+   "back": "the job",
+   "example": "Er hat einen neuen Job.",
+   "note": "He has a new job. Plural: die Jobs"
+  },
+  {
+   "key": "german-a1:455",
+   "front": "verstehen",
+   "back": "to understand",
+   "example": "Ich verstehe dich nicht.",
+   "note": "I do not understand you."
+  },
+  {
+   "key": "german-a1:456",
+   "front": "spielen",
+   "back": "to play",
+   "example": "Die Kinder spielen draußen.",
+   "note": "The children are playing outside."
+  },
+  {
+   "key": "german-a1:462",
+   "front": "groß",
+   "back": "big, tall",
+   "example": "Berlin ist eine große Stadt.",
+   "note": "Berlin is a big city."
+  },
+  {
+   "key": "german-a1:463",
+   "front": "die Hand",
+   "back": "the hand",
+   "example": "Gib mir deine Hand.",
+   "note": "Give me your hand. Plural: die Hände"
+  },
+  {
+   "key": "german-a1:464",
+   "front": "der Grund",
+   "back": "the reason",
+   "example": "Was ist der Grund?",
+   "note": "What is the reason? Plural: die Gründe"
+  },
+  {
+   "key": "german-a1:467",
+   "front": "die Mama",
+   "back": "the mum",
+   "example": "Mama, ich habe Hunger.",
+   "note": "Mum, I am hungry."
+  },
+  {
+   "key": "german-a1:471",
+   "front": "die Stunde",
+   "back": "the hour",
+   "example": "Der Film dauert zwei Stunden.",
+   "note": "The film lasts two hours. Plural: die Stunden"
+  },
+  {
+   "key": "german-a1:472",
+   "front": "hoffen",
+   "back": "to hope",
+   "example": "Ich hoffe, du kommst.",
+   "note": "I hope you are coming."
+  },
+  {
+   "key": "german-a1:474",
+   "front": "oben",
+   "back": "up, upstairs",
+   "example": "Das Bad ist oben.",
+   "note": "The bathroom is upstairs."
+  },
+  {
+   "key": "german-a1:475",
+   "front": "gestern",
+   "back": "yesterday",
+   "example": "Gestern war Sonntag.",
+   "note": "Yesterday was Sunday."
+  },
+  {
+   "key": "german-a1:476",
+   "front": "versuchen",
+   "back": "to try",
+   "example": "Ich versuche es noch einmal.",
+   "note": "I will try again."
+  },
+  {
+   "key": "german-a1:480",
+   "front": "endlich",
+   "back": "finally",
+   "example": "Endlich ist Wochenende.",
+   "note": "It is finally the weekend."
+  },
+  {
+   "key": "german-a1:486",
+   "front": "schwer",
+   "back": "heavy, difficult",
+   "example": "Die Tasche ist schwer.",
+   "note": "The bag is heavy."
+  },
+  {
+   "key": "german-a1:487",
+   "front": "anders",
+   "back": "different, differently",
+   "example": "Hier ist alles anders.",
+   "note": "Everything is different here."
+  },
+  {
+   "key": "german-a1:490",
+   "front": "fünf",
+   "back": "five",
+   "example": "Ich habe fünf Euro.",
+   "note": "I have five euros."
+  },
+  {
+   "key": "german-a1:491",
+   "front": "das Wasser",
+   "back": "the water",
+   "example": "Das Wasser ist warm.",
+   "note": "The water is warm."
+  },
+  {
+   "key": "german-a1:493",
+   "front": "erste",
+   "back": "first",
+   "example": "Das ist mein erster Tag.",
+   "note": "This is my first day."
+  },
+  {
+   "key": "german-a1:496",
+   "front": "die Geschichte",
+   "back": "the story, the history",
+   "example": "Erzähl mir eine Geschichte.",
+   "note": "Tell me a story. Plural: die Geschichten"
+  },
+  {
+   "key": "german-a1:498",
+   "front": "holen",
+   "back": "to fetch, to get",
+   "example": "Ich hole Brötchen.",
+   "note": "I am getting bread rolls."
+  },
+  {
+   "key": "german-a1:499",
+   "front": "bedeuten",
+   "back": "to mean",
+   "example": "Was bedeutet dieses Wort?",
+   "note": "What does this word mean?"
+  },
+  {
+   "key": "german-a1:500",
+   "front": "nett",
+   "back": "nice, kind",
+   "example": "Der Nachbar ist nett.",
+   "note": "The neighbour is nice."
+  },
+  {
+   "key": "german-a1:501",
+   "front": "die Wahrheit",
+   "back": "the truth",
+   "example": "Sag mir die Wahrheit.",
+   "note": "Tell me the truth."
+  },
+  {
+   "key": "german-a1:502",
+   "front": "die Woche",
+   "back": "the week",
+   "example": "Nächste Woche habe ich Urlaub.",
+   "note": "Next week I am on holiday. Plural: die Wochen"
+  },
+  {
+   "key": "german-a1:506",
+   "front": "bestimmt",
+   "back": "certainly, definitely",
+   "example": "Er kommt bestimmt.",
+   "note": "He will definitely come."
+  },
+  {
+   "key": "german-a1:507",
+   "front": "hoch",
+   "back": "high",
+   "example": "Der Berg ist hoch.",
+   "note": "The mountain is high."
+  },
+  {
+   "key": "german-a1:508",
+   "front": "das Alter",
+   "back": "the age",
+   "example": "In deinem Alter war ich klein.",
+   "note": "At your age I was small. alt: old"
+  },
+  {
+   "key": "german-a1:512",
+   "front": "das Land",
+   "back": "the country, the land",
+   "example": "Deutschland ist ein großes Land.",
+   "note": "Germany is a big country. Plural: die Länder"
+  },
+  {
+   "key": "german-a1:513",
+   "front": "das Zimmer",
+   "back": "the room",
+   "example": "Mein Zimmer ist hell.",
+   "note": "My room is bright. Plural: die Zimmer"
+  },
+  {
+   "key": "german-a1:517",
+   "front": "der Spaß",
+   "back": "the fun",
+   "example": "Das macht Spaß.",
+   "note": "That is fun."
+  },
+  {
+   "key": "german-a1:519",
+   "front": "die Schuld",
+   "back": "the guilt, the fault",
+   "example": "Das ist nicht meine Schuld.",
+   "note": "That is not my fault."
+  },
+  {
+   "key": "german-a1:522",
+   "front": "verlassen",
+   "back": "to leave",
+   "example": "Sie verlässt das Haus um acht.",
+   "note": "She leaves the house at eight. du verlässt"
+  },
+  {
+   "key": "german-a1:523",
+   "front": "zeigen",
+   "back": "to show",
+   "example": "Zeig mir das Foto.",
+   "note": "Show me the photo."
+  },
+  {
+   "key": "german-a1:524",
+   "front": "beste",
+   "back": "best",
+   "example": "Das ist mein bester Freund.",
+   "note": "That is my best friend."
+  },
+  {
+   "key": "german-a1:525",
+   "front": "ernst",
+   "back": "serious",
+   "example": "Das ist ein ernstes Problem.",
+   "note": "That is a serious problem."
+  },
+  {
+   "key": "german-a1:528",
+   "front": "der Ort",
+   "back": "the place",
+   "example": "Das ist ein schöner Ort.",
+   "note": "This is a beautiful place. Plural: die Orte"
+  },
+  {
+   "key": "german-a1:531",
+   "front": "manchmal",
+   "back": "sometimes",
+   "example": "Manchmal koche ich.",
+   "note": "Sometimes I cook."
+  },
+  {
+   "key": "german-a1:533",
+   "front": "die Seite",
+   "back": "the page, the side",
+   "example": "Lies Seite zehn.",
+   "note": "Read page ten. Plural: die Seiten"
+  },
+  {
+   "key": "german-a1:538",
+   "front": "das Spiel",
+   "back": "the game",
+   "example": "Das Spiel beginnt um drei.",
+   "note": "The game starts at three. Plural: die Spiele"
+  },
+  {
+   "key": "german-a1:542",
+   "front": "die Chance",
+   "back": "the chance",
+   "example": "Das ist deine Chance.",
+   "note": "This is your chance. Plural: die Chancen"
+  },
+  {
+   "key": "german-a1:543",
+   "front": "die Freundin",
+   "back": "the friend (female), the girlfriend",
+   "example": "Meine Freundin heißt Lena.",
+   "note": "My girlfriend is called Lena. Plural: die Freundinnen"
+  },
+  {
+   "key": "german-a1:545",
+   "front": "gefallen",
+   "back": "to be pleasing, to like",
+   "example": "Das Bild gefällt mir.",
+   "note": "I like the picture. Literally: the picture pleases me"
+  },
+  {
+   "key": "german-a1:547",
+   "front": "erzählen",
+   "back": "to tell",
+   "example": "Erzähl mir von deinem Tag.",
+   "note": "Tell me about your day."
+  },
+  {
+   "key": "german-a1:550",
+   "front": "entschuldigen",
+   "back": "to excuse",
+   "example": "Entschuldigen Sie, wo ist der Bahnhof?",
+   "note": "Excuse me, where is the station?"
+  },
+  {
+   "key": "german-a1:551",
+   "front": "wichtig",
+   "back": "important",
+   "example": "Das ist sehr wichtig.",
+   "note": "That is very important."
+  },
+  {
+   "key": "german-a1:554",
+   "front": "das Bett",
+   "back": "the bed",
+   "example": "Ich gehe ins Bett.",
+   "note": "I am going to bed. Plural: die Betten"
+  },
+  {
+   "key": "german-a1:556",
+   "front": "die Sache",
+   "back": "the thing, the matter",
+   "example": "Das ist eine andere Sache.",
+   "note": "That is another matter. Plural: die Sachen"
+  },
+  {
+   "key": "german-a1:558",
+   "front": "schlecht",
+   "back": "bad",
+   "example": "Das Wetter ist schlecht.",
+   "note": "The weather is bad."
+  },
+  {
+   "key": "german-a1:559",
+   "front": "die Schule",
+   "back": "the school",
+   "example": "Die Schule beginnt um acht.",
+   "note": "School starts at eight. Plural: die Schulen"
+  },
+  {
+   "key": "german-a1:560",
+   "front": "die Entschuldigung",
+   "back": "the apology, excuse me",
+   "example": "Entschuldigung, ist hier frei?",
+   "note": "Excuse me, is this seat free? Plural: die Entschuldigungen"
+  },
+  {
+   "key": "german-a1:561",
+   "front": "das Wort",
+   "back": "the word",
+   "example": "Das Wort ist neu für mich.",
+   "note": "The word is new to me. Plural: die Wörter"
+  },
+  {
+   "key": "german-a1:566",
+   "front": "schlafen",
+   "back": "to sleep",
+   "example": "Ich schlafe acht Stunden.",
+   "note": "I sleep eight hours. du schläfst, er schläft"
+  },
+  {
+   "key": "german-a1:571",
+   "front": "das Gesicht",
+   "back": "the face",
+   "example": "Ihr Gesicht ist rot.",
+   "note": "Her face is red. Plural: die Gesichter"
+  },
+  {
+   "key": "german-a1:575",
+   "front": "unten",
+   "back": "down, downstairs",
+   "example": "Die Küche ist unten.",
+   "note": "The kitchen is downstairs."
+  },
+  {
+   "key": "german-a1:576",
+   "front": "der Teil",
+   "back": "the part",
+   "example": "Der erste Teil ist leicht.",
+   "note": "The first part is easy. Plural: die Teile"
+  },
+  {
+   "key": "german-a1:580",
+   "front": "stellen",
+   "back": "to put, to place",
+   "example": "Stell die Vase auf den Tisch.",
+   "note": "Put the vase on the table."
+  },
+  {
+   "key": "german-a1:581",
+   "front": "oft",
+   "back": "often",
+   "example": "Ich fahre oft Rad.",
+   "note": "I often ride a bike."
+  },
+  {
+   "key": "german-a1:585",
+   "front": "trinken",
+   "back": "to drink",
+   "example": "Was möchtest du trinken?",
+   "note": "What would you like to drink?"
+  },
+  {
+   "key": "german-a1:592",
+   "front": "ehrlich",
+   "back": "honest",
+   "example": "Sei ehrlich.",
+   "note": "Be honest."
+  },
+  {
+   "key": "german-a1:593",
+   "front": "die Eltern",
+   "back": "the parents",
+   "example": "Meine Eltern wohnen in München.",
+   "note": "My parents live in Munich. Plural only"
+  },
+  {
+   "key": "german-a1:595",
+   "front": "das Herz",
+   "back": "the heart",
+   "example": "Mein Herz schlägt schnell.",
+   "note": "My heart is beating fast. Plural: die Herzen"
+  },
+  {
+   "key": "german-a1:597",
+   "front": "glücklich",
+   "back": "happy",
+   "example": "Ich bin sehr glücklich.",
+   "note": "I am very happy."
+  },
+  {
+   "key": "german-a1:599",
+   "front": "alt",
+   "back": "old",
+   "example": "Wie alt bist du?",
+   "note": "How old are you?"
+  },
+  {
+   "key": "german-a1:601",
+   "front": "auf Wiedersehen",
+   "back": "goodbye",
+   "example": "Auf Wiedersehen, bis Montag.",
+   "note": "Goodbye, see you Monday."
+  },
+  {
+   "key": "german-a1:602",
+   "front": "frei",
+   "back": "free",
+   "example": "Ist der Platz frei?",
+   "note": "Is this seat free?"
+  },
+  {
+   "key": "german-a1:605",
+   "front": "möglich",
+   "back": "possible",
+   "example": "Das ist nicht möglich.",
+   "note": "That is not possible."
+  },
+  {
+   "key": "german-a1:614",
+   "front": "der Platz",
+   "back": "the place, the seat, the square",
+   "example": "Ist hier noch ein Platz frei?",
+   "note": "Is there a free seat here? Plural: die Plätze"
+  },
+  {
+   "key": "german-a1:617",
+   "front": "der Papa",
+   "back": "the dad",
+   "example": "Papa kocht heute.",
+   "note": "Dad is cooking today."
+  },
+  {
+   "key": "german-a1:618",
+   "front": "falsch",
+   "back": "wrong, false",
+   "example": "Die Antwort ist falsch.",
+   "note": "The answer is wrong."
+  },
+  {
+   "key": "german-a1:621",
+   "front": "die Nummer",
+   "back": "the number",
+   "example": "Wie ist deine Nummer?",
+   "note": "What is your number? Plural: die Nummern"
+  },
+  {
+   "key": "german-a1:622",
+   "front": "früher",
+   "back": "earlier, in the past",
+   "example": "Früher wohnte ich in Kiel.",
+   "note": "I used to live in Kiel."
+  },
+  {
+   "key": "german-a1:624",
+   "front": "wohin",
+   "back": "where to",
+   "example": "Wohin fährst du?",
+   "note": "Where are you going?"
+  },
+  {
+   "key": "german-a1:626",
+   "front": "früh",
+   "back": "early",
+   "example": "Ich stehe früh auf.",
+   "note": "I get up early."
+  },
+  {
+   "key": "german-a1:627",
+   "front": "setzen",
+   "back": "to set, to sit down (sich)",
+   "example": "Setz dich bitte.",
+   "note": "Please sit down."
+  },
+  {
+   "key": "german-a1:628",
+   "front": "zuerst",
+   "back": "first, at first",
+   "example": "Zuerst frühstücken wir.",
+   "note": "First we have breakfast."
+  },
+  {
+   "key": "german-a1:629",
+   "front": "wahrscheinlich",
+   "back": "probably",
+   "example": "Es wird wahrscheinlich regnen.",
+   "note": "It will probably rain."
+  },
+  {
+   "key": "german-a1:633",
+   "front": "das Telefon",
+   "back": "the telephone",
+   "example": "Das Telefon klingelt.",
+   "note": "The telephone is ringing. Plural: die Telefone"
+  },
+  {
+   "key": "german-a1:636",
+   "front": "willkommen",
+   "back": "welcome",
+   "example": "Willkommen in Berlin!",
+   "note": "Welcome to Berlin!"
+  },
+  {
+   "key": "german-a1:637",
+   "front": "der Plan",
+   "back": "the plan",
+   "example": "Hast du einen Plan?",
+   "note": "Do you have a plan? Plural: die Pläne"
+  },
+  {
+   "key": "german-a1:639",
+   "front": "retten",
+   "back": "to save, to rescue",
+   "example": "Der Arzt rettet Leben.",
+   "note": "The doctor saves lives."
+  },
+  {
+   "key": "german-a1:643",
+   "front": "der Fehler",
+   "back": "the mistake",
+   "example": "Das war mein Fehler.",
+   "note": "That was my mistake. Plural: die Fehler"
+  },
+  {
+   "key": "german-a1:646",
+   "front": "zehn",
+   "back": "ten",
+   "example": "Ich habe zehn Finger.",
+   "note": "I have ten fingers."
+  },
+  {
+   "key": "german-a1:649",
+   "front": "nächste",
+   "back": "next",
+   "example": "Die nächste Straße links.",
+   "note": "The next street on the left."
+  },
+  {
+   "key": "german-a1:654",
+   "front": "langsam",
+   "back": "slow, slowly",
+   "example": "Sprich bitte langsam.",
+   "note": "Please speak slowly."
+  },
+  {
+   "key": "german-a1:657",
+   "front": "sechs",
+   "back": "six",
+   "example": "Der Laden öffnet um sechs.",
+   "note": "The shop opens at six."
+  },
+  {
+   "key": "german-a1:660",
+   "front": "das Büro",
+   "back": "the office",
+   "example": "Ich arbeite im Büro.",
+   "note": "I work in the office. Plural: die Büros"
+  },
+  {
+   "key": "german-a1:665",
+   "front": "schaffen",
+   "back": "to manage, to accomplish",
+   "example": "Wir schaffen das.",
+   "note": "We can do it."
+  },
+  {
+   "key": "german-a1:666",
+   "front": "leider",
+   "back": "unfortunately",
+   "example": "Leider habe ich keine Zeit.",
+   "note": "Unfortunately I have no time."
+  },
+  {
+   "key": "german-a1:669",
+   "front": "trotzdem",
+   "back": "nevertheless",
+   "example": "Es regnet, trotzdem gehe ich raus.",
+   "note": "It is raining, but I am going out anyway."
+  },
+  {
+   "key": "german-a1:670",
+   "front": "der Doktor",
+   "back": "the doctor",
+   "example": "Der Doktor kommt gleich.",
+   "note": "The doctor is coming shortly. Plural: die Doktoren"
+  },
+  {
+   "key": "german-a1:673",
+   "front": "voll",
+   "back": "full",
+   "example": "Der Bus ist voll.",
+   "note": "The bus is full."
+  },
+  {
+   "key": "german-a1:674",
+   "front": "der Film",
+   "back": "the film",
+   "example": "Der Film war lang.",
+   "note": "The film was long. Plural: die Filme"
+  },
+  {
+   "key": "german-a1:675",
+   "front": "überall",
+   "back": "everywhere",
+   "example": "Überall liegt Schnee.",
+   "note": "There is snow everywhere."
+  },
+  {
+   "key": "german-a1:679",
+   "front": "direkt",
+   "back": "direct, directly",
+   "example": "Der Zug fährt direkt nach Paris.",
+   "note": "The train goes directly to Paris."
+  },
+  {
+   "key": "german-a1:687",
+   "front": "danach",
+   "back": "afterwards",
+   "example": "Danach gehen wir essen.",
+   "note": "Afterwards we go out to eat."
+  },
+  {
+   "key": "german-a1:688",
+   "front": "funktionieren",
+   "back": "to work, to function",
+   "example": "Der Drucker funktioniert nicht.",
+   "note": "The printer does not work."
+  },
+  {
+   "key": "german-a1:692",
+   "front": "lernen",
+   "back": "to learn",
+   "example": "Ich lerne Deutsch.",
+   "note": "I am learning German."
+  },
+  {
+   "key": "german-a1:695",
+   "front": "nennen",
+   "back": "to call, to name",
+   "example": "Alle nennen mich Tom.",
+   "note": "Everyone calls me Tom."
+  },
+  {
+   "key": "german-a1:698",
+   "front": "das Feuer",
+   "back": "the fire",
+   "example": "Das Feuer ist warm.",
+   "note": "The fire is warm. Plural: die Feuer"
+  },
+  {
+   "key": "german-a1:699",
+   "front": "laufen",
+   "back": "to run, to walk",
+   "example": "Wir laufen zum Park.",
+   "note": "We walk to the park. du läufst, er läuft"
+  },
+  {
+   "key": "german-a1:701",
+   "front": "erinnern",
+   "back": "to remember (sich)",
+   "example": "Ich erinnere mich an den Tag.",
+   "note": "I remember the day."
+  },
+  {
+   "key": "german-a1:707",
+   "front": "verlieren",
+   "back": "to lose",
+   "example": "Ich verliere oft meine Schlüssel.",
+   "note": "I often lose my keys."
+  },
+  {
+   "key": "german-a1:709",
+   "front": "der Kaffee",
+   "back": "the coffee",
+   "example": "Ich trinke Kaffee mit Milch.",
+   "note": "I drink coffee with milk."
+  },
+  {
+   "key": "german-a1:710",
+   "front": "die Luft",
+   "back": "the air",
+   "example": "Die Luft ist frisch.",
+   "note": "The air is fresh."
+  },
+  {
+   "key": "german-a1:714",
+   "front": "ziehen",
+   "back": "to pull, to move house",
+   "example": "Wir ziehen nach Berlin.",
+   "note": "We are moving to Berlin."
+  },
+  {
+   "key": "german-a1:715",
+   "front": "verschwinden",
+   "back": "to disappear",
+   "example": "Der Hund ist verschwunden.",
+   "note": "The dog has disappeared."
+  },
+  {
+   "key": "german-a1:717",
+   "front": "aufhören",
+   "back": "to stop",
+   "example": "Hör auf zu reden.",
+   "note": "Stop talking."
+  },
+  {
+   "key": "german-a1:722",
+   "front": "die Hoffnung",
+   "back": "the hope",
+   "example": "Es gibt noch Hoffnung.",
+   "note": "There is still hope. Plural: die Hoffnungen"
+  },
+  {
+   "key": "german-a1:727",
+   "front": "das Buch",
+   "back": "the book",
+   "example": "Das Buch ist spannend.",
+   "note": "The book is exciting. Plural: die Bücher"
+  },
+  {
+   "key": "german-a1:728",
+   "front": "krank",
+   "back": "ill, sick",
+   "example": "Ich bin krank.",
+   "note": "I am ill."
+  },
+  {
+   "key": "german-a1:732",
+   "front": "der Arzt",
+   "back": "the doctor (medical)",
+   "example": "Ich gehe zum Arzt.",
+   "note": "I am going to the doctor. Plural: die Ärzte"
+  },
+  {
+   "key": "german-a1:733",
+   "front": "froh",
+   "back": "glad",
+   "example": "Ich bin froh, dass du da bist.",
+   "note": "I am glad you are here."
+  },
+  {
+   "key": "german-a1:735",
+   "front": "die Straße",
+   "back": "the street",
+   "example": "Die Straße ist lang.",
+   "note": "The street is long. Plural: die Straßen"
+  },
+  {
+   "key": "german-a1:736",
+   "front": "rufen",
+   "back": "to call, to shout",
+   "example": "Ruf mich morgen an.",
+   "note": "Call me tomorrow. anrufen: to phone"
+  },
+  {
+   "key": "german-a1:737",
+   "front": "heiraten",
+   "back": "to marry",
+   "example": "Sie heiraten im Mai.",
+   "note": "They are getting married in May."
+  },
+  {
+   "key": "german-a1:740",
+   "front": "super",
+   "back": "great, super",
+   "example": "Das ist super!",
+   "note": "That is great!"
+  },
+  {
+   "key": "german-a1:742",
+   "front": "der Onkel",
+   "back": "the uncle",
+   "example": "Mein Onkel wohnt in Bern.",
+   "note": "My uncle lives in Bern. Plural: die Onkel"
+  },
+  {
+   "key": "german-a1:745",
+   "front": "die Party",
+   "back": "the party",
+   "example": "Die Party ist am Samstag.",
+   "note": "The party is on Saturday. Plural: die Partys"
+  },
+  {
+   "key": "german-a1:746",
+   "front": "erklären",
+   "back": "to explain",
+   "example": "Kannst du das erklären?",
+   "note": "Can you explain that?"
+  },
+  {
+   "key": "german-a1:749",
+   "front": "vertrauen",
+   "back": "to trust",
+   "example": "Ich vertraue dir.",
+   "note": "I trust you."
+  },
+  {
+   "key": "german-a1:752",
+   "front": "leicht",
+   "back": "easy, light",
+   "example": "Die Aufgabe ist leicht.",
+   "note": "The task is easy."
+  },
+  {
+   "key": "german-a1:755",
+   "front": "das Gefühl",
+   "back": "the feeling",
+   "example": "Ich habe ein gutes Gefühl.",
+   "note": "I have a good feeling. Plural: die Gefühle"
+  },
+  {
+   "key": "german-a1:756",
+   "front": "kaufen",
+   "back": "to buy",
+   "example": "Ich kaufe Brot.",
+   "note": "I am buying bread."
+  },
+  {
+   "key": "german-a1:760",
+   "front": "die Zukunft",
+   "back": "the future",
+   "example": "Die Zukunft ist unklar.",
+   "note": "The future is unclear."
+  },
+  {
+   "key": "german-a1:761",
+   "front": "weniger",
+   "back": "less, fewer",
+   "example": "Ich esse weniger Zucker.",
+   "note": "I eat less sugar."
+  },
+  {
+   "key": "german-a1:763",
+   "front": "das Licht",
+   "back": "the light",
+   "example": "Mach das Licht an.",
+   "note": "Turn the light on. Plural: die Lichter"
+  },
+  {
+   "key": "german-a1:765",
+   "front": "der Himmel",
+   "back": "the sky, the heaven",
+   "example": "Der Himmel ist blau.",
+   "note": "The sky is blue."
+  },
+  {
+   "key": "german-a1:766",
+   "front": "die Nachricht",
+   "back": "the message, the news",
+   "example": "Ich habe eine Nachricht für dich.",
+   "note": "I have a message for you. Plural: die Nachrichten"
+  },
+  {
+   "key": "german-a1:769",
+   "front": "kümmern",
+   "back": "to take care of (sich)",
+   "example": "Ich kümmere mich um die Katze.",
+   "note": "I take care of the cat."
+  },
+  {
+   "key": "german-a1:770",
+   "front": "laut",
+   "back": "loud",
+   "example": "Die Musik ist zu laut.",
+   "note": "The music is too loud."
+  },
+  {
+   "key": "german-a1:773",
+   "front": "die Erde",
+   "back": "the earth",
+   "example": "Die Erde ist rund.",
+   "note": "The earth is round."
+  },
+  {
+   "key": "german-a1:775",
+   "front": "der Schlüssel",
+   "back": "the key",
+   "example": "Wo ist der Schlüssel?",
+   "note": "Where is the key? Plural: die Schlüssel"
+  },
+  {
+   "key": "german-a1:782",
+   "front": "der Körper",
+   "back": "the body",
+   "example": "Sport ist gut für den Körper.",
+   "note": "Sport is good for the body. Plural: die Körper"
+  },
+  {
+   "key": "german-a1:786",
+   "front": "schreiben",
+   "back": "to write",
+   "example": "Ich schreibe einen Brief.",
+   "note": "I am writing a letter."
+  },
+  {
+   "key": "german-a1:787",
+   "front": "böse",
+   "back": "angry, evil",
+   "example": "Sei nicht böse.",
+   "note": "Do not be angry."
+  },
+  {
+   "key": "german-a1:790",
+   "front": "die Katze",
+   "back": "the cat",
+   "example": "Die Katze schläft.",
+   "note": "The cat is sleeping. Plural: die Katzen"
+  },
+  {
+   "key": "german-a1:792",
+   "front": "der Hund",
+   "back": "the dog",
+   "example": "Der Hund bellt.",
+   "note": "The dog barks. Plural: die Hunde"
+  },
+  {
+   "key": "german-a1:795",
+   "front": "der Brief",
+   "back": "the letter",
+   "example": "Der Brief ist für dich.",
+   "note": "The letter is for you. Plural: die Briefe"
+  },
+  {
+   "key": "german-a1:797",
+   "front": "die Milch",
+   "back": "the milk",
+   "example": "Die Milch ist im Kühlschrank.",
+   "note": "The milk is in the fridge."
+  },
+  {
+   "key": "german-a1:800",
+   "front": "das Wetter",
+   "back": "the weather",
+   "example": "Das Wetter ist schön.",
+   "note": "The weather is nice."
+  }
+ ]
+}

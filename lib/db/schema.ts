@@ -175,9 +175,11 @@ export const cards = pgTable(
     // Cards copied from a starter deck share a key across users, so the
     // per-card model term can learn from everyone's reviews of that card.
     sourceKey: text("source_key"),
+    // Order within the deck. Batch inserts share a timestamp, so time alone is not enough.
+    position: integer("position").default(0).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
-  (t) => [index("cards_deck_idx").on(t.deckId), index("cards_source_idx").on(t.sourceKey)],
+  (t) => [index("cards_deck_idx").on(t.deckId, t.position), index("cards_source_idx").on(t.sourceKey)],
 );
 
 export const cardState = pgTable(
