@@ -1,0 +1,29 @@
+# local-only working notes
+*.local.md
+NOTES.md
+
+# data and training outputs, never committed
+ml/data/*
+!ml/data/download.py
+!ml/data/.gitkeep
+ml/runs/
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# node
+node_modules/
+.next/
+.vercel/
+
+# env
+.env
+.env.*
+!.env.example
+
+# os
+.DS_Store
