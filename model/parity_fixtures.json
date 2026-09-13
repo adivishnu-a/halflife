@@ -1,0 +1,157 @@
+{
+  "weights": "weights.v1.json",
+  "cases": [
+    {
+      "seen": 1,
+      "correct": 1,
+      "days_since_first": 0.0,
+      "response_ms": 0,
+      "delta_days": 1.0,
+      "target_retention": 0.9,
+      "features": [
+        1.0,
+        1.4142135623730951,
+        1.4142135623730951,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "half_life_days": 89.63334420796222,
+      "p": 0.9922966840092906,
+      "next_interval_days": 13.624545595435219
+    },
+    {
+      "seen": 1,
+      "correct": 1,
+      "days_since_first": 0.0,
+      "response_ms": 0,
+      "delta_days": 14.0,
+      "target_retention": 0.9,
+      "features": [
+        1.0,
+        1.4142135623730951,
+        1.4142135623730951,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "half_life_days": 89.63334420796222,
+      "p": 0.8973906925630721,
+      "next_interval_days": 13.624545595435219
+    },
+    {
+      "seen": 3,
+      "correct": 3,
+      "days_since_first": 4.0,
+      "response_ms": 2500,
+      "delta_days": 7.0,
+      "target_retention": 0.9,
+      "features": [
+        1.0,
+        2.0,
+        2.0,
+        1.0,
+        1.6094379124341003,
+        1.252762968495368
+      ],
+      "half_life_days": 95.51724298402893,
+      "p": 0.9504711899748728,
+      "next_interval_days": 14.518916410914901
+    },
+    {
+      "seen": 3,
+      "correct": 1,
+      "days_since_first": 4.0,
+      "response_ms": 9000,
+      "delta_days": 0.5,
+      "target_retention": 0.85,
+      "features": [
+        1.0,
+        2.0,
+        1.4142135623730951,
+        1.7320508075688772,
+        1.6094379124341003,
+        2.302585092994046
+      ],
+      "half_life_days": 40.45826136404016,
+      "p": 0.9914703845719963,
+      "next_interval_days": 9.486056512432643
+    },
+    {
+      "seen": 10,
+      "correct": 9,
+      "days_since_first": 30.0,
+      "response_ms": 1800,
+      "delta_days": 21.0,
+      "target_retention": 0.95,
+      "features": [
+        1.0,
+        3.3166247903554,
+        3.1622776601683795,
+        1.4142135623730951,
+        3.4339872044851463,
+        1.0296194171811583
+      ],
+      "half_life_days": 78.04633414126039,
+      "p": 0.8298537827503661,
+      "next_interval_days": 5.775474106008556
+    },
+    {
+      "seen": 10,
+      "correct": 5,
+      "days_since_first": 30.0,
+      "response_ms": 6000,
+      "delta_days": 2.0,
+      "target_retention": 0.8,
+      "features": [
+        1.0,
+        3.3166247903554,
+        2.449489742783178,
+        2.449489742783178,
+        3.4339872044851463,
+        1.9459101490553132
+      ],
+      "half_life_days": 25.396469658061246,
+      "p": 0.9468769744410164,
+      "next_interval_days": 8.17583709388436
+    },
+    {
+      "seen": 50,
+      "correct": 48,
+      "days_since_first": 200.0,
+      "response_ms": 1200,
+      "delta_days": 60.0,
+      "target_retention": 0.9,
+      "features": [
+        1.0,
+        7.14142842854285,
+        7.0,
+        1.7320508075688772,
+        5.303304908059076,
+        0.7884573603642702
+      ],
+      "half_life_days": 100.73276600804908,
+      "p": 0.6617529442513695,
+      "next_interval_days": 15.311692044499846
+    },
+    {
+      "seen": 200,
+      "correct": 120,
+      "days_since_first": 400.0,
+      "response_ms": 20000,
+      "delta_days": 0.01,
+      "target_retention": 0.9,
+      "features": [
+        1.0,
+        14.177446878757825,
+        11.0,
+        9.0,
+        5.993961427306569,
+        3.044522437723423
+      ],
+      "half_life_days": 0.3918115308765328,
+      "p": 0.9824647324732694,
+      "next_interval_days": 0.05955656474067373
+    }
+  ]
+}

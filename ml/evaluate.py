@@ -22,13 +22,22 @@ from pathlib import Path
 import matplotlib
 import numpy as np
 import pandas as pd
+import yaml
 from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import roc_auc_score
 
 from baselines import LogisticBaseline, expand_trials, leitner, sm2
 from dataset import Split, delta_days, load_traces, split_by_user
-from features import observed_half_life
-from simulate import N_CARDS, N_DAYS, TARGET_RETENTION, leitner_scheduler, sm2_scheduler, tune
+from features import featurize, half_life, observed_half_life, recall
+from simulate import (
+    N_CARDS,
+    N_DAYS,
+    TARGET_RETENTION,
+    leitner_scheduler,
+    make_hlr_scheduler,
+    sm2_scheduler,
+    tune,
+)
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -38,6 +47,7 @@ REPORT_PATH = ML_DIR / "REPORT.md"
 FIGURES_DIR = ML_DIR / "figures"
 RUNS_DIR = ML_DIR / "runs"
 MIN_PRIOR_REVIEWS = 3
+MIN_SPACED_GAP_DAYS = 1.0
 
 
 def log_loss(p: np.ndarray, p_hat: np.ndarray, weights: np.ndarray) -> float:
@@ -95,12 +105,15 @@ def score(df: pd.DataFrame, p_hat: np.ndarray, h_hat: np.ndarray) -> dict[str, f
 
 
 def score_all(df: pd.DataFrame, predictions: dict[str, tuple[np.ndarray, np.ndarray]]) -> dict:
-    """Metrics on the full held-out set and on rows with MIN_PRIOR_REVIEWS or more."""
+    """Metrics on all held-out rows, on rows with MIN_PRIOR_REVIEWS or more, and on
+    spaced reviews with a gap of at least MIN_SPACED_GAP_DAYS."""
     mature = (df["history_seen"] >= MIN_PRIOR_REVIEWS).to_numpy()
-    out: dict[str, dict] = {"all": {}, "mature": {}, "calibration": {}}
+    spaced = delta_days(df) >= MIN_SPACED_GAP_DAYS
+    out: dict[str, dict] = {"all": {}, "mature": {}, "spaced": {}, "calibration": {}}
     for name, (p_hat, h_hat) in predictions.items():
         out["all"][name] = score(df, p_hat, h_hat)
         out["mature"][name] = score(df[mature], p_hat[mature], h_hat[mature])
+        out["spaced"][name] = score(df[spaced], p_hat[spaced], h_hat[spaced])
         out["calibration"][name] = calibration(
             df["p_recall"].to_numpy(dtype=np.float64),
             p_hat,
@@ -115,6 +128,58 @@ def reference_split(df: pd.DataFrame) -> Split:
     test = np.zeros(len(df), dtype=bool)
     test[cut:] = True
     return Split(seed=-1, test_fraction=0.1, train=~test, test=test)
+
+
+# ---------------------------------------------------------------- trained model
+
+
+class HlrRun:
+    """A saved training run: dense weights plus per-lexeme weights, scored in NumPy."""
+
+    def __init__(self, run_dir: Path):
+        self.run_dir = run_dir
+        self.config = yaml.safe_load((run_dir / "config.yaml").read_text())
+        weights = json.loads((run_dir / "weights.json").read_text())
+        self.features = weights["features"]
+        self.theta = np.asarray(weights["theta"], dtype=np.float64)
+        lex_path = run_dir / "lexeme_weights.parquet"
+        self.lexeme = (
+            pd.read_parquet(lex_path).set_index("lexeme_id")["weight"]
+            if lex_path.exists()
+            else None
+        )
+
+    def predict(self, df: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
+        x = featurize(
+            df["history_seen"].to_numpy(), df["history_correct"].to_numpy(), names=self.features
+        )
+        z = x @ self.theta
+        if self.lexeme is not None:
+            z = z + self.lexeme.reindex(df["lexeme_id"].astype(str)).fillna(0.0).to_numpy()
+        h = half_life(z)
+        return recall(h, delta_days(df)), h
+
+    def scheduler(self):
+        """The app's cold-start scheduler: global weights only, no per-card term."""
+
+        def predict_h(state) -> float:
+            x = featurize([state.seen], [state.correct], names=self.features)
+            return float(half_life(x @ self.theta)[0])
+
+        return make_hlr_scheduler(predict_h)
+
+    def canonical(self) -> dict[str, float]:
+        states = {
+            "1 seen, 1 right": (1, 1),
+            "3 seen, 3 right": (3, 3),
+            "3 seen, 1 right": (3, 1),
+            "10 seen, 9 right": (10, 9),
+            "10 seen, 5 right": (10, 5),
+        }
+        x = featurize(
+            [s for s, _ in states.values()], [c for _, c in states.values()], names=self.features
+        )
+        return dict(zip(states, half_life(x @ self.theta).round(1), strict=True))
 
 
 # ---------------------------------------------------------------- report
@@ -151,10 +216,14 @@ def plot_calibration(cal: dict[str, list[dict]], path: Path, title: str) -> None
     plt.close(fig)
 
 
-def run_simulation() -> dict[str, dict]:
+def run_simulation(hlr: HlrRun | None) -> dict[str, dict]:
     out = {}
-    for name, sched in [("leitner", leitner_scheduler), ("sm2", sm2_scheduler)]:
-        o = tune(sched, 0.01, 20.0)
+    schedulers = [("leitner", leitner_scheduler, 0.01, 20.0), ("sm2", sm2_scheduler, 0.01, 20.0)]
+    if hlr is not None:
+        # The knob is the target retention; lo > hi flips the search direction.
+        schedulers.append(("hlr", hlr.scheduler(), 0.9999, 0.5))
+    for name, sched, lo, hi in schedulers:
+        o = tune(sched, lo, hi)
         out[name] = {
             "reviews_per_day": o.reviews_per_day,
             "retention": o.retention,
@@ -217,9 +286,15 @@ def write_report(results: dict, path: Path = REPORT_PATH) -> None:
         "",
         f"### Held-out users, rows with at least {MIN_PRIOR_REVIEWS} prior reviews",
         "",
-        "Where scheduling actually matters.",
-        "",
         markdown_table(user["mature"], columns),
+        "",
+        f"### Held-out users, spaced reviews with a gap of at least {MIN_SPACED_GAP_DAYS:g} day",
+        "",
+        "Where scheduling actually matters. Half-life regression assumes perfect recall at a",
+        "gap of zero, and 30% of the traces are same-session repeats with 8% failures that",
+        "no forgetting curve can fit. This subset compares the models on real spaced reviews.",
+        "",
+        markdown_table(user["spaced"], columns),
         "",
         "### Calibration on held-out users",
         "",
@@ -229,6 +304,41 @@ def write_report(results: dict, path: Path = REPORT_PATH) -> None:
     for name, rows in user["calibration"].items():
         d = pd.DataFrame(rows)
         lines += [f"**{name}**", "", d.to_markdown(index=False, floatfmt=".3f"), ""]
+    if results.get("hlr"):
+        hlr = results["hlr"]
+        lines += [
+            "## The trained model",
+            "",
+            f"Run `{hlr['run']}`: objective {hlr['config']['objective']}, half-life loss",
+            f"weight {hlr['config']['half_life_loss_weight']}, {hlr['config']['epochs']} epochs,",
+            f"seed {hlr['config']['seed']}.",
+            "",
+            "| feature | weight |",
+            "|---|---:|",
+            *[f"| {f} | {w:.4f} |" for f, w in zip(hlr["features"], hlr["theta"], strict=True)],
+            "",
+            "Predicted half-life in days for a few card states, global weights only, no",
+            "per-lexeme term. This is what the app sees for a card nobody has reviewed yet.",
+            "",
+            "| card state | half-life (days) |",
+            "|---|---:|",
+            *[f"| {k} | {v:.1f} |" for k, v in hlr["canonical"].items()],
+            "",
+        ]
+    if results.get("ablation"):
+        lines += [
+            "### Ablation on held-out users",
+            "",
+            "| run | objective | h loss wt | lexeme | mae_p | log_loss | auc | spearman_h |",
+            "|---|---|---:|---|---:|---:|---:|---:|",
+            *[
+                f"| {a['run']} | {a['objective']} | {a['half_life_loss_weight']} | "
+                f"{a['lexeme_term']} | {a['mae_p']:.4f} | {a['log_loss']:.4f} | "
+                f"{a['auc']:.4f} | {a['spearman_h']:.4f} |"
+                for a in results["ablation"]
+            ],
+            "",
+        ]
     sim = results["simulation"]
     lines += [
         "## Workload simulation",
@@ -302,6 +412,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-rows", type=int, default=None, help="subsample for a quick run")
     parser.add_argument("--skip-lr", action="store_true")
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--hlr", type=Path, default=None, help="run dir of the model to report")
+    parser.add_argument("--ablation", type=Path, nargs="*", default=[], help="extra run dirs")
     args = parser.parse_args(argv)
 
     def log(msg: str) -> None:
@@ -327,10 +439,36 @@ def main(argv: list[str] | None = None) -> int:
 
     user_split = split_by_user(df, seed=args.seed)
     preds = run_baselines(df, user_split, n_lexemes, args.skip_lr, log)
+    hlr = HlrRun(args.hlr) if args.hlr else None
+    if hlr is not None:
+        assert hlr.config["split"] == "user" and hlr.config["seed"] == args.seed, "split mismatch"
+        preds["hlr"] = hlr.predict(df[user_split.test])
+        results["hlr"] = {
+            "run": args.hlr.name,
+            "config": hlr.config,
+            "features": hlr.features,
+            "theta": hlr.theta.tolist(),
+            "canonical": hlr.canonical(),
+        }
+        log("hlr scored")
     results["user_split"] = {
         "split": user_split.describe(df),
         **score_all(df[user_split.test], preds),
     }
+    ablation = []
+    for run_dir in [args.hlr, *args.ablation] if args.hlr else args.ablation:
+        run = HlrRun(run_dir)
+        m = score(df[user_split.test], *run.predict(df[user_split.test]))
+        ablation.append(
+            {
+                "run": run_dir.name,
+                "objective": run.config.get("objective", "mse"),
+                "half_life_loss_weight": run.config["half_life_loss_weight"],
+                "lexeme_term": run.config["lexeme_term"],
+                **m,
+            }
+        )
+    results["ablation"] = ablation
     plot_calibration(
         results["user_split"]["calibration"],
         FIGURES_DIR / "calibration_user_split.png",
@@ -341,7 +479,7 @@ def main(argv: list[str] | None = None) -> int:
     ref_preds = run_baselines(df, ref, n_lexemes, args.skip_lr, log)
     results["reference_split"] = {"split": ref.describe(df), **score_all(df[ref.test], ref_preds)}
 
-    results["simulation"] = run_simulation()
+    results["simulation"] = run_simulation(hlr)
     plot_workload(results["simulation"], FIGURES_DIR / "workload.png")
     log("simulation done")
 

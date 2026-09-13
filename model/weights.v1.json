@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "trained_at": "2026-09-13",
+  "source": "Duolingo learning traces, Settles and Meeder 2016, doi:10.7910/DVN/N8XJME, CC BY-NC 4.0",
+  "run": "v1_logloss",
+  "config": {
+    "features": [
+      "bias",
+      "sqrt_seen",
+      "sqrt_correct",
+      "sqrt_wrong",
+      "log_days_since_first",
+      "log_response_s"
+    ],
+    "lexeme_term": true,
+    "split": "user",
+    "seed": 42,
+    "test_fraction": 0.1,
+    "epochs": 4,
+    "batch_size": 4096,
+    "learning_rate": 0.01,
+    "l2": 0.0001,
+    "lexeme_l2": 0.001,
+    "half_life_loss_weight": 0,
+    "objective": "logloss"
+  },
+  "features": [
+    "bias",
+    "sqrt_seen",
+    "sqrt_correct",
+    "sqrt_wrong",
+    "log_days_since_first",
+    "log_response_s"
+  ],
+  "theta": [
+    7.037345886230469,
+    -0.9932836890220642,
+    1.1498692035675049,
+    -0.7728276252746582,
+    0.0,
+    0.0
+  ],
+  "data_rows": 12854226,
+  "split": {
+    "seed": 42,
+    "test_fraction": 0.1,
+    "train_rows": 11617839,
+    "test_rows": 1236387,
+    "train_users": 103840,
+    "test_users": 11382
+  },
+  "metrics": {
+    "all": {
+      "rows": 1236387,
+      "mae_p": 0.138107669614753,
+      "log_loss": 0.5628779991444652,
+      "auc": 0.5431243766204639,
+      "auc_paper": 0.5430246134495476,
+      "spearman_h": 0.07504485961061869,
+      "pearson_h": 0.07069044878822231
+    },
+    "mature": {
+      "rows": 1070636,
+      "mae_p": 0.13630102377293593,
+      "log_loss": 0.5687864831992544,
+      "auc": 0.5424590532279746,
+      "auc_paper": 0.5412456583679923,
+      "spearman_h": 0.07710148879427536,
+      "pearson_h": 0.0658526397333738
+    }
+  },
+  "weights_sha256": "b1e023a8c446f6dc514d66e47310facd1cec46880894ef456f2e85c54d115644"
+}

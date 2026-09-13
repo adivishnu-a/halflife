@@ -1,0 +1,14 @@
+# The paper's feature set on the reference split, for the reproduction check.
+features: [bias, sqrt_correct, sqrt_wrong]
+lexeme_term: true
+split: reference
+seed: 42
+test_fraction: 0.1
+epochs: 4
+batch_size: 4096
+learning_rate: 0.01
+l2: 0.0001
+lexeme_l2: 0.001
+objective: mse
+half_life_loss_weight: 0.01
+min_train_delta_days: 0

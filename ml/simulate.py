@@ -70,6 +70,12 @@ class Outcome:
     retention: float
     knob: float
     reviews_by_day: np.ndarray
+    tested: int = 0
+
+    @property
+    def retention_for_search(self) -> float:
+        """No card came back in the window: treat as zero retention so the search shortens gaps."""
+        return self.retention if self.tested else 0.0
 
 
 def run(scheduler: Scheduler, knob: float, seed: int = 42) -> Outcome:
@@ -121,6 +127,7 @@ def run(scheduler: Scheduler, knob: float, seed: int = 42) -> Outcome:
         retention=remembered / tested if tested else float("nan"),
         knob=knob,
         reviews_by_day=reviews_by_day,
+        tested=tested,
     )
 
 
@@ -145,14 +152,14 @@ def tune(
         mid = 0.5 * (a + b)
         out = run(scheduler, math.exp(mid), seed)
         # Too much retention means the gaps are too short: move toward the long side.
-        too_high = out.retention > target
+        too_high = out.retention_for_search > target
         if flipped:
             too_high = not too_high
         if too_high:
             a = mid
         else:
             b = mid
-        if abs(out.retention - target) < abs(best.retention - target):
+        if abs(out.retention_for_search - target) < abs(best.retention_for_search - target):
             best = out
     return best
 

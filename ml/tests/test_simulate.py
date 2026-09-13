@@ -41,3 +41,11 @@ def test_hlr_scheduler_uses_target_retention_as_knob():
     sched = make_hlr_scheduler(lambda state: 10.0)
     assert np.isclose(sched(CardState(), 0.5), 10.0)
     assert sched(CardState(), 0.9) < sched(CardState(), 0.8)
+
+
+def test_tune_recovers_when_the_first_guess_never_reviews():
+    # A 500-day half-life at target 0.5 schedules nothing inside the window.
+    sched = make_hlr_scheduler(lambda state: 500.0)
+    out = tune(sched, 0.9999, 0.5, target=0.9)
+    assert out.tested > 0
+    assert abs(out.retention - 0.9) < 0.02

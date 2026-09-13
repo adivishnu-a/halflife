@@ -1,0 +1,14 @@
+# Half-life regression, version 1. Trained on the held-out-user split.
+features: [bias, sqrt_seen, sqrt_correct, sqrt_wrong, log_days_since_first, log_response_s]
+lexeme_term: true
+split: user          # user | reference
+seed: 42
+test_fraction: 0.1
+epochs: 4
+batch_size: 4096
+learning_rate: 0.01
+l2: 0.0001            # on the dense weights, per row
+lexeme_l2: 0.001      # on the per-lexeme weights, per row
+objective: logloss    # proper scoring rule per trial; mse reproduces the paper's loss
+half_life_loss_weight: 0      # the paper's hlwt; 0.01 in the paper, see the ablation in REPORT.md
+min_train_delta_days: 0
