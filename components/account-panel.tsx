@@ -74,7 +74,10 @@ function Guest({ hasSession, onCode }: { hasSession: boolean; onCode: (c: string
       if (res.error) return { error: res.error.status === 429 ? "Too many attempts. Wait a minute." : "That username and password do not match." };
       return true;
     },
-    () => router.push("/"),
+    () => {
+      router.push("/");
+      router.refresh();
+    },
   );
 
   return (
@@ -171,7 +174,10 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
       if (res.error) return { error: "That password is wrong, so nothing was deleted." };
       return true;
     },
-    () => router.push("/"),
+    () => {
+      router.push("/");
+      router.refresh();
+    },
   );
 
   return (
@@ -181,7 +187,12 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
           Signed in as <strong>{username}</strong>. Your decks and reviews are saved to this account and open on any device.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
-          <button type="button" className="btn btn-secondary" disabled={busy !== null} onClick={() => run("out", () => authClient.signOut(), () => router.push("/"))}>
+          <button type="button" className="btn btn-secondary" disabled={busy !== null} onClick={() =>
+              run("out", () => authClient.signOut(), () => {
+                router.push("/");
+                router.refresh();
+              })
+            }>
             Sign out
           </button>
           <button type="button" className="btn btn-secondary" disabled={busy !== null} onClick={() => run("all", () => authClient.revokeOtherSessions(), () => setError(null))}>

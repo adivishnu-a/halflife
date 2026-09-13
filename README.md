@@ -65,6 +65,18 @@ npm run lint
 npm test
 ```
 
+## Smoke tests
+
+Playwright drives a real dev server against the database in `.env.local`, with the
+Python function pointed at a dead port so every prediction goes through the
+TypeScript fallback. Two flows from the brief plus an axe pass on every screen,
+on a desktop and a phone viewport.
+
+```
+npx playwright install chromium
+npm run e2e
+```
+
 ## Run the app locally
 
 ```

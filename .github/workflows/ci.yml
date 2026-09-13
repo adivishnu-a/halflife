@@ -34,3 +34,26 @@ jobs:
       - run: uv run ruff check . ../api
       - run: uv run ruff format --check . ../api
       - run: uv run pytest
+
+  # Smoke tests need a database. They run when the repository has a DATABASE_URL secret
+  # (a Neon branch made for CI), and are skipped on forks without one.
+  smoke:
+    runs-on: ubuntu-latest
+    if: ${{ vars.RUN_SMOKE == 'true' }}
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-traces
+          path: test-results/

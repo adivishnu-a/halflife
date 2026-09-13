@@ -74,7 +74,8 @@ export const auth = betterAuth({
     cookieCache: { enabled: false },
   },
   rateLimit: {
-    enabled: true,
+    // On in production; off for local development and the end-to-end tests.
+    enabled: process.env.NODE_ENV === "production",
     storage: "database",
     modelName: "rateLimit",
     window: 60,
@@ -82,7 +83,7 @@ export const auth = betterAuth({
     customRules: {
       "/sign-in/username": { window: 60, max: 10 },
       "/sign-up/email": { window: 60, max: 10 },
-      "/sign-in/anonymous": { window: 60, max: 10 },
+      "/sign-in/anonymous": { window: 60, max: 30 },
     },
   },
   user: { deleteUser: { enabled: true } },

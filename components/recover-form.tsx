@@ -41,7 +41,14 @@ export function RecoverForm() {
         <h2 className="text-lg font-semibold">Password changed. Here is your new recovery code</h2>
         <p className="mt-1 text-sm muted">The old one no longer works. Save this one; it is shown once.</p>
         <p className="mt-4 select-all break-all rounded-md border border-line bg-paper-2 p-4 font-mono text-xl tracking-wide">{newCode}</p>
-        <button type="button" className="btn btn-primary mt-4" onClick={() => router.push("/")}>
+        <button
+          type="button"
+          className="btn btn-primary mt-4"
+          onClick={() => {
+            router.push("/");
+            router.refresh();
+          }}
+        >
           I saved it, take me to my decks
         </button>
       </section>

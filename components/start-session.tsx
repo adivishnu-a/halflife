@@ -21,15 +21,10 @@ export function StartSession() {
     // Strict mode runs effects twice in development; one guest per attempt is enough.
     if (started.current === attempt) return;
     started.current = attempt;
-    let cancelled = false;
     authClient.signIn.anonymous().then(({ error }) => {
-      if (cancelled) return;
       if (error) setFailedAttempt(attempt);
       else router.refresh();
     });
-    return () => {
-      cancelled = true;
-    };
   }, [attempt, router]);
 
   if (failed) {
