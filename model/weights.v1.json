@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "trained_at": "2026-09-13",
+  "trained_at": "2026-09-14",
   "source": "Duolingo learning traces, Settles and Meeder 2016, doi:10.7910/DVN/N8XJME, CC BY-NC 4.0",
   "run": "v1_logloss",
   "config": {
@@ -21,8 +21,9 @@
     "learning_rate": 0.01,
     "l2": 0.0001,
     "lexeme_l2": 0.001,
+    "objective": "logloss",
     "half_life_loss_weight": 0,
-    "objective": "logloss"
+    "min_train_delta_days": 0
   },
   "features": [
     "bias",
@@ -67,6 +68,15 @@
       "auc_paper": 0.5412456583679923,
       "spearman_h": 0.07710148879427536,
       "pearson_h": 0.0658526397333738
+    },
+    "spaced": {
+      "rows": 581943,
+      "mae_p": 0.1902965017003698,
+      "log_loss": 0.4266579310248306,
+      "auc": 0.5369718763222616,
+      "auc_paper": 0.5432388911519889,
+      "spearman_h": 0.09397620893442604,
+      "pearson_h": 0.09865870308855576
     }
   },
   "weights_sha256": "b1e023a8c446f6dc514d66e47310facd1cec46880894ef456f2e85c54d115644"
