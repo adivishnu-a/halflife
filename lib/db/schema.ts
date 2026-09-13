@@ -131,7 +131,8 @@ export const settings = pgTable("settings", {
   targetRetention: doublePrecision("target_retention").default(0.9).notNull(),
   newPerDay: integer("new_per_day").default(10).notNull(),
   scheduler: text("scheduler", { enum: SCHEDULERS }).default("classic").notNull(),
-  shareLogs: boolean("share_logs").default(false).notNull(),
+  // On unless the user opts out. What is shared is spelled out on the settings page.
+  shareLogs: boolean("share_logs").default(true).notNull(),
 });
 
 export const recoveryCode = pgTable("recovery_code", {

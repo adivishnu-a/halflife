@@ -53,7 +53,7 @@ simulation. The config records the seed.
 
 ## How the model is promoted
 
-`ml/retrain.py` pulls every review from users who opted in to sharing logs: the
+`ml/retrain.py` pulls every review from users who have not opted out of sharing logs: the
 counts seen and remembered, the gap, the response time, the outcome, a hashed
 user id and the card's shared key. Never card text. It fine-tunes the global
 weights from the shipped file, learns a per-card term for each card key, and

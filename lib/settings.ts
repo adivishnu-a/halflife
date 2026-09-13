@@ -12,7 +12,7 @@ export const DEFAULT_SETTINGS = {
   targetRetention: 0.9,
   newPerDay: 10,
   scheduler: "classic" as const,
-  shareLogs: false,
+  shareLogs: true,
 };
 
 export async function getSettings(userId: string): Promise<Settings> {

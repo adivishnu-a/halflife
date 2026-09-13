@@ -1,6 +1,6 @@
 name: retrain
 
-# Monthly: pull opted-in review logs from Neon, fine-tune the model from the
+# Monthly: pull shared review logs from Neon, fine-tune the model from the
 # shipped weights, score it on a held-out slice, and open a pull request with
 # the new weights file only if held-out log-loss improves. Adi merges; Vercel
 # deploys. workflow_dispatch runs it by hand.

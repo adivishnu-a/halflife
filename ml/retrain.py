@@ -2,8 +2,8 @@
 
     uv run python -m retrain --current ../model/weights.v1.json [--dry-run]
 
-Reads DATABASE_URL. Pulls every review from users who opted in, with no card
-text and ids hashed. Fine-tunes the global weights and learns per-card terms
+Reads DATABASE_URL. Pulls every review from users who have not opted out, with
+no card text and ids hashed. Fine-tunes the global weights and learns per-card terms
 starting from the current weights, scores the candidate and the current model
 on a held-out slice, and writes model/weights.v<N+1>.json only if held-out
 log-loss improves. Writes ml/runs/retrain-<date>/RETRAIN.md either way; the
@@ -41,8 +41,9 @@ select r.user_id, r.card_id, c.source_key, r.reviewed_at, r.delta_seconds, r.rem
        r.response_ms, r.seen_before, r.correct_before, r.scheduler,
        min(r.reviewed_at) over (partition by r.user_id, r.card_id) as first_seen_at
 from reviews r
-join settings s on s.user_id = r.user_id and s.share_logs
+left join settings s on s.user_id = r.user_id
 join cards c on c.id = r.card_id
+where coalesce(s.share_logs, true)
 order by r.reviewed_at
 """
 
@@ -52,7 +53,7 @@ def anonymise(value: str, salt: str) -> str:
 
 
 def pull_logs(database_url: str) -> pd.DataFrame:
-    """Opted-in reviews with ids hashed. Never card text."""
+    """Reviews from users who have not opted out, ids hashed. Never card text."""
     salt = os.environ.get("RETRAIN_SALT", "halflife")
     with psycopg.connect(database_url) as conn:
         rows = conn.execute(PULL_SQL).fetchall()

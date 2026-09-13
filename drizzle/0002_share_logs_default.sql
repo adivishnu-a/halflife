@@ -1,0 +1,1 @@
+ALTER TABLE "settings" ALTER COLUMN "share_logs" SET DEFAULT true;

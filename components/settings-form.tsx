@@ -89,9 +89,9 @@ export function SettingsForm({ settings }: { settings: Settings }) {
             <span>
               <span className="font-medium">Share anonymised review logs for retraining</span>
               <span className="block text-sm muted">
-                What leaves your account: for each review, the counts of times seen and remembered, the gap in days, the
-                response time, the outcome, and a random id for the card. Never the card text, your username, or anything
-                that identifies you.
+                On unless you turn it off. What leaves your account: for each review, the counts of times seen and
+                remembered, the gap in days, the response time, the outcome, and a random id for the card. Never the card
+                text, your username, or anything that identifies you.
               </span>
             </span>
           </label>
