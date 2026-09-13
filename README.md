@@ -14,9 +14,24 @@ Status: the model is trained and exported. The app comes next.
 ```
 ml/              training pipeline: download, features, baselines, train, evaluate, export
 model/           the shipped weights, versioned JSON, plus the parity fixtures
+api/             FastAPI service, NumPy inference, deployed as a Vercel Python function
 lib/scheduler/   TypeScript schedulers: hlr.ts reads the weights, sm2.ts is Classic
 content/         starter decks
 ```
+
+## The service
+
+`api/index.py` serves `/api/py/predict`, `/api/py/schedule`, `/api/py/model` and
+`/api/py/health`. It loads the newest `model/weights.v<N>.json` at import time
+and computes in NumPy. Vercel builds it as a Python function; `api/_inference.py`
+starts with an underscore so Vercel does not build it as a second function. Run
+it locally from the repo root with the ml environment:
+
+```
+ml/.venv/bin/uvicorn api.index:app --port 8000
+```
+
+Its tests live in `ml/tests/test_api.py` and run with the rest of the Python suite.
 
 ## How to train
 
@@ -37,9 +52,9 @@ simulation. The config records the seed.
 
 ## Parity
 
-The Python function and the TypeScript fallback must agree. `ml/export.py`
-writes `model/parity_fixtures.json` from the shipped weights, and both
-`ml/tests/test_export.py` and `lib/scheduler/hlr.test.ts` assert the same
+The Python function, the training code and the TypeScript fallback must agree. `ml/export.py`
+writes `model/parity_fixtures.json` from the shipped weights, and
+`ml/tests/test_export.py`, `ml/tests/test_api.py` and `lib/scheduler/hlr.test.ts` assert the same
 half-life, recall and next interval to six decimal places. CI runs both.
 
 ```

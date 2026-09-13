@@ -19,8 +19,11 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "fastapi==0.117.1",
+    "httpx>=0.28.1",
     "pytest>=8",
     "ruff>=0.6",
+    "uvicorn>=0.52.4",
 ]
 
 [tool.pytest.ini_options]
