@@ -8,6 +8,7 @@ ml/data/*
 !ml/data/__init__.py
 !ml/data/.gitkeep
 ml/runs/
+ml/*.log
 
 # python
 .venv/
