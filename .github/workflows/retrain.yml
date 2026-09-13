@@ -12,6 +12,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 jobs:
   retrain:
@@ -92,3 +93,17 @@ jobs:
       - name: Keep the report when nothing was promoted
         if: steps.retrain.outputs.promoted != 'true'
         run: echo "Not promoted: ${{ steps.retrain.outputs.reason }}"
+
+      # Version 2, the sequence model, waits for 50,000 shared spaced reviews.
+      # Every run prints the count; crossing the line opens an issue once.
+      - name: Version 2 gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SPACED: ${{ steps.retrain.outputs.spaced_reviews }}
+        run: |
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Version 2 data gate: ${SPACED:-0} of 50,000 shared spaced reviews." >> "$GITHUB_STEP_SUMMARY"
+          if [ "${SPACED:-0}" -ge 50000 ] && [ -z "$(gh issue list --label version-2 --state all --json number --jq '.[0].number')" ]; then
+            gh label create version-2 --description "The sequence model" --color 1d2be0 || true
+            gh issue create --label version-2 --title "Data for version 2 is here: ${SPACED} shared spaced reviews" --body-file .github/version-2-issue.md
+          fi

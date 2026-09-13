@@ -71,6 +71,16 @@ without a merged pull request, and every promoted run's report is kept in
 Classic (SM-2) is the default scheduler until a retrained model beats it on the
 app's own reviews. That switch is a one-line change in a promotion pull request.
 
+## Version 2
+
+Version 1 looks only at counts. A sequence model, a small GRU over a card's last
+16 reviews, could tell "wrong, right, right" from "right, right, wrong". It is
+not built because there is nothing to train it on yet: the Duolingo window holds
+a median of one review per learner-word. The monthly retrain job counts shared
+spaced reviews and opens an issue when there are 50,000. The gates it must pass
+are in `.github/version-2-issue.md`. Failing any of them is a result too, and
+goes in the case study.
+
 ## Parity
 
 The Python function, the training code and the TypeScript fallback must agree. `ml/export.py`

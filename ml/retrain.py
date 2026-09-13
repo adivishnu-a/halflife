@@ -258,6 +258,7 @@ def main(argv: list[str] | None = None) -> int:
         if out := os.environ.get("GITHUB_OUTPUT"):
             with open(out, "a") as fh:
                 fh.write(f"promoted={'true' if promoted else 'false'}\nreason={reason}\n")
+                fh.write(f"spaced_reviews={summary.get('spaced_reviews', 0)}\n")
         log(f"{'promoted' if promoted else 'not promoted'}: {reason}")
         return 0
 
@@ -278,7 +279,11 @@ def main(argv: list[str] | None = None) -> int:
             f"from {users} opted-in users, "
             f"{cfg['min_rows']:,} needed. Nothing changed.\n"
         )
-        return finish(False, f"{len(frame)} spaced reviews, {cfg['min_rows']} needed")
+        return finish(
+            False,
+            f"{len(frame)} spaced reviews, {cfg['min_rows']} needed",
+            {"spaced_reviews": int(len(frame))},
+        )
 
     test, split_kind = split(frame, cfg)
     train_df, test_df = frame[~test], frame[test]
@@ -392,7 +397,11 @@ def main(argv: list[str] | None = None) -> int:
                         payload["weights_sha256"],
                     ),
                 )
-    return finish(promoted, reason, {"candidate_version": candidate_version})
+    return finish(
+        promoted,
+        reason,
+        {"candidate_version": candidate_version, "spaced_reviews": int(len(frame))},
+    )
 
 
 if __name__ == "__main__":
