@@ -5,6 +5,7 @@ NOTES.md
 # data and training outputs, never committed
 ml/data/*
 !ml/data/download.py
+!ml/data/__init__.py
 !ml/data/.gitkeep
 ml/runs/
 
