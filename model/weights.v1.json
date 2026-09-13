@@ -41,6 +41,7 @@
     0.0,
     0.0
   ],
+  "card_terms": {},
   "data_rows": 12854226,
   "split": {
     "seed": 42,
@@ -79,5 +80,5 @@
       "pearson_h": 0.09865870308855576
     }
   },
-  "weights_sha256": "b1e023a8c446f6dc514d66e47310facd1cec46880894ef456f2e85c54d115644"
+  "weights_sha256": "330dc283a66b13a00c81ca796a9dfcacb5e9eac0616dd22312195871003faa78"
 }

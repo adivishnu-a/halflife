@@ -35,6 +35,7 @@ class CardFeatures(BaseModel):
     delta_days: Annotated[float, Field(ge=0, description="days since the last review")]
     days_since_first: Annotated[float, Field(ge=0)] = 0.0
     response_ms: Annotated[float, Field(ge=0)] = 0.0
+    card_key: str | None = Field(default=None, description="shared key for the per-card term")
 
     @model_validator(mode="after")
     def correct_within_seen(self) -> CardFeatures:
@@ -88,7 +89,7 @@ def _predict(items: list[Item]) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         np.array([c.days_since_first for c in f], dtype=np.float64),
         np.array([c.response_ms for c in f], dtype=np.float64),
     )
-    h = MODEL.half_life(x)
+    h = MODEL.half_life(x, [c.card_key for c in f])
     p = recall(h, np.array([c.delta_days for c in f], dtype=np.float64))
     return x, h, p
 
@@ -105,6 +106,7 @@ def model() -> dict:
         "trained_at": MODEL.trained_at,
         "features": list(MODEL.features),
         "theta": MODEL.theta.tolist(),
+        "card_terms": len(MODEL.card_terms),
         "data_rows": MODEL.data_rows,
         "metrics": MODEL.metrics,
         "weights_sha256": MODEL.weights_sha256,

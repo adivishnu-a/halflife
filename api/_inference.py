@@ -27,6 +27,7 @@ class Model:
     trained_at: str
     features: tuple[str, ...]
     theta: np.ndarray
+    card_terms: dict[str, float]
     metrics: dict
     data_rows: int | None
     weights_sha256: str
@@ -46,6 +47,7 @@ class Model:
             trained_at=raw["trained_at"],
             features=tuple(raw["features"]),
             theta=np.asarray(raw["theta"], dtype=np.float64),
+            card_terms=raw.get("card_terms", {}),
             metrics=raw["metrics"],
             data_rows=raw.get("data_rows"),
             weights_sha256=raw["weights_sha256"],
@@ -69,9 +71,11 @@ class Model:
         }
         return np.column_stack([columns[name] for name in self.features])
 
-    def half_life(self, x: np.ndarray) -> np.ndarray:
-        z = np.clip(x @ self.theta, -60.0, 60.0)
-        return np.clip(np.exp2(z), MIN_HALF_LIFE, MAX_HALF_LIFE)
+    def half_life(self, x: np.ndarray, card_keys: list[str | None] | None = None) -> np.ndarray:
+        z = x @ self.theta
+        if card_keys is not None:
+            z = z + np.array([self.card_terms.get(k, 0.0) if k else 0.0 for k in card_keys])
+        return np.clip(np.exp2(np.clip(z, -60.0, 60.0)), MIN_HALF_LIFE, MAX_HALF_LIFE)
 
 
 def recall(h: np.ndarray, delta_days: np.ndarray) -> np.ndarray:

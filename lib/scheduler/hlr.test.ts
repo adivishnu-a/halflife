@@ -76,3 +76,14 @@ describe("arithmetic", () => {
     expect(recall(h, nextIntervalDays(h, 0.9))).toBeCloseTo(0.9, 12);
   });
 });
+
+describe("per-card terms", () => {
+  const w: Weights = { version: 9, features: ["bias", "sqrt_correct"], theta: [2, 0.5], cardTerms: { "deck:hard": -1 } };
+  it("add to the exponent when the card has a term and are inert otherwise", () => {
+    const plain = predict(w, { seen: 3, correct: 3 }, 1, 0.9);
+    const known = predict(w, { seen: 3, correct: 3, cardKey: "deck:hard" }, 1, 0.9);
+    const unknown = predict(w, { seen: 3, correct: 3, cardKey: "deck:other" }, 1, 0.9);
+    expect(known.halfLifeDays).toBeCloseTo(plain.halfLifeDays / 2, 12);
+    expect(unknown.halfLifeDays).toBe(plain.halfLifeDays);
+  });
+});

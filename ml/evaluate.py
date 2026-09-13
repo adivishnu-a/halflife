@@ -148,6 +148,7 @@ class HlrRun:
             if lex_path.exists()
             else None
         )
+        self.card_terms: dict[str, float] = weights.get("card_terms", {})
 
     def predict(self, df: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
         x = featurize(

@@ -25,11 +25,15 @@ export interface Weights {
   version: number;
   features: FeatureName[];
   theta: number[];
+  /** Per-card difficulty terms keyed by the card's shared source key. */
+  cardTerms: Record<string, number>;
 }
 
 export interface CardHistory {
   seen: number;
   correct: number;
+  /** Shared key for the per-card term, when the card has one. */
+  cardKey?: string | null;
   /** Days since the card was first seen. Omit when unknown; the feature is then inert. */
   daysSinceFirst?: number;
   /** Response time of the last review in milliseconds. Omit when unknown. */
@@ -52,8 +56,8 @@ export function featurize(card: CardHistory, names: readonly FeatureName[]): num
 
 const clamp = (x: number, lo: number, hi: number) => Math.min(Math.max(x, lo), hi);
 
-export function halfLife(features: number[], theta: number[]): number {
-  let z = 0;
+export function halfLife(features: number[], theta: number[], cardTerm = 0): number {
+  let z = cardTerm;
   for (let i = 0; i < theta.length; i++) z += theta[i]! * features[i]!;
   return clamp(Math.pow(2, clamp(z, -60, 60)), MIN_HALF_LIFE, MAX_HALF_LIFE);
 }
@@ -80,7 +84,7 @@ export function predict(
   targetRetention: number,
 ): Prediction {
   const features = featurize(card, weights.features);
-  const h = halfLife(features, weights.theta);
+  const h = halfLife(features, weights.theta, card.cardKey ? (weights.cardTerms[card.cardKey] ?? 0) : 0);
   return {
     features,
     halfLifeDays: h,

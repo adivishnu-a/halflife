@@ -45,6 +45,7 @@ async function predictPython(inputs: PredictInput[]): Promise<PredictResult> {
           delta_days: i.deltaDays,
           days_since_first: i.daysSinceFirst ?? 0,
           response_ms: i.responseMs ?? 0,
+          card_key: i.cardKey ?? null,
         },
       })),
     }),

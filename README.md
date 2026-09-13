@@ -7,7 +7,7 @@ moment predicted recall drops to your target.
 The model is half-life regression (Settles and Meeder, ACL 2016), trained on the
 13 million Duolingo learning traces and retrained on the app's own opt-in logs.
 
-Status: the model is trained and exported, the service is written. The app comes next.
+Live at https://halflifecards.vercel.app.
 
 ## Layout
 
@@ -50,6 +50,26 @@ uv run python -m export runs/v1 --version 1
 `ml/REPORT.md` has every number: Leitner, SM-2, logistic regression and half-life
 regression on the same held-out-by-user split, calibration, and a workload
 simulation. The config records the seed.
+
+## How the model is promoted
+
+`ml/retrain.py` pulls every review from users who opted in to sharing logs: the
+counts seen and remembered, the gap, the response time, the outcome, a hashed
+user id and the card's shared key. Never card text. It fine-tunes the global
+weights from the shipped file, learns a per-card term for each card key, and
+scores the candidate and the current model on a held-out slice: by user when
+there are five or more opted-in users, otherwise each user's latest reviews.
+
+`.github/workflows/retrain.yml` runs it on the first of every month, or by hand.
+If held-out log-loss improves, the workflow writes `model/weights.v<N+1>.json`
+and new parity fixtures, points `lib/scheduler/weights.ts` at the new file, runs
+the parity tests, and opens a pull request whose body is the run's report. If
+not, it only writes the report to the job summary. Nothing reaches production
+without a merged pull request, and every promoted run's report is kept in
+`ml/reports/`.
+
+Classic (SM-2) is the default scheduler until a retrained model beats it on the
+app's own reviews. That switch is a one-line change in a promotion pull request.
 
 ## Parity
 

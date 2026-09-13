@@ -126,3 +126,13 @@ def test_schedule_rejects_target_retention_outside_0_1():
 
 def test_empty_batch_is_rejected():
     assert client.post("/api/py/predict", json={"items": []}).status_code == 422
+
+
+def test_card_terms_shift_the_half_life():
+    m = Model.load()
+    with_terms = Model(**{**m.__dict__, "card_terms": {"deck:hard": -1.0}})
+    x = m.featurize(np.array([3.0]), np.array([3.0]), np.array([0.0]), np.array([0.0]))
+    plain = with_terms.half_life(x)[0]
+    assert with_terms.half_life(x, ["deck:hard"])[0] == pytest.approx(plain / 2)
+    assert with_terms.half_life(x, ["deck:other"])[0] == plain
+    assert with_terms.half_life(x, [None])[0] == plain

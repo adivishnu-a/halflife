@@ -7,4 +7,5 @@ export const WEIGHTS: Weights = {
   version: weightsV1.version,
   features: weightsV1.features as Weights["features"],
   theta: weightsV1.theta,
+  cardTerms: weightsV1.card_terms,
 };

@@ -1,0 +1,11 @@
+# Retraining on the app's own opted-in review logs, starting from the shipped weights.
+features: [bias, sqrt_seen, sqrt_correct, sqrt_wrong, log_days_since_first, log_response_s]
+seed: 42
+holdout_fraction: 0.2
+min_rows: 500            # spaced reviews needed before a retrain is attempted
+min_users_for_user_split: 5   # below this, hold out each user's latest reviews instead
+epochs: 30
+batch_size: 256
+learning_rate: 0.01
+prior_l2: 0.05           # pull toward the current global weights; small data, strong prior
+card_l2: 0.01            # shrink per-card terms toward zero

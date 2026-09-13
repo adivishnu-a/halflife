@@ -1,0 +1,94 @@
+name: retrain
+
+# Monthly: pull opted-in review logs from Neon, fine-tune the model from the
+# shipped weights, score it on a held-out slice, and open a pull request with
+# the new weights file only if held-out log-loss improves. Adi merges; Vercel
+# deploys. workflow_dispatch runs it by hand.
+on:
+  schedule:
+    - cron: "17 3 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      RETRAIN_SALT: ${{ secrets.RETRAIN_SALT }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install
+        working-directory: ml
+        run: uv sync --frozen
+
+      - name: Find the shipped weights
+        id: current
+        run: |
+          f=$(ls model/weights.v*.json | sort -V | tail -1)
+          echo "file=$f" >> "$GITHUB_OUTPUT"
+          echo "version=$(python3 -c "import json;print(json.load(open('$f'))['version'])")" >> "$GITHUB_OUTPUT"
+
+      - name: Retrain
+        id: retrain
+        working-directory: ml
+        run: uv run python -m retrain --current ../${{ steps.current.outputs.file }}
+
+      - name: Report
+        run: |
+          report=$(ls -d ml/runs/retrain-*/ | tail -1)RETRAIN.md
+          cat "$report" >> "$GITHUB_STEP_SUMMARY"
+          mkdir -p ml/reports
+          cp "$report" "ml/reports/retrain-$(date -u +%Y-%m-%d).md"
+          echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_ENV"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retrain-run
+          path: ml/runs/retrain-*/
+          if-no-files-found: ignore
+
+      - name: Point the app at the new weights
+        if: steps.retrain.outputs.promoted == 'true'
+        run: |
+          next=$(( ${{ steps.current.outputs.version }} + 1 ))
+          sed -i "s/weights\.v[0-9]*\.json/weights.v${next}.json/" lib/scheduler/weights.ts
+          echo "version=$next" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-node@v4
+        if: steps.retrain.outputs.promoted == 'true'
+        with:
+          node-version: 24
+          cache: npm
+      - name: Parity across Python, TypeScript and the service
+        if: steps.retrain.outputs.promoted == 'true'
+        run: |
+          npm ci
+          npm run typecheck
+          npm test
+          cd ml && uv run pytest -q
+
+      - name: Open a pull request
+        if: steps.retrain.outputs.promoted == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: retrain/v${{ env.version }}
+          title: "Model v${{ env.version }}: retrained on opted-in reviews"
+          body-path: ml/reports/retrain-${{ env.date }}.md
+          commit-message: "Model v${{ env.version }}: retrained on opted-in reviews"
+          add-paths: |
+            model/
+            lib/scheduler/weights.ts
+            ml/reports/
+          labels: model
+          delete-branch: true
+
+      - name: Keep the report when nothing was promoted
+        if: steps.retrain.outputs.promoted != 'true'
+        run: echo "Not promoted: ${{ steps.retrain.outputs.reason }}"

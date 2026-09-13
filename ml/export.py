@@ -52,10 +52,15 @@ def weights_payload(run: HlrRun, version: int) -> dict:
         "config": run.config,
         "features": run.features,
         "theta": theta,
+        # Per-card difficulty terms keyed by the card's shared source key, added to
+        # theta . x before the power of two. Empty until the app's own logs train them.
+        "card_terms": run.card_terms,
         "data_rows": metrics.get("rows"),
         "split": metrics.get("split"),
         "metrics": {k: metrics[k]["hlr"] for k in ("all", "mature", "spaced") if k in metrics},
-        "weights_sha256": hashlib.sha256(json.dumps(theta).encode()).hexdigest(),
+        "weights_sha256": hashlib.sha256(
+            json.dumps({"theta": theta, "card_terms": run.card_terms}, sort_keys=True).encode()
+        ).hexdigest(),
     }
 
 

@@ -70,7 +70,14 @@ class Tensors:
 
 
 def to_tensors(df: pd.DataFrame, features: list[str], lexeme_term: bool) -> Tensors:
-    x = featurize(df["history_seen"].to_numpy(), df["history_correct"].to_numpy(), names=features)
+    # The Duolingo traces have no first-seen date or response time; the app's logs do.
+    x = featurize(
+        df["history_seen"].to_numpy(),
+        df["history_correct"].to_numpy(),
+        df["days_since_first"].to_numpy() if "days_since_first" in df else None,
+        df["response_ms"].to_numpy() if "response_ms" in df else None,
+        names=features,
+    )
     delta = delta_days(df)
     p = clip_p(df["p_recall"].to_numpy(dtype=np.float64))
     return Tensors(

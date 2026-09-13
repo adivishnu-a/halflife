@@ -47,7 +47,7 @@ export async function gradeCard(input: GradeInput): Promise<GradeResult | GradeE
       : null;
 
   const [card] = await db
-    .select({ id: schema.cards.id, deckId: schema.cards.deckId })
+    .select({ id: schema.cards.id, deckId: schema.cards.deckId, sourceKey: schema.cards.sourceKey })
     .from(schema.cards)
     .innerJoin(schema.decks, eq(schema.decks.id, schema.cards.deckId))
     .where(and(eq(schema.cards.id, input.cardId), eq(schema.decks.userId, userId)))
@@ -70,6 +70,7 @@ export async function gradeCard(input: GradeInput): Promise<GradeResult | GradeE
       id: "before",
       seen: before.seen,
       correct: before.correct,
+      cardKey: card.sourceKey,
       daysSinceFirst,
       responseMs: before.lastResponseMs ?? undefined,
       deltaDays: before.lastReviewedAt ? Math.max(0, (reviewedAt.getTime() - before.lastReviewedAt.getTime()) / DAY_MS) : 0,
@@ -78,6 +79,7 @@ export async function gradeCard(input: GradeInput): Promise<GradeResult | GradeE
       id: "after",
       seen: after.seen,
       correct: after.correct,
+      cardKey: card.sourceKey,
       daysSinceFirst: daysSinceFirst ?? 0,
       responseMs: responseMs ?? undefined,
       deltaDays: 0,
