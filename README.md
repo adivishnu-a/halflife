@@ -7,11 +7,12 @@ moment predicted recall drops to your target.
 The model is half-life regression (Settles and Meeder, ACL 2016), trained on the
 13 million Duolingo learning traces and retrained on the app's own opt-in logs.
 
-Status: the model is trained and exported. The app comes next.
+Status: the model is trained and exported, the service is written. The app comes next.
 
 ## Layout
 
 ```
+app/             Next.js 16 App Router, TypeScript, Tailwind v4
 ml/              training pipeline: download, features, baselines, train, evaluate, export
 model/           the shipped weights, versioned JSON, plus the parity fixtures
 api/             FastAPI service, NumPy inference, deployed as a Vercel Python function
@@ -60,7 +61,15 @@ half-life, recall and next interval to six decimal places. CI runs both.
 ```
 npm install
 npm run typecheck
+npm run lint
 npm test
+```
+
+## Run the app locally
+
+```
+ml/.venv/bin/uvicorn api.index:app --port 8000   # the Python function
+npm run dev                                       # Next.js, rewrites /api/py/* to port 8000
 ```
 
 ## Attribution
