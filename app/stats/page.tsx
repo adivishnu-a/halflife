@@ -21,7 +21,7 @@ export default async function StatsPage({ searchParams }: { searchParams: Promis
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <h1 className="text-2xl font-semibold">Stats{deckName ? `: ${deckName}` : ""}</h1>
+        <h1 className="text-3xl font-bold">Stats{deckName ? `: ${deckName}` : ""}</h1>
         {decks.length > 1 && (
           <nav aria-label="Deck" className="flex flex-wrap gap-1 text-sm">
             <Link href="/stats" aria-current={!deckId ? "page" : undefined} className={`inline-flex min-h-11 items-center rounded-md px-3 ${!deckId ? "bg-paper-2 font-medium" : "muted hover:bg-paper-2"}`}>
@@ -37,23 +37,23 @@ export default async function StatsPage({ searchParams }: { searchParams: Promis
       </div>
 
       {stats.totalReviews === 0 ? (
-        <p className="card p-6 muted">No reviews yet. Numbers appear here after your first session.</p>
+        <p className="stock p-6 muted">No reviews yet. Numbers appear here after your first session.</p>
       ) : (
         <>
-          <dl className="grid gap-4 sm:grid-cols-3">
-            <div className="card p-4">
+          <dl className="grid gap-6 border-y border-line py-5 sm:grid-cols-3">
+            <div>
               <dt className="text-sm muted">Retention on due reviews</dt>
-              <dd className="mt-1 text-2xl font-semibold">{stats.retention === null ? "–" : formatPercent(stats.retention)}</dd>
+              <dd className="mt-1 text-3xl font-bold">{stats.retention === null ? "–" : formatPercent(stats.retention)}</dd>
               <dd className="text-sm faint">{formatNumber(stats.dueReviews)} reviews of cards seen before</dd>
             </div>
-            <div className="card p-4">
+            <div>
               <dt className="text-sm muted">Reviews in 90 days</dt>
-              <dd className="mt-1 text-2xl font-semibold">{formatNumber(stats.perDay.reduce((a, d) => a + d.reviews, 0))}</dd>
+              <dd className="mt-1 text-3xl font-bold">{formatNumber(stats.perDay.reduce((a, d) => a + d.reviews, 0))}</dd>
               <dd className="text-sm faint">{formatNumber(stats.totalReviews)} all time</dd>
             </div>
-            <div className="card p-4">
+            <div>
               <dt className="text-sm muted">Reviews per active day</dt>
-              <dd className="mt-1 text-2xl font-semibold">
+              <dd className="mt-1 text-3xl font-bold">
                 {(() => {
                   const active = stats.perDay.filter((d) => d.reviews > 0);
                   return active.length ? formatNumber(Math.round(active.reduce((a, d) => a + d.reviews, 0) / active.length)) : "–";

@@ -37,7 +37,7 @@ export function RecoverForm() {
 
   if (newCode) {
     return (
-      <section className="card rise p-5 sm:p-6" aria-live="polite">
+      <section className="stock rise p-5 sm:p-6" aria-live="polite">
         <h2 className="text-lg font-semibold">Password changed. Here is your new recovery code</h2>
         <p className="mt-1 text-sm muted">The old one no longer works. Save this one; it is shown once.</p>
         <p className="mt-4 select-all break-all rounded-md border border-line bg-paper-2 p-4 font-mono text-xl tracking-wide">{newCode}</p>
@@ -56,7 +56,7 @@ export function RecoverForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="card space-y-3 p-5 sm:p-6">
+    <form onSubmit={onSubmit} className="stock space-y-3 p-5 sm:p-6">
       <div>
         <label htmlFor="rc-username" className="label">Username</label>
         <input id="rc-username" name="username" className="field" autoComplete="username" required spellCheck={false} />

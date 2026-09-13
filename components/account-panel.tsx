@@ -82,7 +82,7 @@ function Guest({ hasSession, onCode }: { hasSession: boolean; onCode: (c: string
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      <section className="card p-5 sm:p-6">
+      <section className="stock p-5 sm:p-6">
         <h2 className="text-lg font-semibold">Pick a username and password</h2>
         <p className="mt-1 text-sm muted">
           {hasSession ? "Everything in this browser comes with you. " : ""}No email, nothing to verify.
@@ -109,7 +109,7 @@ function Guest({ hasSession, onCode }: { hasSession: boolean; onCode: (c: string
         </form>
       </section>
 
-      <section className="card p-5 sm:p-6">
+      <section className="stock p-5 sm:p-6">
         <h2 className="text-lg font-semibold">Already have an account</h2>
         <p className="mt-1 text-sm muted">
           {hasSession ? "This browser's decks move into that account." : "Sign in to pick up where you left off."}
@@ -182,7 +182,7 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
 
   return (
     <div className="space-y-6">
-      <section className="card p-5 sm:p-6">
+      <section className="stock p-5 sm:p-6">
         <p>
           Signed in as <strong>{username}</strong>. Your decks and reviews are saved to this account and open on any device.
         </p>
@@ -202,7 +202,7 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
         </div>
       </section>
 
-      <section className="card p-5 sm:p-6">
+      <section className="stock p-5 sm:p-6">
         <h2 className="text-lg font-semibold">Recovery code</h2>
         <p className="mt-1 text-sm muted">
           The only way back in without the password. Getting a new one cancels the old one.
@@ -223,7 +223,7 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
         </button>
       </section>
 
-      <section className="card p-5 sm:p-6">
+      <section className="stock p-5 sm:p-6">
         <h2 className="text-lg font-semibold">Delete account</h2>
         <p className="mt-1 text-sm muted">Deletes the account, every deck, every review. Export first if you want a copy. There is no undo.</p>
         {confirmDelete ? (
@@ -252,7 +252,7 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
 function RecoveryCodeOnce({ code, onDone }: { code: string; onDone: () => void }) {
   const [copied, setCopied] = useState(false);
   return (
-    <section className="card rise p-5 sm:p-6" aria-live="polite">
+    <section className="stock rise p-5 sm:p-6" aria-live="polite">
       <h2 className="text-lg font-semibold">Save this recovery code</h2>
       <p className="mt-1 text-sm muted">
         It is shown once. It signs you in if you forget your password. Halflife cannot recover it for you.

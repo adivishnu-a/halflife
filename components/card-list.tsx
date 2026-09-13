@@ -7,15 +7,24 @@ import { deleteCard, updateCard } from "@/lib/actions/decks";
 import type { CardRow } from "@/lib/decks";
 import { formatDue } from "@/lib/format";
 
-export function CardList({ cards, targetRetention }: { cards: CardRow[]; targetRetention: number }) {
+export function CardList({
+  cards,
+  targetRetention,
+  now: nowMs,
+}: {
+  cards: CardRow[];
+  targetRetention: number;
+  /** Render time from the server, so server and client compute the same numbers. */
+  now: number;
+}) {
   if (cards.length === 0) {
     return (
-      <p className="card p-5 muted">
+      <p className="stock p-5 muted">
         No cards yet. Add one above, or import a CSV.
       </p>
     );
   }
-  const now = new Date();
+  const now = new Date(nowMs);
   return (
     <ul className="divide-y divide-line border-y border-line">
       {cards.map((card) => (

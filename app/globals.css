@@ -1,25 +1,45 @@
 @import "tailwindcss";
 
 /*
-  Halflife design tokens. One family (Archivo), ink chrome, colour reserved for
-  what the model says: the recall meter and the two grades. Light by default,
-  dark when the system asks for it; the same tokens drive both.
+  Halflife design tokens.
+
+  Materials: warm paper for the app, cream card stock for anything that is a
+  card, and a deep navy desk mat that the review screen is drenched in. Navy is
+  the accent everywhere else. Green and rust are reserved for the two grades.
+  Light and dark are separate palettes, chosen by the system or the toggle.
 */
 @theme {
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
 
-  --color-paper: #f7f6f2;
-  --color-paper-2: #edece6;
-  --color-line: #d6d4cc;
-  --color-ink: #17171a;
-  --color-ink-2: #55544f;
-  --color-ink-3: #69675f;
-  --color-on-ink: #f7f6f2;
-  --color-remembered: #186f42;
-  --color-remembered-tint: #dcefe3;
-  --color-forgot: #a83d25;
-  --color-forgot-tint: #f5e1dc;
-  --color-focus: #2b5bd7;
+  --color-paper: #f3f0e8;
+  --color-paper-2: #e9e5da;
+  --color-line: #d3cec0;
+  --color-stock: #fffdf6;
+  --color-stock-edge: #e6e0cf;
+  --color-ink: #1b1a17;
+  --color-ink-2: #5b5850;
+  --color-ink-3: #66635b;
+  --color-on-ink: #fffdf6;
+
+  --color-mat: #1f2b52;
+  --color-mat-2: #182243;
+  --color-mat-line: #34427a;
+  --color-on-mat: #f4f1e8;
+  --color-on-mat-2: #b7bdd6;
+
+  --color-accent: #2a3f8f;
+  --color-accent-2: #1f3072;
+  --color-on-accent: #fffdf6;
+  --color-accent-tint: #e2e6f6;
+
+  --color-remembered: #1e7b47;
+  --color-remembered-2: #15602f;
+  --color-remembered-tint: #d9efe1;
+  --color-forgot: #b0412a;
+  --color-forgot-2: #8a3221;
+  --color-forgot-tint: #f5ddd5;
+  --color-on-grade: #fffdf6;
+  --color-focus: #2a3f8f;
 
   --text-xs: 0.8125rem;
   --text-sm: 0.9375rem;
@@ -28,34 +48,86 @@
   --text-xl: 1.5rem;
   --text-2xl: 1.875rem;
   --text-3xl: 2.375rem;
+  --text-4xl: 3rem;
 
   --radius-sm: 0.375rem;
-  --radius-md: 0.625rem;
-  --radius-lg: 1rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+  --radius-xl: 1.5rem;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
 }
 
+/* Dark palette: the mat gets deeper, the cards keep their cream. */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --color-paper: #151517;
-    --color-paper-2: #1f1f23;
-    --color-line: #3a3a40;
-    --color-ink: #ecebe5;
-    --color-ink-2: #b3b1a9;
-    --color-ink-3: #8d8b83;
-    --color-on-ink: #151517;
-    --color-remembered: #4fbf82;
-    --color-remembered-tint: #1a3326;
-    --color-forgot: #e2745a;
-    --color-forgot-tint: #3d221b;
-    --color-focus: #7fa3ff;
+  :root:not([data-theme="light"]) {
+    --color-paper: #171613;
+    --color-paper-2: #221f1a;
+    --color-line: #3a362e;
+    --color-stock: #f7f3e8;
+    --color-stock-edge: #dcd5c2;
+    --color-ink: #efeadf;
+    --color-ink-2: #b4ad9e;
+    --color-ink-3: #948d7e;
+    --color-on-ink: #171613;
+    --color-mat: #16203f;
+    --color-mat-2: #101833;
+    --color-mat-line: #2b3868;
+    --color-on-mat: #f4f1e8;
+    --color-on-mat-2: #aeb5d2;
+    --color-accent: #8ea2f0;
+    --color-accent-2: #6f86e6;
+    --color-on-accent: #101833;
+    --color-accent-tint: #232c4d;
+    --color-remembered: #46b877;
+    --color-remembered-2: #2f9a5c;
+    --color-remembered-tint: #1b3326;
+    --color-forgot: #e07a5f;
+    --color-forgot-2: #c55f44;
+    --color-forgot-tint: #3d241c;
+    --color-on-grade: #101833;
+    --color-focus: #8ea2f0;
   }
+}
+:root[data-theme="dark"] {
+  --color-paper: #171613;
+  --color-paper-2: #221f1a;
+  --color-line: #3a362e;
+  --color-stock: #f7f3e8;
+  --color-stock-edge: #dcd5c2;
+  --color-ink: #efeadf;
+  --color-ink-2: #b4ad9e;
+  --color-ink-3: #948d7e;
+  --color-on-ink: #171613;
+  --color-mat: #16203f;
+  --color-mat-2: #101833;
+  --color-mat-line: #2b3868;
+  --color-on-mat: #f4f1e8;
+  --color-on-mat-2: #aeb5d2;
+  --color-accent: #8ea2f0;
+  --color-accent-2: #6f86e6;
+  --color-on-accent: #101833;
+  --color-accent-tint: #232c4d;
+  --color-remembered: #46b877;
+  --color-remembered-2: #2f9a5c;
+  --color-remembered-tint: #1b3326;
+  --color-forgot: #e07a5f;
+  --color-forgot-2: #c55f44;
+  --color-forgot-tint: #3d241c;
+  --color-on-grade: #101833;
+  --color-focus: #8ea2f0;
 }
 
 @layer base {
   :root {
     color-scheme: light dark;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
   }
   html {
     background: var(--color-paper);
@@ -72,11 +144,11 @@
     font-feature-settings: "tnum" 1, "cv11" 1;
   }
   ::selection {
-    background: var(--color-ink);
-    color: var(--color-on-ink);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
   }
   :focus-visible {
-    outline: 2px solid var(--color-focus);
+    outline: 3px solid var(--color-focus);
     outline-offset: 2px;
     border-radius: var(--radius-sm);
   }
@@ -90,7 +162,7 @@
   textarea {
     font: inherit;
     color: inherit;
-    caret-color: var(--color-ink);
+    caret-color: var(--color-accent);
   }
   input::placeholder,
   textarea::placeholder {
@@ -100,8 +172,12 @@
   h2,
   h3 {
     text-wrap: balance;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-variation-settings: "wdth" 110;
+  }
+  kbd {
+    font-family: var(--font-sans);
   }
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -114,31 +190,45 @@
 }
 
 @layer components {
+  /* Buttons: one shape everywhere. Chunky ones press down. */
   .btn {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-medium transition-[background-color,color,border-color,transform] duration-150;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-semibold;
     border: 1px solid transparent;
-  }
-  .btn:active {
-    transform: translateY(1px);
+    transition:
+      background-color 150ms,
+      color 150ms,
+      border-color 150ms,
+      transform 100ms,
+      box-shadow 100ms;
   }
   .btn:disabled {
     opacity: 0.55;
     cursor: not-allowed;
-    transform: none;
   }
   .btn-primary {
-    background: var(--color-ink);
-    color: var(--color-on-ink);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    box-shadow: 0 3px 0 var(--color-accent-2);
   }
   .btn-primary:hover:not(:disabled) {
-    background: color-mix(in oklab, var(--color-ink) 86%, var(--color-paper));
+    filter: brightness(1.06);
+  }
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 var(--color-accent-2);
   }
   .btn-secondary {
-    background: transparent;
-    border-color: var(--color-line);
+    background: var(--color-stock);
+    color: #1b1a17;
+    border-color: var(--color-stock-edge);
+    box-shadow: 0 2px 0 var(--color-stock-edge);
   }
   .btn-secondary:hover:not(:disabled) {
-    background: var(--color-paper-2);
+    filter: brightness(0.98);
+  }
+  .btn-secondary:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 var(--color-stock-edge);
   }
   .btn-danger {
     background: transparent;
@@ -156,10 +246,35 @@
     background: var(--color-paper-2);
     color: var(--color-ink);
   }
+  .btn-grade {
+    @apply min-h-14 rounded-lg text-lg;
+    color: var(--color-on-grade);
+    box-shadow: 0 5px 0 var(--grade-shadow);
+    background: var(--grade-bg);
+  }
+  .btn-grade:hover:not(:disabled) {
+    filter: brightness(1.06);
+  }
+  .btn-grade:active:not(:disabled),
+  .btn-grade[data-pressed="true"] {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 var(--grade-shadow);
+  }
+  .btn-remembered {
+    --grade-bg: var(--color-remembered);
+    --grade-shadow: var(--color-remembered-2);
+  }
+  .btn-forgot {
+    --grade-bg: var(--color-forgot);
+    --grade-shadow: var(--color-forgot-2);
+  }
+
   .field {
     @apply block w-full min-h-11 rounded-md px-3 text-base;
-    background: var(--color-paper);
-    border: 1px solid var(--color-line);
+    background: var(--color-stock);
+    color: #1b1a17;
+    border: 1px solid var(--color-stock-edge);
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.04);
   }
   .field:hover {
     border-color: var(--color-ink-3);
@@ -167,13 +282,82 @@
   .field[aria-invalid="true"] {
     border-color: var(--color-forgot);
   }
+  .field::placeholder {
+    color: #7a766c;
+  }
   .label {
     @apply mb-1.5 block text-sm font-medium;
     color: var(--color-ink-2);
   }
-  .card {
-    background: var(--color-paper);
-    border: 1px solid var(--color-line);
+
+  /* A card: cream stock with a soft lift. Text on stock is always dark ink. */
+  .stock {
+    background: var(--color-stock);
+    color: #1b1a17;
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 1px 0 var(--color-stock-edge),
+      0 8px 24px -12px rgb(20 18 10 / 0.35);
+  }
+  .stock .muted,
+  .stock .label {
+    color: #5b5850;
+  }
+  .stock .faint {
+    color: #66635b;
+  }
+  .stock .field {
+    background: #fff;
+  }
+  /* State colours on cream stay the light palette in both themes. */
+  .stock .text-remembered,
+  .stock .btn-remembered-text {
+    color: #1e7b47;
+  }
+  .stock .text-forgot,
+  .stock .btn-danger {
+    color: #b0412a;
+    border-color: #b0412a;
+  }
+  .stock .btn-danger:hover:not(:disabled) {
+    background: #f5ddd5;
+  }
+  .stock .btn-ghost {
+    color: #5b5850;
+  }
+  .stock .btn-ghost:hover:not(:disabled) {
+    background: #efe9d9;
+    color: #1b1a17;
+  }
+  .stock .btn-primary {
+    background: #2a3f8f;
+    color: #fffdf6;
+    box-shadow: 0 3px 0 #1f3072;
+  }
+  .stock a {
+    color: inherit;
+  }
+  .stock ::selection {
+    background: #2a3f8f;
+    color: #fffdf6;
+  }
+  .stock :focus-visible {
+    outline-color: #2a3f8f;
+  }
+  .stock .text-ink,
+  .stock strong {
+    color: #1b1a17;
+  }
+  .stock .bg-paper-2 {
+    background: #efe9d9;
+  }
+  .stock .border-line,
+  .stock .divide-line > * {
+    border-color: #e6e0cf;
+  }
+  /* A panel: paper on paper, an edge and no lift. */
+  .panel {
+    background: var(--color-paper-2);
     border-radius: var(--radius-lg);
   }
   .muted {
@@ -182,13 +366,14 @@
   .faint {
     color: var(--color-ink-3);
   }
+
   .rise {
     animation: rise 320ms var(--ease-out) both;
   }
   @keyframes rise {
     from {
       opacity: 0;
-      transform: translateY(6px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
@@ -201,5 +386,172 @@
 @media (pointer: coarse) {
   kbd {
     display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- the desk */
+
+.mat {
+  background: var(--color-mat);
+  color: var(--color-on-mat);
+  border-radius: var(--radius-xl);
+}
+.mat .on-mat-2 {
+  color: var(--color-on-mat-2);
+}
+.mat :focus-visible {
+  outline-color: var(--color-on-mat);
+}
+
+/* Session bar: one segment per card, filled by the grade. */
+.segments {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 3px;
+  height: 6px;
+}
+.segments > i {
+  display: block;
+  border-radius: 999px;
+  background: var(--color-mat-line);
+  transition: background-color 250ms;
+}
+.segments > i[data-grade="remembered"] {
+  background: var(--color-remembered);
+}
+.segments > i[data-grade="forgot"] {
+  background: var(--color-forgot);
+}
+.segments > i[data-current="true"] {
+  background: var(--color-on-mat-2);
+}
+
+/* The stack: two cards peek out behind the top one. */
+.stack {
+  position: relative;
+  perspective: 1400px;
+}
+.stack-ghost {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-stock);
+  box-shadow: 0 1px 0 var(--color-stock-edge);
+  transform-origin: 50% 100%;
+}
+.stack-ghost.one {
+  transform: translateY(10px) scale(0.965);
+  opacity: 0.85;
+}
+.stack-ghost.two {
+  transform: translateY(20px) scale(0.93);
+  opacity: 0.6;
+}
+
+/* The flip card: two faces in one grid cell, the container rotates. */
+.flip {
+  position: relative;
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 420ms var(--ease-out);
+}
+.flip.flipped {
+  transform: rotateY(180deg);
+}
+.face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.face.back {
+  transform: rotateY(180deg);
+}
+.flip.flipped .face.front {
+  pointer-events: none;
+}
+
+/* The top card arrives from the stack; a graded card is thrown off. */
+.deal {
+  animation: deal 360ms var(--ease-out) both;
+}
+@keyframes deal {
+  from {
+    transform: translateY(10px) scale(0.965);
+    opacity: 0.85;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.throw-right,
+.throw-left {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: throw-right 420ms var(--ease-in) forwards;
+}
+.throw-left {
+  animation-name: throw-left;
+}
+@keyframes throw-right {
+  to {
+    transform: translate(120%, -6%) rotate(10deg);
+    opacity: 0;
+  }
+}
+@keyframes throw-left {
+  to {
+    transform: translate(-120%, -6%) rotate(-10deg);
+    opacity: 0;
+  }
+}
+.stamp {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  padding: 6px 12px;
+  border: 3px solid currentColor;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+  animation: stamp 180ms var(--ease-out) both;
+}
+@keyframes stamp {
+  from {
+    transform: rotate(-8deg) scale(1.6);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(-8deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip {
+    transition: none;
+  }
+  .flip.flipped {
+    transform: none;
+  }
+  .flip.flipped .face.front {
+    display: none;
+  }
+  .face.back {
+    transform: none;
+  }
+  .throw-right,
+  .throw-left {
+    animation: fade-out 200ms linear forwards;
+  }
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
   }
 }

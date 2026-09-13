@@ -21,8 +21,8 @@ export function DeckTools({ deckId, deckName, cardCount }: { deckId: string; dec
 
   return (
     <div className="space-y-4">
-      <section className="card p-5">
-        <h2 className="text-base font-medium">Add a card</h2>
+      <section className="stock p-5">
+        <h2 className="text-lg font-bold">Add a card</h2>
         <form action={addAction} className="mt-3 grid gap-3 sm:grid-cols-2" key={addState?.ok ? addState.message : "add"}>
           <input type="hidden" name="deckId" value={deckId} />
           <div>
@@ -50,13 +50,13 @@ export function DeckTools({ deckId, deckName, cardCount }: { deckId: string; dec
         </form>
       </section>
 
-      <details className="card group">
-        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-5 py-3 text-base font-medium marker:hidden">
+      <details className="panel group">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-5 py-3 text-base font-semibold marker:hidden">
           Import, export, rename, delete
           <span aria-hidden="true" className="text-sm faint group-open:hidden">show</span>
           <span aria-hidden="true" className="hidden text-sm faint group-open:inline">hide</span>
         </summary>
-        <div className="space-y-6 border-t border-line px-5 py-5">
+        <div className="space-y-6 px-5 pb-5">
           <form action={importAction} className="space-y-3">
             <input type="hidden" name="deckId" value={deckId} />
             <div>

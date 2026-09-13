@@ -31,17 +31,17 @@ export default async function DeckPage({ params }: { params: Promise<{ id: strin
       </nav>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
-          <h1 className="break-words text-2xl font-semibold">{deck.name}</h1>
+          <h1 className="break-words text-3xl font-bold">{deck.name}</h1>
           <p className="mt-1 text-sm muted">
             {plural(cards.length, "card", "cards")} · {due} due · {fresh} new
           </p>
         </div>
         {queue > 0 ? (
-          <Link href={`/decks/${deck.id}/review`} className="btn btn-primary">
+          <Link href={`/decks/${deck.id}/review`} className="btn btn-primary min-h-12 px-5 text-base">
             Review {queue} {queue === 1 ? "card" : "cards"}
           </Link>
         ) : (
-          <span className="btn btn-secondary cursor-default" aria-disabled="true">
+          <span className="btn btn-ghost cursor-default" aria-disabled="true">
             {cards.length === 0 ? "Add cards to review" : "Nothing due today"}
           </span>
         )}
@@ -51,8 +51,8 @@ export default async function DeckPage({ params }: { params: Promise<{ id: strin
       <DeckTools deckId={deck.id} deckName={deck.name} cardCount={cards.length} />
 
       <section>
-        <h2 className="mb-3 text-lg font-semibold">Cards</h2>
-        <CardList cards={cards} targetRetention={settings.targetRetention} />
+        <h2 className="mb-3 text-xl font-bold">Cards</h2>
+        <CardList cards={cards} targetRetention={settings.targetRetention} now={now.getTime()} />
       </section>
     </div>
   );

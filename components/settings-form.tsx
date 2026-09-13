@@ -12,7 +12,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
 
   return (
     <form action={action} className="space-y-8">
-      <section className="card space-y-6 p-5 sm:p-6">
+      <section className="stock space-y-6 p-5 sm:p-6">
         <div>
           <label htmlFor="targetRetention" className="label">
             Target retention: <output className="font-semibold text-ink tabular-nums">{formatPercent(retention)}</output>
@@ -26,7 +26,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
             step={0.01}
             value={retention}
             onChange={(e) => setRetention(Number(e.target.value))}
-            className="w-full accent-ink"
+            className="w-full accent-[#2a3f8f]"
           />
           <p className="mt-2 text-sm muted">
             The chance of remembering a card on the day it comes back. Higher means more reviews. The Halflife scheduler
@@ -55,8 +55,8 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         <fieldset>
           <legend className="label">Scheduler</legend>
           <div className="space-y-2">
-            <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-line p-3 has-[:checked]:border-ink">
-              <input type="radio" name="scheduler" value="classic" defaultChecked={settings.scheduler === "classic"} className="mt-1 accent-ink" />
+            <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-line p-3 has-[:checked]:border-[#2a3f8f]">
+              <input type="radio" name="scheduler" value="classic" defaultChecked={settings.scheduler === "classic"} className="mt-1 accent-[#2a3f8f]" />
               <span>
                 <span className="font-medium">Classic</span>
                 <span className="block text-sm muted">
@@ -65,8 +65,8 @@ export function SettingsForm({ settings }: { settings: Settings }) {
                 </span>
               </span>
             </label>
-            <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-line p-3 has-[:checked]:border-ink">
-              <input type="radio" name="scheduler" value="halflife" defaultChecked={settings.scheduler === "halflife"} className="mt-1 accent-ink" />
+            <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-line p-3 has-[:checked]:border-[#2a3f8f]">
+              <input type="radio" name="scheduler" value="halflife" defaultChecked={settings.scheduler === "halflife"} className="mt-1 accent-[#2a3f8f]" />
               <span>
                 <span className="font-medium">Halflife</span>
                 <span className="block text-sm muted">
@@ -85,7 +85,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
 
         <div>
           <label className="flex min-h-11 cursor-pointer items-start gap-3">
-            <input type="checkbox" name="shareLogs" defaultChecked={settings.shareLogs} className="mt-1 accent-ink" />
+            <input type="checkbox" name="shareLogs" defaultChecked={settings.shareLogs} className="mt-1 accent-[#2a3f8f]" />
             <span>
               <span className="font-medium">Share anonymised review logs for retraining</span>
               <span className="block text-sm muted">

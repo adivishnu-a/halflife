@@ -115,13 +115,17 @@ export function RecallMeter({ p, target }: { p: number; target: number }) {
       <span
         role="img"
         aria-label={`Recall ${formatPercent(p)}, target ${formatPercent(target)}`}
-        className="relative inline-block h-2 w-28 overflow-hidden rounded-full bg-paper-2"
+        className="relative inline-block h-2 w-28 overflow-hidden rounded-full"
+        style={{ backgroundColor: "#e6e0cf" }}
       >
         <span
           className="absolute inset-y-0 left-0 rounded-full"
-          style={{ width: `${p * 100}%`, background: p >= target ? "var(--color-remembered)" : "var(--color-forgot)" }}
+          style={{
+            width: `${(p * 100).toFixed(1)}%`,
+            backgroundColor: p >= target ? "#1e7b47" : "#b0412a",
+          }}
         />
-        <span className="absolute inset-y-0 w-px bg-ink" style={{ left: `${target * 100}%` }} />
+        <span className="absolute inset-y-0 w-px" style={{ left: `${(target * 100).toFixed(1)}%`, backgroundColor: "#1b1a17" }} />
       </span>
     </span>
   );

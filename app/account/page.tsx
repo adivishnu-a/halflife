@@ -12,7 +12,7 @@ export default async function AccountPage() {
   const named = !!user && !user.isAnonymous && !!user.username;
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">{named ? "Account" : "Keep my progress"}</h1>
+      <h1 className="text-3xl font-bold">{named ? "Account" : "Keep my progress"}</h1>
       <AccountPanel username={named ? user.username! : null} hasSession={!!user} />
     </div>
   );
