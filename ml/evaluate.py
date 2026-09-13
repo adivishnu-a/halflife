@@ -28,6 +28,7 @@ from sklearn.metrics import roc_auc_score
 from baselines import LogisticBaseline, expand_trials, leitner, sm2
 from dataset import Split, delta_days, load_traces, split_by_user
 from features import observed_half_life
+from simulate import N_CARDS, N_DAYS, TARGET_RETENTION, leitner_scheduler, sm2_scheduler, tune
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -50,6 +51,11 @@ def auc(p: np.ndarray, p_hat: np.ndarray, weights: np.ndarray) -> float:
     return float(
         roc_auc_score(labels[keep], np.concatenate([p_hat, p_hat])[keep], sample_weight=w[keep])
     )
+
+
+def auc_paper(p: np.ndarray, p_hat: np.ndarray) -> float:
+    """The paper's evaluation.r labels each row by rounding p_recall; no trial weighting."""
+    return float(roc_auc_score(np.round(p), p_hat))
 
 
 def calibration(
@@ -82,6 +88,7 @@ def score(df: pd.DataFrame, p_hat: np.ndarray, h_hat: np.ndarray) -> dict[str, f
         "mae_p": float(np.mean(np.abs(p - p_hat))),
         "log_loss": log_loss(p, p_hat, w),
         "auc": auc(p, p_hat, w),
+        "auc_paper": auc_paper(p, p_hat),
         "spearman_h": float(spearmanr(h_obs, h_hat).statistic) if has_h else float("nan"),
         "pearson_h": float(pearsonr(h_obs, h_hat).statistic) if has_h else float("nan"),
     }
@@ -144,6 +151,37 @@ def plot_calibration(cal: dict[str, list[dict]], path: Path, title: str) -> None
     plt.close(fig)
 
 
+def run_simulation() -> dict[str, dict]:
+    out = {}
+    for name, sched in [("leitner", leitner_scheduler), ("sm2", sm2_scheduler)]:
+        o = tune(sched, 0.01, 20.0)
+        out[name] = {
+            "reviews_per_day": o.reviews_per_day,
+            "retention": o.retention,
+            "knob": o.knob,
+            "reviews_by_day": o.reviews_by_day.tolist(),
+        }
+    return out
+
+
+def plot_workload(sim: dict[str, dict], path: Path) -> None:
+    fig, (left, right) = plt.subplots(1, 2, figsize=(10, 4), gridspec_kw={"width_ratios": [1, 2]})
+    names = list(sim)
+    left.bar(names, [sim[n]["reviews_per_day"] for n in names], color="#4a6fa5")
+    left.set_ylabel("reviews per day")
+    left.set_title(f"cost of {TARGET_RETENTION:.0%} retention")
+    for n in names:
+        right.plot(np.arange(1, N_DAYS + 1), sim[n]["reviews_by_day"], label=n)
+    right.set_xlabel("day")
+    right.set_ylabel("reviews")
+    right.set_title(f"daily workload, {N_CARDS:,} cards")
+    right.legend()
+    fig.tight_layout()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def write_report(results: dict, path: Path = REPORT_PATH) -> None:
     columns = ["rows", "mae_p", "log_loss", "auc", "spearman_h", "pearson_h"]
     user = results["user_split"]
@@ -191,14 +229,36 @@ def write_report(results: dict, path: Path = REPORT_PATH) -> None:
     for name, rows in user["calibration"].items():
         d = pd.DataFrame(rows)
         lines += [f"**{name}**", "", d.to_markdown(index=False, floatfmt=".3f"), ""]
+    sim = results["simulation"]
     lines += [
+        "## Workload simulation",
+        "",
+        f"A synthetic learner studies {N_CARDS:,} cards over {N_DAYS} days against a latent",
+        "memory the schedulers never see (see `simulate.py` for the ground truth). Each",
+        "scheduler gets one knob, tuned until realized retention is",
+        f"{TARGET_RETENTION:.0%}: an interval multiplier for the fixed schedulers, the target",
+        "retention for the model. The cost is reviews per day at that setting.",
+        "",
+        "![workload](figures/workload.png)",
+        "",
+        "| scheduler | knob | realized retention | reviews per day |",
+        "|---|---:|---:|---:|",
+        *[
+            f"| {n} | {m['knob']:.3f} | {m['retention']:.3f} | {m['reviews_per_day']:.1f} |"
+            for n, m in sim.items()
+        ],
+        "",
         "## Check against the reference implementation",
         "",
         "The MIT reference splits the first 90% of rows from the last 10% in file order.",
         "Scores on that split, for comparison with the paper's Table 2 (Leitner: MAE 0.235,",
-        "AUC 0.542, cor(h) 0.193; LR: MAE 0.211, AUC 0.514). The reference's cor(h) is Pearson.",
+        "AUC 0.542, cor(h) 0.193; LR: MAE 0.211, AUC 0.514). `auc_paper` labels each row by",
+        "rounding p_recall, as the paper's `evaluation.r` does. On the first 1.3M rows the",
+        "reference script and this code agree to three decimals on MAE, mean half-life error",
+        "and Pearson cor(h), so the released code does not reproduce the paper's positive",
+        "Leitner cor(h); this report uses the released code's numbers.",
         "",
-        markdown_table(ref["all"], columns),
+        markdown_table(ref["all"], [*columns, "auc_paper"]),
         "",
         "## Notes",
         "",
@@ -280,6 +340,10 @@ def main(argv: list[str] | None = None) -> int:
     ref = reference_split(df)
     ref_preds = run_baselines(df, ref, n_lexemes, args.skip_lr, log)
     results["reference_split"] = {"split": ref.describe(df), **score_all(df[ref.test], ref_preds)}
+
+    results["simulation"] = run_simulation()
+    plot_workload(results["simulation"], FIGURES_DIR / "workload.png")
+    log("simulation done")
 
     RUNS_DIR.mkdir(exist_ok=True)
     (RUNS_DIR / "baselines.json").write_text(json.dumps(results, indent=2))
