@@ -92,7 +92,8 @@ jobs:
 
       - name: Keep the report when nothing was promoted
         if: steps.retrain.outputs.promoted != 'true'
-        run: echo "Not promoted: ${{ steps.retrain.outputs.reason }}"
+        run: |
+          echo "Not promoted. ${{ steps.retrain.outputs.reason }}"
 
       # Version 2, the sequence model, waits for 50,000 shared spaced reviews.
       # Every run prints the count; crossing the line opens an issue once.
