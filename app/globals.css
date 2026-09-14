@@ -239,6 +239,23 @@
     transform: translateY(2px);
     box-shadow: 0 0 0 var(--color-line);
   }
+  /* Cream, like a card. For the one button that lives on the mat. */
+  .btn-stock {
+    background: var(--color-stock);
+    color: #1b1a17;
+    border-color: var(--color-stock-edge);
+    box-shadow: 0 4px 0 var(--color-stock-edge);
+  }
+  .btn-stock:hover:not(:disabled) {
+    filter: brightness(0.98);
+  }
+  .btn-stock:active:not(:disabled) {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--color-stock-edge);
+  }
+  .btn-stock kbd {
+    color: #5b5850;
+  }
   .btn-danger {
     background: transparent;
     border-color: var(--color-forgot);

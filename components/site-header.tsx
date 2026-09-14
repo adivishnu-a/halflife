@@ -28,10 +28,16 @@ export function SiteHeader({ user }: { user: HeaderUser | null }) {
     `inline-flex min-h-11 items-center whitespace-nowrap rounded-md px-2.5 text-sm font-medium ${
       active ? "bg-paper-2 text-ink" : "muted hover:bg-paper-2 hover:text-ink"
     }`;
+  // On a phone the four links share the strip evenly; on wider screens they sit inline.
   const nav = (
-    <nav aria-label="Main" className="flex items-center gap-0.5">
+    <nav aria-label="Main" className="grid grid-cols-4 gap-1 sm:flex sm:items-center sm:gap-0.5">
       {NAV.map((item) => (
-        <Link key={item.href} href={item.href} aria-current={isActive(item.href) ? "page" : undefined} className={linkClass(isActive(item.href))}>
+        <Link
+          key={item.href}
+          href={item.href}
+          aria-current={isActive(item.href) ? "page" : undefined}
+          className={`${linkClass(isActive(item.href))} justify-center`}
+        >
           {item.label}
         </Link>
       ))}
@@ -71,7 +77,7 @@ export function SiteHeader({ user }: { user: HeaderUser | null }) {
             <ThemeToggle />
           </div>
         </div>
-        <div className="-mx-2 overflow-x-auto px-2 pb-1 sm:hidden">{nav}</div>
+        <div className="pb-1 sm:hidden">{nav}</div>
       </div>
     </header>
   );

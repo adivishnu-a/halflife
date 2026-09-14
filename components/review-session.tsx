@@ -266,7 +266,7 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
                   </button>
                 </div>
               ) : (
-                <button type="button" onClick={reveal} className="btn btn-secondary min-h-14 w-full rounded-lg text-lg">
+                <button type="button" onClick={reveal} className="btn btn-stock min-h-14 w-full rounded-lg text-lg">
                   Show answer <kbd className="rounded border border-current px-1.5 text-xs opacity-70">space</kbd>
                 </button>
               )}
