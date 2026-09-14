@@ -80,6 +80,43 @@ export default function AboutPage() {
           Start reviewing
         </Link>
       </p>
+
+      <details id="credits" className="sheet">
+        <summary className="min-h-11 cursor-pointer px-5 py-3 text-base font-semibold">Credits and licences</summary>
+        <div className="space-y-3 px-5 pb-5 text-sm muted">
+          <p>
+            The scheduler is half-life regression from Settles, B. and Meeder, B.,{" "}
+            <a className="underline" href="https://doi.org/10.18653/v1/P16-1174">
+              A Trainable Spaced Repetition Model for Language Learning
+            </a>
+            , ACL 2016. It is trained on the{" "}
+            <a className="underline" href="https://doi.org/10.7910/DVN/N8XJME">
+              Duolingo learning traces
+            </a>{" "}
+            released with that paper, licensed CC BY-NC 4.0. The weights derive from that data, so Halflife is
+            non-commercial and will stay so. The authors&apos;{" "}
+            <a className="underline" href="https://github.com/duolingo/halflife-regression">
+              reference implementation
+            </a>{" "}
+            (MIT) was the correctness check for the port.
+          </p>
+          <p>
+            The German starter deck was built from the{" "}
+            <a className="underline" href="https://github.com/hermitdave/FrequencyWords">
+              FrequencyWords
+            </a>{" "}
+            list by Hermit Dave, derived from OpenSubtitles and licensed CC BY-SA 4.0. The deck is published under the
+            same licence; the English glosses and example sentences are original to this project.
+          </p>
+          <p>
+            Built with Next.js, FastAPI, PyTorch, Drizzle and Neon Postgres, on Vercel.{" "}
+            <a className="underline" href="https://github.com/adivishnu-a/halflife">
+              Source on GitHub
+            </a>
+            . 2026 Adi Vishnu Avula.
+          </p>
+        </div>
+      </details>
     </article>
   );
 }
