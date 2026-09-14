@@ -6,6 +6,7 @@ import { WhyThisDate } from "@/components/why-this-date";
 import { deleteCard, updateCard } from "@/lib/actions/decks";
 import type { CardRow } from "@/lib/decks";
 import { formatDue } from "@/lib/format";
+import { FieldError, useValidation } from "@/lib/validate";
 
 export function CardList({
   cards,
@@ -30,7 +31,7 @@ export function CardList({
       {cards.map((card) => (
         <li key={card.id}>
           <details className="group">
-            <summary className="flex min-h-11 cursor-pointer list-none flex-wrap items-baseline gap-x-4 gap-y-1 py-3 hover:bg-paper-2">
+            <summary className="min-h-11 cursor-pointer flex-wrap gap-x-4 gap-y-1 py-3 hover:bg-paper-2">
               <span className="min-w-0 flex-1 break-words font-medium">{card.front}</span>
               <span className="min-w-0 flex-1 break-words muted">{card.back}</span>
               <span className="w-full text-xs faint sm:w-auto sm:text-right">
@@ -61,9 +62,10 @@ export function CardList({
 
 function CardEditor({ card }: { card: CardRow }) {
   const [state, action, pending] = useActionState(updateCard, null);
+  const { errors, formProps, clear } = useValidation();
   const id = (f: string) => `${f}-${card.id}`;
   return (
-    <form action={action} className="space-y-3">
+    <form {...formProps} action={action} className="space-y-3">
       <input type="hidden" name="cardId" value={card.id} />
       {(["front", "back", "example", "note"] as const).map((f) => (
         <div key={f}>
@@ -77,7 +79,9 @@ function CardEditor({ card }: { card: CardRow }) {
             defaultValue={card[f] ?? ""}
             required={f === "front" || f === "back"}
             maxLength={f === "front" || f === "back" ? 500 : 1000}
+            onInput={() => clear(f)}
           />
+          <FieldError id={`${id(f)}-error`} message={errors[f]} />
         </div>
       ))}
       <div className="flex flex-wrap items-center gap-3">

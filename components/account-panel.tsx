@@ -6,6 +6,7 @@ import { useState, type FormEvent } from "react";
 
 import { deleteGuestAccount } from "@/lib/actions/account";
 import { authClient } from "@/lib/auth/client";
+import { FieldError, useValidation } from "@/lib/validate";
 
 const USERNAME_RULE = /^[a-z0-9_]{3,24}$/i;
 
@@ -18,9 +19,11 @@ export function AccountPanel({ username, hasSession }: { username: string | null
 function useSubmit<T>(run: (form: FormData) => Promise<T | { error: string }>, after: (r: T) => void) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const validation = useValidation();
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (pending) return;
+    if (!validation.validate(e.currentTarget)) return;
     setPending(true);
     setError(null);
     try {
@@ -33,7 +36,7 @@ function useSubmit<T>(run: (form: FormData) => Promise<T | { error: string }>, a
       setPending(false);
     }
   };
-  return { pending, error, onSubmit };
+  return { pending, error, onSubmit, errors: validation.errors, clear: validation.clear };
 }
 
 function Guest({ hasSession, onCode }: { hasSession: boolean; onCode: (c: string) => void }) {
@@ -101,15 +104,17 @@ function Guest({ hasSession, onCode }: { hasSession: boolean; onCode: (c: string
           <p className="mt-1 text-sm muted">
             {hasSession ? "Everything in this browser comes with you. " : ""}No email, nothing to verify.
           </p>
-          <form onSubmit={signUp.onSubmit} className="mt-4 space-y-3">
+          <form onSubmit={signUp.onSubmit} noValidate className="mt-4 space-y-3">
             <div>
               <label htmlFor="su-username" className="label">Username</label>
-              <input id="su-username" name="username" className="field" autoComplete="username" required minLength={3} maxLength={24} pattern="[A-Za-z0-9_]{3,24}" spellCheck={false} />
+              <input id="su-username" name="username" className="field" autoComplete="username" required minLength={3} maxLength={24} pattern="[A-Za-z0-9_]{3,24}" spellCheck={false} data-message="A username is 3 to 24 letters, digits or underscores." onInput={() => signUp.clear("username")} />
+              <FieldError id="su-username-error" message={signUp.errors.username} />
               <p className="mt-1 text-xs faint">3 to 24 letters, digits or underscores.</p>
             </div>
             <div>
               <label htmlFor="su-password" className="label">Password</label>
-              <input id="su-password" name="password" type="password" className="field" autoComplete="new-password" required minLength={8} maxLength={128} />
+              <input id="su-password" name="password" type="password" className="field" autoComplete="new-password" required minLength={8} maxLength={128} data-message="Use at least 8 characters for the password." onInput={() => signUp.clear("password")} />
+              <FieldError id="su-password-error" message={signUp.errors.password} />
               <p className="mt-1 text-xs faint">At least 8 characters.</p>
             </div>
             <p className="text-sm muted">
@@ -128,14 +133,16 @@ function Guest({ hasSession, onCode }: { hasSession: boolean; onCode: (c: string
           <p className="mt-1 text-sm muted">
             {hasSession ? "This browser's decks move into that account." : "Pick up where you left off."}
           </p>
-          <form onSubmit={signIn.onSubmit} className="mt-4 space-y-3">
+          <form onSubmit={signIn.onSubmit} noValidate className="mt-4 space-y-3">
             <div>
               <label htmlFor="si-username" className="label">Username</label>
-              <input id="si-username" name="username" className="field" autoComplete="username" required spellCheck={false} />
+              <input id="si-username" name="username" className="field" autoComplete="username" required spellCheck={false} onInput={() => signIn.clear("username")} />
+              <FieldError id="si-username-error" message={signIn.errors.username} />
             </div>
             <div>
               <label htmlFor="si-password" className="label">Password</label>
-              <input id="si-password" name="password" type="password" className="field" autoComplete="current-password" required />
+              <input id="si-password" name="password" type="password" className="field" autoComplete="current-password" required onInput={() => signIn.clear("password")} />
+              <FieldError id="si-password-error" message={signIn.errors.password} />
             </div>
             <button type="submit" className="btn btn-primary w-full" disabled={signIn.pending}>
               {signIn.pending ? "Signing in" : "Sign in"}
@@ -240,10 +247,11 @@ function SignedIn({ username, onNewCode }: { username: string; onNewCode: (c: st
         <h2 className="text-lg font-semibold">Delete account</h2>
         <p className="mt-1 text-sm muted">Deletes the account, every deck, every review. Export first if you want a copy. There is no undo.</p>
         {confirmDelete ? (
-          <form onSubmit={del.onSubmit} className="mt-3 space-y-3">
+          <form onSubmit={del.onSubmit} noValidate className="mt-3 space-y-3">
             <div>
               <label htmlFor="del-password" className="label">Password to confirm</label>
-              <input id="del-password" name="password" type="password" className="field max-w-sm" autoComplete="current-password" required />
+              <input id="del-password" name="password" type="password" className="field max-w-sm" autoComplete="current-password" required data-message="Type your password to confirm." onInput={() => del.clear("password")} />
+              <FieldError id="del-password-error" message={del.errors.password} />
             </div>
             <div className="flex flex-wrap gap-3">
               <button type="submit" className="btn btn-danger" disabled={del.pending}>

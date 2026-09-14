@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 
 import { addCard, deleteDeck, importCards, renameDeck } from "@/lib/actions/decks";
+import { FieldError, useValidation } from "@/lib/validate";
 
 function Message({ id, state }: { id: string; state: { ok: boolean; message?: string } | null }) {
   if (!state?.message) return null;
@@ -18,20 +19,25 @@ export function DeckTools({ deckId, deckName, cardCount }: { deckId: string; dec
   const [importState, importAction, importing] = useActionState(importCards, null);
   const [renameState, renameAction, renaming] = useActionState(renameDeck, null);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const add = useValidation();
+  const imp = useValidation();
+  const ren = useValidation();
 
   return (
     <div className="space-y-4">
       <section className="sheet p-5">
         <h2 className="text-lg font-bold">Add a card</h2>
-        <form action={addAction} className="mt-3 grid gap-3 sm:grid-cols-2" key={addState?.ok ? addState.message : "add"}>
+        <form {...add.formProps} action={addAction} className="mt-3 grid gap-3 sm:grid-cols-2" key={addState?.ok ? addState.message : "add"}>
           <input type="hidden" name="deckId" value={deckId} />
           <div>
             <label htmlFor="front" className="label">Front</label>
-            <input id="front" name="front" className="field" required maxLength={500} autoComplete="off" placeholder="das Haus" />
+            <input id="front" name="front" className="field" required maxLength={500} autoComplete="off" placeholder="das Haus" data-message="The front is what you see first. It needs some text." onInput={() => add.clear("front")} />
+            <FieldError id="front-error" message={add.errors.front} />
           </div>
           <div>
             <label htmlFor="back" className="label">Back</label>
-            <input id="back" name="back" className="field" required maxLength={500} autoComplete="off" placeholder="the house" />
+            <input id="back" name="back" className="field" required maxLength={500} autoComplete="off" placeholder="the house" data-message="The back is the answer. It needs some text." onInput={() => add.clear("back")} />
+            <FieldError id="back-error" message={add.errors.back} />
           </div>
           <div>
             <label htmlFor="example" className="label">Example <span className="faint">optional</span></label>
@@ -51,18 +57,17 @@ export function DeckTools({ deckId, deckName, cardCount }: { deckId: string; dec
       </section>
 
       <details className="panel group">
-        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-5 py-3 text-base font-semibold marker:hidden">
+        <summary className="min-h-11 cursor-pointer px-5 py-3 text-base font-semibold">
           Import, export, rename, delete
-          <span aria-hidden="true" className="text-sm faint group-open:hidden">show</span>
-          <span aria-hidden="true" className="hidden text-sm faint group-open:inline">hide</span>
         </summary>
         <div className="space-y-6 px-5 pb-5">
-          <form action={importAction} className="space-y-3">
+          <form {...imp.formProps} action={importAction} className="space-y-3">
             <input type="hidden" name="deckId" value={deckId} />
             <div>
               <label htmlFor="file" className="label">Import a CSV</label>
               <p className="mb-2 text-sm muted">Columns front, back, example, note. A header row is optional. Up to 2,000 cards per file.</p>
-              <input id="file" name="file" type="file" accept=".csv,text/csv" className="field py-2" required />
+              <input id="file" name="file" type="file" accept=".csv,text/csv" className="field py-2" required data-message="Choose a CSV file first." onInput={() => imp.clear("file")} />
+              <FieldError id="file-error" message={imp.errors.file} />
             </div>
             <div className="flex items-center gap-4">
               <button type="submit" className="btn btn-secondary" disabled={importing}>
@@ -79,11 +84,12 @@ export function DeckTools({ deckId, deckName, cardCount }: { deckId: string; dec
             </a>
           </div>
 
-          <form action={renameAction} className="space-y-3">
+          <form {...ren.formProps} action={renameAction} className="space-y-3">
             <input type="hidden" name="deckId" value={deckId} />
             <div>
               <label htmlFor="rename" className="label">Deck name</label>
-              <input id="rename" name="name" className="field" defaultValue={deckName} required maxLength={80} />
+              <input id="rename" name="name" className="field" defaultValue={deckName} required maxLength={80} data-message="A deck needs a name." onInput={() => ren.clear("name")} />
+              <FieldError id="rename-error" message={ren.errors.name} />
             </div>
             <div className="flex items-center gap-4">
               <button type="submit" className="btn btn-secondary" disabled={renaming}>

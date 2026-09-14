@@ -5,13 +5,15 @@ import { useActionState, useState } from "react";
 import { saveSettings } from "@/lib/actions/settings";
 import { formatPercent } from "@/lib/format";
 import type { Settings } from "@/lib/settings";
+import { FieldError, useValidation } from "@/lib/validate";
 
 export function SettingsForm({ settings }: { settings: Settings }) {
   const [state, action, pending] = useActionState(saveSettings, null);
   const [retention, setRetention] = useState(settings.targetRetention);
+  const { errors, formProps, clear } = useValidation();
 
   return (
-    <form action={action} className="space-y-8">
+    <form {...formProps} action={action} className="space-y-8">
       <section className="sheet space-y-6 p-5 sm:p-6">
         <div>
           <label htmlFor="targetRetention" className="label">
@@ -48,7 +50,10 @@ export function SettingsForm({ settings }: { settings: Settings }) {
             step={1}
             defaultValue={settings.newPerDay}
             className="field max-w-32"
+            required
+            onInput={() => clear("newPerDay")}
           />
+          <FieldError id="newPerDay-error" message={errors.newPerDay} />
           <p className="mt-2 text-sm muted">Cards you have never seen, added to the queue after everything due.</p>
         </div>
 

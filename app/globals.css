@@ -573,3 +573,52 @@
 .stock .divide-line > * {
   border-color: #e6e0cf;
 }
+
+/* ---------------------------------------------------------------- disclosures */
+
+/* details open and close with a height transition where the browser supports
+   ::details-content (Chrome 131+, Safari 18.4+); elsewhere they snap. */
+:root {
+  interpolate-size: allow-keywords;
+}
+details::details-content {
+  height: 0;
+  overflow: clip;
+  transition:
+    height 320ms var(--ease-out),
+    content-visibility 320ms allow-discrete;
+}
+details[open]::details-content {
+  height: auto;
+}
+details > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 220ms var(--ease-out);
+  margin-inline-end: 0.125rem;
+}
+details[open] > summary::before {
+  transform: rotate(45deg);
+}
+details > summary.no-marker::before {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  details::details-content {
+    transition: none;
+  }
+}

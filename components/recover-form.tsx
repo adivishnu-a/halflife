@@ -4,15 +4,18 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 
 import { authClient } from "@/lib/auth/client";
+import { FieldError, useValidation } from "@/lib/validate";
 
 export function RecoverForm() {
   const router = useRouter();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [newCode, setNewCode] = useState<string | null>(null);
+  const { errors, validate, clear } = useValidation();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validate(e.currentTarget)) return;
     const form = new FormData(e.currentTarget);
     setPending(true);
     setError(null);
@@ -56,18 +59,21 @@ export function RecoverForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="sheet space-y-3 p-5 sm:p-6">
+    <form onSubmit={onSubmit} noValidate className="sheet space-y-3 p-5 sm:p-6">
       <div>
         <label htmlFor="rc-username" className="label">Username</label>
-        <input id="rc-username" name="username" className="field" autoComplete="username" required spellCheck={false} />
+        <input id="rc-username" name="username" className="field" autoComplete="username" required spellCheck={false} onInput={() => clear("username")} />
+        <FieldError id="rc-username-error" message={errors.username} />
       </div>
       <div>
         <label htmlFor="rc-code" className="label">Recovery code</label>
-        <input id="rc-code" name="code" className="field font-mono" autoComplete="one-time-code" required spellCheck={false} placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" />
+        <input id="rc-code" name="code" className="field font-mono" autoComplete="one-time-code" required spellCheck={false} placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" data-message="Enter the recovery code you saved at sign-up." onInput={() => clear("code")} />
+        <FieldError id="rc-code-error" message={errors.code} />
       </div>
       <div>
         <label htmlFor="rc-password" className="label">New password</label>
-        <input id="rc-password" name="newPassword" type="password" className="field" autoComplete="new-password" required minLength={8} maxLength={128} />
+        <input id="rc-password" name="newPassword" type="password" className="field" autoComplete="new-password" required minLength={8} maxLength={128} onInput={() => clear("newPassword")} />
+        <FieldError id="rc-password-error" message={errors.newPassword} />
         <p className="mt-1 text-xs faint">At least 8 characters.</p>
       </div>
       <button type="submit" className="btn btn-primary" disabled={pending}>
