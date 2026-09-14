@@ -264,7 +264,9 @@ def write_report(results: dict, path: Path = REPORT_PATH) -> None:
         "",
         "## Data",
         "",
-        "Duolingo learning traces, Settles and Meeder 2016, doi:10.7910/DVN/N8XJME, CC BY-NC 4.0.",
+        "Duolingo learning traces released with Settles and Meeder, A Trainable Spaced Repetition",
+        "Model for Language Learning, ACL 2016 (https://doi.org/10.18653/v1/P16-1174).",
+        "Data: https://doi.org/10.7910/DVN/N8XJME, CC BY-NC 4.0.",
         f"{results['data']['rows']:,} rows, {results['data']['users']:,} users, "
         f"{results['data']['lexemes']:,} lexemes, {results['data']['days']:.1f} days.",
         "",

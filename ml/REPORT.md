@@ -5,7 +5,9 @@ reproducible with `uv run python -m evaluate` in `ml/`.
 
 ## Data
 
-Duolingo learning traces, Settles and Meeder 2016, doi:10.7910/DVN/N8XJME, CC BY-NC 4.0.
+Duolingo learning traces released with Settles and Meeder, A Trainable Spaced Repetition
+Model for Language Learning, ACL 2016 (https://doi.org/10.18653/v1/P16-1174).
+Data: https://doi.org/10.7910/DVN/N8XJME, CC BY-NC 4.0.
 12,854,226 rows, 115,222 users, 19,279 lexemes, 11.9 days.
 
 ## Split

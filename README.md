@@ -116,6 +116,8 @@ npm run dev                                       # Next.js, rewrites /api/py/* 
 
 ## Attribution
 
-Training data: Settles, B. and Meeder, B. (2016). A Trainable Spaced Repetition
-Model for Language Learning. ACL 2016. Data: https://doi.org/10.7910/DVN/N8XJME,
-CC BY-NC 4.0. This project is non-commercial.
+Model and training data: Settles, B. and Meeder, B. (2016). A Trainable Spaced
+Repetition Model for Language Learning. ACL 2016, pages 1848 to 1858.
+Paper: https://doi.org/10.18653/v1/P16-1174. Data: https://doi.org/10.7910/DVN/N8XJME,
+CC BY-NC 4.0. Reference code: https://github.com/duolingo/halflife-regression, MIT.
+This project is non-commercial.

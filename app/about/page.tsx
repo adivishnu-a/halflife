@@ -39,7 +39,11 @@ export default function AboutPage() {
         <p>
           Two schedulers, and you can switch in Settings. Classic is the formula most flashcard apps have used since the
           1980s. Halflife is a model that learned from thirteen million real reviews how quickly people forget, and keeps
-          learning from reviews made here. Whichever you use, every card has a Why this date panel that shows the reason
+          learning from reviews made here. The idea comes from a{" "}
+          <a className="underline" href="https://doi.org/10.18653/v1/P16-1174">
+            2016 paper by Duolingo
+          </a>
+          . Whichever you use, every card has a Why this date panel that shows the reason
           for its date in plain numbers.
         </p>
         <p>
