@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import starter from "@/content/decks/german-a1.json";
 import { cardsFromCsv } from "@/lib/csv";
 import { db, schema } from "@/lib/db";
+import { formatNumber } from "@/lib/format";
 import { requireUserId } from "@/lib/session";
 
 export interface ActionResult {
@@ -15,6 +16,33 @@ export interface ActionResult {
 }
 
 const NAME_MAX = 80;
+
+// Per-account caps. Nothing in the app needs more, and without them one
+// scripted guest could fill the free database tier.
+const MAX_DECKS = 50;
+const MAX_CARDS = 20_000;
+
+async function deckCount(userId: string): Promise<number> {
+  const [row] = await db
+    .select({ n: sql<number>`count(*)::int` })
+    .from(schema.decks)
+    .where(eq(schema.decks.userId, userId));
+  return row?.n ?? 0;
+}
+
+async function cardCount(userId: string): Promise<number> {
+  const [row] = await db
+    .select({ n: sql<number>`count(*)::int` })
+    .from(schema.cards)
+    .innerJoin(schema.decks, eq(schema.decks.id, schema.cards.deckId))
+    .where(eq(schema.decks.userId, userId));
+  return row?.n ?? 0;
+}
+
+const deckCapMessage = `This account has ${MAX_DECKS} decks, the most it can hold. Delete one to make room.`;
+const cardCapMessage = (have: number, adding: number) =>
+  `This account holds ${formatNumber(have)} cards and the limit is ${formatNumber(MAX_CARDS)}. ` +
+  (have >= MAX_CARDS ? "Delete some to make room." : `There is room for ${formatNumber(MAX_CARDS - have)}, not ${formatNumber(adding)}.`);
 
 function cleanName(raw: FormDataEntryValue | null): string | null {
   const name = String(raw ?? "").trim();
@@ -25,6 +53,7 @@ export async function createDeck(_prev: ActionResult | null, form: FormData): Pr
   const userId = await requireUserId();
   const name = cleanName(form.get("name"));
   if (!name) return { ok: false, message: `Give the deck a name, up to ${NAME_MAX} characters.` };
+  if ((await deckCount(userId)) >= MAX_DECKS) return { ok: false, message: deckCapMessage };
   const [deck] = await db.insert(schema.decks).values({ userId, name }).returning({ id: schema.decks.id });
   revalidatePath("/");
   redirect(`/decks/${deck!.id}`);
@@ -126,6 +155,8 @@ export async function addCard(_prev: ActionResult | null, form: FormData): Promi
   const fields = cardFields(form);
   if (!fields.front || !fields.back) return { ok: false, message: "A card needs a front and a back." };
   if (!(await ownedDeck(userId, deckId))) return { ok: false, message: "That deck is not yours." };
+  const have = await cardCount(userId);
+  if (have >= MAX_CARDS) return { ok: false, message: cardCapMessage(have, 1) };
   await db.insert(schema.cards).values({ deckId, ...fields, position: await nextPosition(db, deckId) });
   revalidatePath(`/decks/${deckId}`);
   return { ok: true, message: `Added “${fields.front}”.` };
@@ -167,6 +198,8 @@ export async function importCards(_prev: ActionResult | null, form: FormData): P
   if (cards.length > IMPORT_MAX_CARDS) {
     return { ok: false, message: `That is ${cards.length} cards. The limit per import is ${IMPORT_MAX_CARDS}.` };
   }
+  const have = await cardCount(userId);
+  if (have + cards.length > MAX_CARDS) return { ok: false, message: cardCapMessage(have, cards.length) };
   const start = await nextPosition(db, deckId);
   await db.insert(schema.cards).values(cards.map((c, i) => ({ deckId, ...c, position: start + i })));
   revalidatePath(`/decks/${deckId}`);

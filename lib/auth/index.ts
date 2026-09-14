@@ -2,11 +2,12 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { anonymous, username } from "better-auth/plugins";
-import { createAuthMiddleware } from "better-auth/api";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { eq } from "drizzle-orm";
 
 import { db, schema } from "@/lib/db";
 
+import { clearFailures, isLocked, recordFailure } from "./attempts";
 import { recoveryCode } from "./recovery";
 
 export const USERNAME_RULE = /^[a-z0-9_]{3,24}$/i;
@@ -101,6 +102,13 @@ export const auth = betterAuth({
   },
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
+      // Ten failed sign-ins a minute per username, whatever the address.
+      if (ctx.path === "/sign-in/username") {
+        const u = String((ctx.body as { username?: string }).username ?? "");
+        if (u && (await isLocked("signin", u))) {
+          throw new APIError("TOO_MANY_REQUESTS", { message: "Too many attempts. Wait a minute." });
+        }
+      }
       // Sign-up carries a username; the email is always the placeholder, never client input.
       if (ctx.path === "/sign-up/email") {
         const body = ctx.body as { username?: string; email?: string; name?: string };
@@ -112,6 +120,17 @@ export const auth = betterAuth({
             body: { ...body, username: u.toLowerCase(), email: placeholderEmail(u), name: u },
           },
         };
+      }
+    }),
+    after: createAuthMiddleware(async (ctx) => {
+      if (ctx.path !== "/sign-in/username") return;
+      const u = String((ctx.body as { username?: string }).username ?? "");
+      if (!u) return;
+      const result = ctx.context.returned;
+      if (result instanceof APIError) {
+        if (result.statusCode === 401) await recordFailure("signin", u);
+      } else {
+        await clearFailures("signin", u);
       }
     }),
   },

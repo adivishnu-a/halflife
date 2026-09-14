@@ -15,6 +15,7 @@ import { z } from "zod";
 
 import { db, schema } from "@/lib/db";
 
+import { clearFailures, isLocked, recordFailure } from "./attempts";
 import { codesMatch, generateCode, hashCode } from "./recovery-code";
 
 async function issueCode(userId: string): Promise<string> {
@@ -58,6 +59,10 @@ export const recoveryCode = () =>
           const invalid = () =>
             new APIError("UNAUTHORIZED", { message: "That username and recovery code do not match" });
           const username = ctx.body.username.trim().toLowerCase();
+          // Five wrong codes a minute per username, on top of the per-IP rule below.
+          if (await isLocked("recovery", username)) {
+            throw new APIError("TOO_MANY_REQUESTS", { message: "Too many attempts. Wait a minute." });
+          }
           const row = await db
             .select({ userId: schema.recoveryCode.userId, codeHash: schema.recoveryCode.codeHash })
             .from(schema.recoveryCode)
@@ -65,7 +70,11 @@ export const recoveryCode = () =>
             .where(eq(schema.user.username, username))
             .limit(1);
           const match = row[0];
-          if (!match || !codesMatch(match.codeHash, ctx.body.code)) throw invalid();
+          if (!match || !codesMatch(match.codeHash, ctx.body.code)) {
+            await recordFailure("recovery", username);
+            throw invalid();
+          }
+          await clearFailures("recovery", username);
 
           const hashed = await ctx.context.password.hash(ctx.body.newPassword);
           await ctx.context.internalAdapter.updatePassword(match.userId, hashed);
