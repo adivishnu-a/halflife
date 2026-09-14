@@ -1,6 +1,7 @@
 import { and, count, eq, gte, isNotNull, sql } from "drizzle-orm";
 
 import { db, schema } from "@/lib/db";
+import { ymd } from "@/lib/format";
 
 export const CALIBRATION_MIN_REVIEWS = 200;
 const DAY_MS = 86_400_000;
@@ -40,7 +41,7 @@ function scope(userId: string, deckId: string | null) {
     : eq(schema.reviews.userId, userId);
 }
 
-export async function getStats(userId: string, deckId: string | null, now = new Date()): Promise<Stats> {
+export async function getStats(userId: string, deckId: string | null, timeZone = "UTC", now = new Date()): Promise<Stats> {
   const since = new Date(now.getTime() - 89 * DAY_MS);
   const [totals] = await db
     .select({
@@ -55,7 +56,7 @@ export async function getStats(userId: string, deckId: string | null, now = new 
 
   const perDayRows = await db
     .select({
-      day: sql<string>`to_char(${schema.reviews.reviewedAt} at time zone 'UTC', 'YYYY-MM-DD')`,
+      day: sql<string>`to_char(${schema.reviews.reviewedAt} at time zone ${timeZone}, 'YYYY-MM-DD')`,
       reviews: count(),
     })
     .from(schema.reviews)
@@ -66,8 +67,7 @@ export async function getStats(userId: string, deckId: string | null, now = new 
   const byDay = new Map(perDayRows.map((r) => [r.day, r.reviews]));
   const perDay: DayCount[] = [];
   for (let i = 89; i >= 0; i--) {
-    const d = new Date(now.getTime() - i * DAY_MS);
-    const key = d.toISOString().slice(0, 10);
+    const key = ymd(new Date(now.getTime() - i * DAY_MS), timeZone);
     perDay.push({ day: key, reviews: byDay.get(key) ?? 0 });
   }
 

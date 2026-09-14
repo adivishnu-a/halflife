@@ -6,8 +6,10 @@ import { revalidatePath } from "next/cache";
 import { db, schema } from "@/lib/db";
 import { applyReview, countsAfter, FRESH_STATE, type CardState } from "@/lib/scheduler";
 import { predictBatch } from "@/lib/scheduler/model";
+import { startOfDay } from "@/lib/format";
 import { requireUserId } from "@/lib/session";
 import { getSettings } from "@/lib/settings";
+import { getTimeZone } from "@/lib/timezone";
 
 const DAY_MS = 86_400_000;
 
@@ -141,8 +143,7 @@ export async function gradeCard(input: GradeInput): Promise<GradeResult | GradeE
 /** Cards in the deck due by the end of tomorrow, for the end-of-session line. */
 export async function dueTomorrow(deckId: string): Promise<number> {
   const userId = await requireUserId();
-  const now = new Date();
-  const endOfTomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2);
+  const endOfTomorrow = new Date(startOfDay(new Date(), await getTimeZone()).getTime() + 2 * DAY_MS);
   const { countDueBefore } = await import("@/lib/decks");
   return countDueBefore(userId, deckId, endOfTomorrow);
 }

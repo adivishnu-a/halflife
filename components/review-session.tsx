@@ -38,6 +38,9 @@ interface Leaving {
 
 const GRADE_LOCK_MS = 350;
 
+/** Only the starter deck has a known language. A user's own deck could be anything, so it inherits the page's. */
+const cardLang = (card: QueueCard) => (card.sourceKey ? "de" : undefined);
+
 export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetention, isGuest }: Props) {
   const [queue, setQueue] = useState<QueueItem[]>(() => cards.map((c) => ({ ...c, relearn: false })));
   const [index, setIndex] = useState(0);
@@ -267,7 +270,7 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
                   <span className={`stamp ${leaving.remembered ? "text-remembered" : "text-forgot"}`}>
                     {leaving.remembered ? "Remembered" : "Forgot"}
                   </span>
-                  <p lang="de" className="break-words text-3xl font-bold leading-tight sm:text-4xl">{leaving.card.front}</p>
+                  <p lang={cardLang(leaving.card)} className="break-words text-3xl font-bold leading-tight sm:text-4xl">{leaving.card.front}</p>
                 </div>
               )}
               <div key={`${current.id}-${index}`} className="deal relative">
@@ -275,13 +278,13 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
                   <div className="face front stock flex min-h-[44vh] flex-col justify-center px-6 py-10 sm:px-10" aria-hidden={revealed}>
                     {current.fresh && <p className="mb-3 text-sm faint">New card</p>}
                     {current.relearn && <p className="mb-3 text-sm faint">Again</p>}
-                    <p lang="de" className="break-words text-3xl font-bold leading-tight sm:text-4xl">{current.front}</p>
+                    <p lang={cardLang(current)} className="break-words text-3xl font-bold leading-tight sm:text-4xl">{current.front}</p>
                     {!revealed && <p className="sr-only">Answer hidden</p>}
                   </div>
                   <div className="face back stock flex min-h-[44vh] flex-col justify-center px-6 py-10 sm:px-10" aria-hidden={!revealed}>
-                    <p lang="de" className="text-lg font-semibold muted">{current.front}</p>
+                    <p lang={cardLang(current)} className="text-lg font-semibold muted">{current.front}</p>
                     <p className="mt-2 break-words text-3xl font-bold leading-tight">{current.back}</p>
-                    {current.example && <p lang="de" className="mt-4 break-words text-lg muted">{current.example}</p>}
+                    {current.example && <p lang={cardLang(current)} className="mt-4 break-words text-lg muted">{current.example}</p>}
                     {current.note && <p className="mt-2 break-words text-sm muted">{current.note}</p>}
                   </div>
                 </div>

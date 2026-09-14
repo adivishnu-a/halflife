@@ -5,6 +5,7 @@ import { getDeck } from "@/lib/decks";
 import { buildQueue } from "@/lib/queue";
 import { getSession, requireUserId } from "@/lib/session";
 import { getSettings } from "@/lib/settings";
+import { getTimeZone } from "@/lib/timezone";
 
 export const dynamic = "force-dynamic";
 
@@ -13,8 +14,8 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
   const userId = await requireUserId();
   const deck = await getDeck(userId, id);
   if (!deck) notFound();
-  const settings = await getSettings(userId);
-  const queue = await buildQueue(userId, id, settings);
+  const [settings, timeZone] = await Promise.all([getSettings(userId), getTimeZone()]);
+  const queue = await buildQueue(userId, id, settings, timeZone);
   const user = (await getSession())?.user;
   const isGuest = !user || !!user.isAnonymous || !user.username;
 

@@ -14,7 +14,7 @@ export const formatPercent = (p: number) => pctFmt.format(p);
   sides pass the same one; with none given, the runtime's own zone is used.
 */
 const fmtCache = new Map<string, Intl.DateTimeFormat>();
-function fmt(kind: "date" | "dateYear" | "ymd", timeZone?: string): Intl.DateTimeFormat {
+function fmt(kind: "date" | "dateYear" | "ymd" | "wall", timeZone?: string): Intl.DateTimeFormat {
   const key = `${kind}|${timeZone ?? ""}`;
   let f = fmtCache.get(key);
   if (!f) {
@@ -23,11 +23,37 @@ function fmt(kind: "date" | "dateYear" | "ymd", timeZone?: string): Intl.DateTim
         ? { weekday: "short", day: "numeric", month: "short" }
         : kind === "dateYear"
           ? { day: "numeric", month: "short", year: "numeric" }
-          : { year: "numeric", month: "2-digit", day: "2-digit" };
-    f = new Intl.DateTimeFormat(kind === "ymd" ? "en-CA" : "en-GB", { ...opts, timeZone });
+          : kind === "wall"
+            ? { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" }
+            : { year: "numeric", month: "2-digit", day: "2-digit" };
+    f = new Intl.DateTimeFormat(kind === "date" || kind === "dateYear" ? "en-GB" : "en-CA", { ...opts, timeZone });
     fmtCache.set(key, f);
   }
   return f;
+}
+
+/** "YYYY-MM-DD" by the calendar of the given zone. */
+export function ymd(d: Date, timeZone?: string): string {
+  if (!timeZone) {
+    const pad = (n: number) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }
+  return fmt("ymd", timeZone).format(d);
+}
+
+/** The instant the given zone's day began. Local midnight can shift an hour on a DST day, hence the second pass. */
+export function startOfDay(d: Date, timeZone: string): Date {
+  const [y, m, day] = ymd(d, timeZone).split("-").map(Number);
+  const wall = Date.UTC(y!, m! - 1, day!);
+  const offsetAt = (t: number) => {
+    const parts = fmt("wall", timeZone).formatToParts(new Date(t));
+    const get = (type: string) => Number(parts.find((x) => x.type === type)!.value);
+    return Date.UTC(get("year"), get("month") - 1, get("day"), get("hour") % 24, get("minute"), get("second")) - t;
+  };
+  let instant = wall - offsetAt(wall);
+  const again = wall - offsetAt(instant);
+  if (again !== instant) instant = again;
+  return new Date(instant);
 }
 
 /** Whole days since the epoch, by the calendar of the given zone. */

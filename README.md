@@ -114,6 +114,27 @@ ml/.venv/bin/uvicorn api.index:app --port 8000   # the Python function
 npm run dev                                       # Next.js, rewrites /api/py/* to port 8000
 ```
 
+## If something breaks
+
+Vercel keeps every deployment. To roll back, open the project on Vercel,
+pick the last good deployment under Deployments, and choose Promote to
+Production; the previous build is live within a minute and nothing needs
+rebuilding. To roll forward, push a fix to `main`; CI runs first.
+
+The database is Neon. Its point-in-time restore can rewind the branch to any
+moment inside the retention window, from the Neon console under Restore.
+Every user can also export their account as one JSON file from the account
+page, and every deck as CSV, so a learner's data never depends on either.
+
+Secrets the app needs on Vercel: `DATABASE_URL`, `BETTER_AUTH_SECRET`,
+`CRON_SECRET`. The daily purge cron logs a `200` under Cron Jobs when the
+secret is set; a `401` there means it is missing.
+
+## Licence
+
+Code is MIT. The trained weights derive from CC BY-NC 4.0 data and stay
+non-commercial; the starter deck is CC BY-SA 4.0. See LICENSE.
+
 ## Attribution
 
 Model and training data: Settles, B. and Meeder, B. (2016). A Trainable Spaced

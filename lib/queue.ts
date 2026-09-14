@@ -6,6 +6,7 @@
 import { and, asc, count, eq, gte, isNull, lte } from "drizzle-orm";
 
 import { db, schema } from "@/lib/db";
+import { startOfDay } from "@/lib/format";
 import { predictBatch } from "@/lib/scheduler/model";
 import type { Settings } from "@/lib/settings";
 
@@ -17,6 +18,8 @@ export interface QueueCard {
   back: string;
   example: string | null;
   note: string | null;
+  /** Set for cards copied from the starter deck, which is German; the review screen marks their language. */
+  sourceKey: string | null;
   /** Never reviewed before. */
   fresh: boolean;
   seen: number;
@@ -34,7 +37,14 @@ export interface Queue {
   modelVersion: number;
 }
 
-export async function buildQueue(userId: string, deckId: string, settings: Settings, now = new Date()): Promise<Queue> {
+export async function buildQueue(
+  userId: string,
+  deckId: string,
+  settings: Settings,
+  /** The reader's zone: "new cards per day" is a day by their clock, not the server's. */
+  timeZone = "UTC",
+  now = new Date(),
+): Promise<Queue> {
   const dueRows = await db
     .select({
       id: schema.cards.id,
@@ -53,7 +63,7 @@ export async function buildQueue(userId: string, deckId: string, settings: Setti
     .innerJoin(schema.cards, eq(schema.cards.id, schema.cardState.cardId))
     .where(and(eq(schema.cardState.userId, userId), eq(schema.cards.deckId, deckId), lte(schema.cardState.dueAt, now)));
 
-  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const dayStart = startOfDay(now, timeZone);
   const [introduced] = await db
     .select({ n: count() })
     .from(schema.reviews)
@@ -63,7 +73,7 @@ export async function buildQueue(userId: string, deckId: string, settings: Setti
         eq(schema.reviews.userId, userId),
         eq(schema.cards.deckId, deckId),
         eq(schema.reviews.seenBefore, 0),
-        gte(schema.reviews.reviewedAt, startOfDay),
+        gte(schema.reviews.reviewedAt, dayStart),
       ),
     );
   const allowance = Math.max(0, settings.newPerDay - (introduced?.n ?? 0));
@@ -76,6 +86,7 @@ export async function buildQueue(userId: string, deckId: string, settings: Setti
           back: schema.cards.back,
           example: schema.cards.example,
           note: schema.cards.note,
+          sourceKey: schema.cards.sourceKey,
         })
         .from(schema.cards)
         .leftJoin(
@@ -109,6 +120,7 @@ export async function buildQueue(userId: string, deckId: string, settings: Setti
         back: r.back,
         example: r.example,
         note: r.note,
+        sourceKey: r.sourceKey,
         fresh: false,
         seen: r.seen,
         correct: r.correct,

@@ -6,6 +6,7 @@ import { listDecks } from "@/lib/decks";
 import { formatDays, formatNumber, formatPercent } from "@/lib/format";
 import { requireUserId } from "@/lib/session";
 import { CALIBRATION_MIN_REVIEWS, getStats } from "@/lib/stats";
+import { getTimeZone } from "@/lib/timezone";
 
 export const metadata: Metadata = { title: "Stats" };
 export const dynamic = "force-dynamic";
@@ -15,7 +16,7 @@ export default async function StatsPage({ searchParams }: { searchParams: Promis
   const { deck: deckParam } = await searchParams;
   const decks = await listDecks(userId);
   const deckId = decks.some((d) => d.id === deckParam) ? deckParam! : null;
-  const stats = await getStats(userId, deckId);
+  const stats = await getStats(userId, deckId, await getTimeZone());
   const deckName = deckId ? decks.find((d) => d.id === deckId)!.name : null;
 
   return (
