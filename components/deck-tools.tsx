@@ -27,7 +27,7 @@ export function DeckTools({ deckId, deckName, cardCount }: { deckId: string; dec
     <div className="space-y-4">
       <section className="sheet p-5">
         <h2 className="text-lg font-bold">Add a card</h2>
-        <form {...add.formProps} action={addAction} className="mt-3 grid gap-3 sm:grid-cols-2" key={addState?.ok ? addState.message : "add"}>
+        <form key={addState?.ok ? addState.message : "add"} {...add.formProps} action={addAction} className="mt-3 grid gap-3 sm:grid-cols-2">
           <input type="hidden" name="deckId" value={deckId} />
           <div>
             <label htmlFor="front" className="label">Front</label>

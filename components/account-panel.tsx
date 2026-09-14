@@ -84,16 +84,13 @@ function Guest({ hasSession, onCode }: { hasSession: boolean; onCode: (c: string
     },
   );
 
-  const tabClass = (active: boolean) =>
-    `min-h-11 flex-1 rounded-md px-3 text-sm font-semibold transition-colors ${active ? "bg-accent text-on-accent" : "muted hover:bg-paper-2 hover:text-ink"}`;
-
   return (
     <div className="mx-auto max-w-md space-y-4">
-      <div role="tablist" aria-label="Account" className="panel flex gap-1 p-1">
-        <button type="button" role="tab" id="tab-create" aria-selected={tab === "create"} aria-controls="panel-create" className={tabClass(tab === "create")} onClick={() => setTab("create")}>
+      <div role="tablist" aria-label="Account" className="tabs" data-active={tab === "create" ? "1" : "2"}>
+        <button type="button" role="tab" id="tab-create" aria-selected={tab === "create"} aria-controls="panel-create" onClick={() => setTab("create")}>
           Create account
         </button>
-        <button type="button" role="tab" id="tab-signin" aria-selected={tab === "signin"} aria-controls="panel-signin" className={tabClass(tab === "signin")} onClick={() => setTab("signin")}>
+        <button type="button" role="tab" id="tab-signin" aria-selected={tab === "signin"} aria-controls="panel-signin" onClick={() => setTab("signin")}>
           Sign in
         </button>
       </div>

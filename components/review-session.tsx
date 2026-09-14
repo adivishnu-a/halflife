@@ -18,6 +18,7 @@ interface Props {
   scheduler: "classic" | "halflife";
   targetRetention: number;
   predictionSource: "python" | "typescript" | null;
+  isGuest: boolean;
 }
 
 interface QueueItem extends QueueCard {
@@ -37,7 +38,7 @@ interface Leaving {
 
 const GRADE_LOCK_MS = 350;
 
-export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetention }: Props) {
+export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetention, isGuest }: Props) {
   const [queue, setQueue] = useState<QueueItem[]>(() => cards.map((c) => ({ ...c, relearn: false })));
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
@@ -139,6 +140,25 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
     return { h, p: current.p, gapIfRemembered: Math.max(1, nextIntervalDays(h, targetRetention)) };
   }, [current, targetRetention]);
 
+  if (total === 0) {
+    return (
+      <div className="space-y-4">
+        <nav aria-label="Breadcrumb" className="text-sm muted">
+          <Link href="/" className="hover:underline">Decks</Link>
+          <span aria-hidden="true"> / </span>
+          <Link href={`/decks/${deckId}`} className="hover:underline">{deckName}</Link>
+        </nav>
+        <div className="sheet p-6">
+          <h1 className="text-xl font-semibold">Nothing to review in {deckName}</h1>
+          <p className="mt-2 muted">
+            No cards are due and today&apos;s new cards are done. Come back tomorrow, or raise new cards per day in settings.
+          </p>
+          <Link href={`/decks/${deckId}`} className="btn btn-secondary mt-4">Back to the deck</Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mat px-4 py-5 sm:px-8 sm:py-7">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm">
@@ -217,6 +237,12 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
               All decks
             </Link>
           </div>
+          {isGuest && (
+            <p className="mt-5 text-sm muted">
+              Progress is saved in this browser only.{" "}
+              <Link href="/account" className="font-semibold underline underline-offset-2">Keep it with a username</Link>.
+            </p>
+          )}
         </section>
       ) : (
         current && (

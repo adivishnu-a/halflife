@@ -581,6 +581,15 @@
 .stock a {
   color: inherit;
 }
+.stock .btn-secondary {
+  background: #fbf9f3;
+  color: #1b1a17;
+  border-color: #d3cec0;
+  box-shadow: 0 2px 0 #d3cec0;
+}
+.stock .btn-secondary:active:not(:disabled) {
+  box-shadow: 0 0 0 #d3cec0;
+}
 .stock ::selection {
   background: #2a3f8f;
   color: #fffdf6;
@@ -645,6 +654,53 @@ details > summary.no-marker::before {
 }
 @media (prefers-reduced-motion: reduce) {
   details::details-content {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- tabs */
+
+/* Two equal tabs share one pill that slides to the selected one. */
+.tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: var(--color-paper-2);
+  border-radius: var(--radius-lg);
+}
+.tabs::before {
+  content: "";
+  position: absolute;
+  inset: 0.25rem auto 0.25rem 0.25rem;
+  width: calc(50% - 0.375rem);
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  transition: transform 220ms var(--ease-out);
+}
+.tabs[data-active="2"]::before {
+  transform: translateX(calc(100% + 0.25rem));
+}
+.tabs > [role="tab"] {
+  position: relative;
+  min-height: 2.75rem;
+  border-radius: var(--radius-md);
+  padding-inline: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-ink-2);
+  transition: color 220ms var(--ease-out);
+}
+.tabs > [role="tab"]:hover {
+  color: var(--color-ink);
+}
+.tabs > [role="tab"][aria-selected="true"] {
+  color: var(--color-on-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tabs::before,
+  .tabs > [role="tab"] {
     transition: none;
   }
 }
