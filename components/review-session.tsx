@@ -37,6 +37,8 @@ interface Leaving {
 }
 
 const GRADE_LOCK_MS = 350;
+/** How long Show answer stays pressed before the grade buttons take its place. */
+const REVEAL_HOLD_MS = 160;
 
 /** Only the starter deck has a known language. A user's own deck could be anything, so it inherits the page's. */
 const cardLang = (card: QueueCard) => (card.sourceKey ? "de" : undefined);
@@ -47,6 +49,9 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
   const [revealed, setRevealed] = useState(false);
   const [shownAt, setShownAt] = useState(() => Date.now());
   const [locked, setLocked] = useState(false);
+  // The pressed button stays on screen, held down, while the card it graded leaves.
+  const [held, setHeld] = useState<"forgot" | "remembered" | null>(null);
+  const [revealHold, setRevealHold] = useState(false);
   const [grades, setGrades] = useState<boolean[]>([]);
   const [results, setResults] = useState<Record<string, GradeResult>>({});
   const [lastGrade, setLastGrade] = useState<{ key: string; remembered: boolean; front: string } | null>(null);
@@ -78,6 +83,7 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
       const now = Date.now();
       const input: GradeInput = { cardId: current.id, reviewedAt: now, remembered: wasRemembered, responseMs: now - shownAt };
       setLocked(true);
+      setHeld(wasRemembered ? "remembered" : "forgot");
       setLeaving({ card: current, remembered: wasRemembered, key: now });
       setLastGrade({ key: `${current.id}:${now}`, remembered: wasRemembered, front: current.front });
       setGrades((g) => [...g, wasRemembered]);
@@ -88,7 +94,10 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
       setIndex((i) => i + 1);
       setRevealed(false);
       setShownAt(now);
-      window.setTimeout(() => setLocked(false), GRADE_LOCK_MS);
+      window.setTimeout(() => {
+        setLocked(false);
+        setHeld(null);
+      }, GRADE_LOCK_MS);
     },
     [current, revealed, locked, shownAt, submit],
   );
@@ -96,6 +105,8 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
   const reveal = useCallback(() => {
     if (!current || revealed) return;
     setRevealed(true);
+    setRevealHold(true);
+    window.setTimeout(() => setRevealHold(false), REVEAL_HOLD_MS);
   }, [current, revealed]);
 
   useEffect(() => {
@@ -292,17 +303,23 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
             </div>
 
             <div>
-              {revealed ? (
-                <div className="grid grid-cols-2 gap-3">
-                  <button type="button" onClick={() => grade(false)} disabled={locked} className="btn btn-grade btn-forgot">
+              {held || (revealed && !revealHold) ? (
+                <div key="grade" className={`grid grid-cols-2 gap-3 ${held ? "" : "settle"}`}>
+                  <button type="button" onClick={() => grade(false)} disabled={locked} data-pressed={held === "forgot"} className="btn btn-grade btn-forgot">
                     Forgot <kbd className="key-hint rounded border border-current px-1.5 text-xs opacity-80">1</kbd>
                   </button>
-                  <button type="button" onClick={() => grade(true)} disabled={locked} className="btn btn-grade btn-remembered">
+                  <button type="button" onClick={() => grade(true)} disabled={locked} data-pressed={held === "remembered"} className="btn btn-grade btn-remembered">
                     Remembered <kbd className="key-hint rounded border border-current px-1.5 text-xs opacity-80">2</kbd>
                   </button>
                 </div>
               ) : (
-                <button type="button" onClick={reveal} className="btn btn-stock min-h-14 w-full rounded-lg text-lg">
+                <button
+                  key="reveal"
+                  type="button"
+                  onClick={reveal}
+                  data-pressed={revealHold}
+                  className={`btn btn-stock min-h-14 w-full rounded-lg text-lg ${revealHold ? "" : "settle"}`}
+                >
                   Show answer <kbd className="key-hint rounded border border-current px-1.5 text-xs opacity-70">space</kbd>
                 </button>
               )}

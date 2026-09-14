@@ -215,16 +215,26 @@
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+    /* Press snaps, release eases: a click too short to see still shows the full press on the way back. */
     transition:
       background-color 150ms,
       color 150ms,
       border-color 150ms,
-      transform 100ms,
-      box-shadow 100ms;
+      transform 200ms var(--ease-out),
+      box-shadow 200ms var(--ease-out);
+  }
+  .btn:active:not(:disabled),
+  .btn[data-pressed="true"] {
+    transition-duration: 150ms, 150ms, 150ms, 40ms, 40ms;
   }
   .btn:disabled {
     opacity: 0.55;
     cursor: not-allowed;
+  }
+  /* A held button is the one just chosen, so it stays fully coloured while its neighbour fades. */
+  .btn[data-pressed="true"]:disabled {
+    opacity: 1;
+    cursor: default;
   }
   .btn-primary {
     background: var(--color-accent);
@@ -234,7 +244,8 @@
   .btn-primary:hover:not(:disabled) {
     filter: brightness(1.06);
   }
-  .btn-primary:active:not(:disabled) {
+  .btn-primary:active:not(:disabled),
+  .btn-primary[data-pressed="true"] {
     transform: translateY(3px);
     box-shadow: 0 0 0 var(--color-accent-2);
   }
@@ -247,7 +258,8 @@
   .btn-secondary:hover:not(:disabled) {
     filter: brightness(0.98);
   }
-  .btn-secondary:active:not(:disabled) {
+  .btn-secondary:active:not(:disabled),
+  .btn-secondary[data-pressed="true"] {
     transform: translateY(2px);
     box-shadow: 0 0 0 var(--color-line);
   }
@@ -261,7 +273,8 @@
   .btn-stock:hover:not(:disabled) {
     filter: brightness(0.98);
   }
-  .btn-stock:active:not(:disabled) {
+  .btn-stock:active:not(:disabled),
+  .btn-stock[data-pressed="true"] {
     transform: translateY(4px);
     box-shadow: 0 0 0 var(--color-stock-edge);
   }
@@ -664,6 +677,21 @@ details > summary.no-marker::before {
 @media (prefers-reduced-motion: reduce) {
   details::details-content {
     transition: none;
+  }
+}
+
+/* The button row that takes over after a press settles in rather than snapping. */
+.settle {
+  animation: settle 180ms var(--ease-out) both;
+}
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
