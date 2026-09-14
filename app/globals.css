@@ -18,6 +18,7 @@
   --color-stock-edge: #e6e0cf;
   --color-sheet: #fbf9f3;
   --color-sheet-edge: #ddd8ca;
+  --color-deck-edge: #e4dfd1;
   --color-ink: #1b1a17;
   --color-ink-2: #5b5850;
   --color-ink-3: #66635b;
@@ -71,6 +72,7 @@
     --color-stock-edge: #dcd5c2;
     --color-sheet: #201e19;
     --color-sheet-edge: #35312a;
+    --color-deck-edge: #2a2721;
     --color-ink: #efeadf;
     --color-ink-2: #b4ad9e;
     --color-ink-3: #948d7e;
@@ -102,6 +104,7 @@
   --color-stock-edge: #dcd5c2;
   --color-sheet: #201e19;
   --color-sheet-edge: #35312a;
+  --color-deck-edge: #2a2721;
   --color-ink: #efeadf;
   --color-ink-2: #b4ad9e;
   --color-ink-3: #948d7e;
@@ -425,6 +428,12 @@
   background: var(--color-stock);
   box-shadow: 0 1px 0 var(--color-stock-edge);
   transform-origin: 50% 100%;
+}
+/* A deck tile's edges follow the theme; only review cards are cream. */
+.deck-ghost {
+  background: var(--color-deck-edge);
+  border: 1px solid var(--color-sheet-edge);
+  box-shadow: none;
 }
 .stack-ghost.one {
   transform: translateY(10px) scale(0.965);
