@@ -37,8 +37,9 @@ interface Leaving {
 }
 
 const GRADE_LOCK_MS = 350;
-/** How long Show answer stays pressed before the grade buttons take its place. */
+/** How long a pressed button stays on screen before the next row takes its place. Long enough to see, not to wait for. */
 const REVEAL_HOLD_MS = 160;
+const GRADE_HOLD_MS = 200;
 
 /** Only the starter deck has a known language. A user's own deck could be anything, so it inherits the page's. */
 const cardLang = (card: QueueCard) => (card.sourceKey ? "de" : undefined);
@@ -94,10 +95,8 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
       setIndex((i) => i + 1);
       setRevealed(false);
       setShownAt(now);
-      window.setTimeout(() => {
-        setLocked(false);
-        setHeld(null);
-      }, GRADE_LOCK_MS);
+      window.setTimeout(() => setHeld(null), GRADE_HOLD_MS);
+      window.setTimeout(() => setLocked(false), GRADE_LOCK_MS);
     },
     [current, revealed, locked, shownAt, submit],
   );

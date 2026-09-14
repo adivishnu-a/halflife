@@ -220,8 +220,8 @@
       background-color 150ms,
       color 150ms,
       border-color 150ms,
-      transform 200ms var(--ease-out),
-      box-shadow 200ms var(--ease-out);
+      transform 120ms var(--ease-out),
+      box-shadow 120ms var(--ease-out);
   }
   .btn:active:not(:disabled),
   .btn[data-pressed="true"] {
@@ -265,6 +265,7 @@
   }
   /* Cream, like a card. For the one button that lives on the mat. */
   .btn-stock {
+    transition-duration: 150ms, 150ms, 150ms, 200ms, 200ms;
     background: var(--color-stock);
     color: #1b1a17;
     border-color: var(--color-stock-edge);
@@ -299,6 +300,7 @@
   }
   .btn-grade {
     @apply min-h-14 rounded-lg text-lg;
+    transition-duration: 150ms, 150ms, 150ms, 200ms, 200ms;
     color: var(--color-on-grade);
     box-shadow: 0 5px 0 var(--grade-shadow);
     background: var(--grade-bg);
@@ -682,7 +684,7 @@ details > summary.no-marker::before {
 
 /* The button row that takes over after a press settles in rather than snapping. */
 .settle {
-  animation: settle 180ms var(--ease-out) both;
+  animation: settle 120ms var(--ease-out) both;
 }
 @keyframes settle {
   from {
