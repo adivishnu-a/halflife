@@ -87,6 +87,17 @@ export const auth = betterAuth({
     },
   },
   user: { deleteUser: { enabled: true } },
+  databaseHooks: {
+    session: {
+      create: {
+        // Better Auth stores the IP address and user agent on every session.
+        // Neither is needed here, and both are personal data: blank them before
+        // the row is written. Rate limiting reads the IP from request headers,
+        // not from the session row, so it is unaffected.
+        before: async (session) => ({ data: { ...session, ipAddress: "", userAgent: "" } }),
+      },
+    },
+  },
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
       // Sign-up carries a username; the email is always the placeholder, never client input.
