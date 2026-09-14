@@ -62,14 +62,14 @@
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
 }
 
-/* Dark palette: the mat gets deeper, the cards keep their cream. */
+/* Dark palette: the mat gets deeper, the cards keep their cream, dimmed a step for night. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-paper: #171613;
     --color-paper-2: #221f1a;
     --color-line: #3a362e;
-    --color-stock: #f7f3e8;
-    --color-stock-edge: #dcd5c2;
+    --color-stock: #ebe6d8;
+    --color-stock-edge: #cfc8b5;
     --color-sheet: #201e19;
     --color-sheet-edge: #35312a;
     --color-deck-edge: #2a2721;
@@ -100,8 +100,8 @@
   --color-paper: #171613;
   --color-paper-2: #221f1a;
   --color-line: #3a362e;
-  --color-stock: #f7f3e8;
-  --color-stock-edge: #dcd5c2;
+  --color-stock: #ebe6d8;
+  --color-stock-edge: #cfc8b5;
   --color-sheet: #201e19;
   --color-sheet-edge: #35312a;
   --color-deck-edge: #2a2721;
