@@ -5,7 +5,9 @@ export function Skeleton({ className = "" }: { className?: string }) {
 
 export function PageSkeleton({ rows = 2 }: { rows?: number }) {
   return (
-    <div aria-busy="true" aria-live="polite" className="space-y-6">
+    // Tall enough to keep the footer below the fold, so the footer does not
+    // jump when the streamed page replaces the skeleton (a 0.1 layout shift).
+    <div aria-busy="true" aria-live="polite" className="min-h-dvh space-y-6">
       <p className="sr-only">Loading</p>
       <Skeleton className="h-10 w-48" />
       {Array.from({ length: rows }, (_, i) => (
