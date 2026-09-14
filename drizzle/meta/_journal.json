@@ -22,6 +22,20 @@
       "when": 1789330757150,
       "tag": "0002_share_logs_default",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789365211663,
+      "tag": "0003_session_no_pii",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789365576956,
+      "tag": "0004_session_columns_back",
+      "breakpoints": true
     }
   ]
 }

@@ -60,6 +60,8 @@ export const session = pgTable(
       .defaultNow()
       .$onUpdate(() => new Date())
       .notNull(),
+    // Better Auth's schema check insists on these two columns. Halflife never
+    // fills them: a hook in lib/auth strips both before the row is written.
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
     userId: text("user_id")

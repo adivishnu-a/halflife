@@ -90,11 +90,12 @@ export const auth = betterAuth({
   databaseHooks: {
     session: {
       create: {
-        // Better Auth stores the IP address and user agent on every session.
-        // Neither is needed here, and both are personal data: blank them before
-        // the row is written. Rate limiting reads the IP from request headers,
-        // not from the session row, so it is unaffected.
-        before: async (session) => ({ data: { ...session, ipAddress: "", userAgent: "" } }),
+        // Better Auth puts the IP address and user agent on every session.
+        // Neither is needed here, and both are personal data. The hook's data
+        // is merged over the original, so the keys must be overwritten, not
+        // dropped. Rate limiting reads the IP from request headers, not from
+        // the session row, and is unaffected.
+        before: async (session) => ({ data: { ...session, ipAddress: null, userAgent: null } }),
       },
     },
   },
