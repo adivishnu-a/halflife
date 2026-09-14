@@ -285,15 +285,15 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
               {revealed ? (
                 <div className="grid grid-cols-2 gap-3">
                   <button type="button" onClick={() => grade(false)} disabled={locked} className="btn btn-grade btn-forgot">
-                    Forgot <kbd className="rounded border border-current px-1.5 text-xs opacity-80">1</kbd>
+                    Forgot <kbd className="key-hint rounded border border-current px-1.5 text-xs opacity-80">1</kbd>
                   </button>
                   <button type="button" onClick={() => grade(true)} disabled={locked} className="btn btn-grade btn-remembered">
-                    Remembered <kbd className="rounded border border-current px-1.5 text-xs opacity-80">2</kbd>
+                    Remembered <kbd className="key-hint rounded border border-current px-1.5 text-xs opacity-80">2</kbd>
                   </button>
                 </div>
               ) : (
                 <button type="button" onClick={reveal} className="btn btn-stock min-h-14 w-full rounded-lg text-lg">
-                  Show answer <kbd className="rounded border border-current px-1.5 text-xs opacity-70">space</kbd>
+                  Show answer <kbd className="key-hint rounded border border-current px-1.5 text-xs opacity-70">space</kbd>
                 </button>
               )}
             </div>

@@ -1,5 +1,6 @@
 import { and, asc, count, eq, isNull, lte, sql } from "drizzle-orm";
 
+import starter from "@/content/decks/german-a1.json";
 import { db, schema } from "@/lib/db";
 
 export interface DeckSummary {
@@ -10,6 +11,17 @@ export interface DeckSummary {
   cards: number;
   due: number;
   fresh: number;
+}
+
+/** Whether the user already holds a copy of the starter deck. */
+export async function hasStarterDeck(userId: string): Promise<boolean> {
+  const [row] = await db
+    .select({ id: schema.decks.id })
+    .from(schema.decks)
+    .innerJoin(schema.cards, eq(schema.cards.deckId, schema.decks.id))
+    .where(and(eq(schema.decks.userId, userId), eq(schema.cards.sourceKey, starter.cards[0]!.key)))
+    .limit(1);
+  return !!row;
 }
 
 /** Every deck of the user with card, due and never-seen counts. */

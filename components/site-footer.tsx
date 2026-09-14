@@ -12,7 +12,7 @@ export function SiteFooter() {
         <Link className="underline" href="/about#credits">
           Credits and licences
         </Link>
-        . Non-commercial.
+        . Non‑commercial.
       </p>
     </footer>
   );

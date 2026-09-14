@@ -191,6 +191,12 @@
   kbd {
     font-family: var(--font-sans);
   }
+  /* Key hints mean nothing on a phone. */
+  @media (hover: none) and (pointer: coarse) {
+    .key-hint {
+      display: none;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

@@ -10,8 +10,17 @@ import { getSettings } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
 
-export default async function DeckPage({ params }: { params: Promise<{ id: string }> }) {
+const PAGE = 100;
+
+export default async function DeckPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ show?: string }>;
+}) {
   const { id } = await params;
+  const { show } = await searchParams;
   const userId = await requireUserId();
   const deck = await getDeck(userId, id);
   if (!deck) notFound();
@@ -21,6 +30,9 @@ export default async function DeckPage({ params }: { params: Promise<{ id: strin
   const fresh = cards.filter((c) => !c.state).length;
   const newToday = Math.min(fresh, settings.newPerDay);
   const queue = due + newToday;
+  // The list grows a page at a time through a plain link, so a 300-card deck
+  // does not open as a 16,000px page and the URL still says what is shown.
+  const shown = Math.min(cards.length, Math.max(PAGE, Number(show) || 0));
 
   return (
     <div className="space-y-8">
@@ -52,7 +64,17 @@ export default async function DeckPage({ params }: { params: Promise<{ id: strin
 
       <section>
         <h2 className="mb-3 text-xl font-bold">Cards</h2>
-        <CardList cards={cards} targetRetention={settings.targetRetention} now={now.getTime()} />
+        <CardList cards={cards.slice(0, shown)} targetRetention={settings.targetRetention} now={now.getTime()} />
+        {shown < cards.length && (
+          <div className="mt-4 flex flex-wrap items-center gap-4">
+            <Link href={`/decks/${deck.id}?show=${shown + PAGE}`} scroll={false} className="btn btn-secondary">
+              Show the next {Math.min(PAGE, cards.length - shown)}
+            </Link>
+            <span className="text-sm muted">
+              Showing {shown} of {cards.length}
+            </span>
+          </div>
+        )}
       </section>
     </div>
   );

@@ -3,7 +3,7 @@ import { DeckForm } from "@/components/deck-form";
 import { DeckTile } from "@/components/deck-tile";
 import { StartSession } from "@/components/start-session";
 import { copyStarterDeck } from "@/lib/actions/decks";
-import { listDecks } from "@/lib/decks";
+import { hasStarterDeck, listDecks } from "@/lib/decks";
 import { getSession } from "@/lib/session";
 import { getSettings } from "@/lib/settings";
 
@@ -12,7 +12,11 @@ export const dynamic = "force-dynamic";
 export default async function DecksPage() {
   const session = await getSession();
   if (!session) return <StartSession />;
-  const [decks, settings] = await Promise.all([listDecks(session.user.id), getSettings(session.user.id)]);
+  const [decks, settings, hasStarter] = await Promise.all([
+    listDecks(session.user.id),
+    getSettings(session.user.id),
+    hasStarterDeck(session.user.id),
+  ]);
   const dueToday = decks.reduce((n, d) => n + d.due, 0);
   const newToday = decks.reduce((n, d) => n + Math.min(d.fresh, settings.newPerDay), 0);
 
@@ -29,7 +33,7 @@ export default async function DecksPage() {
             </p>
           )}
         </div>
-        {decks.length > 0 && (
+        {decks.length > 0 && !hasStarter && (
           <form action={copyStarterDeck}>
             <button type="submit" className="btn btn-secondary">
               Add the German starter deck
