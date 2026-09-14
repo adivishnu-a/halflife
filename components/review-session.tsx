@@ -140,7 +140,7 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
   }, [current, targetRetention]);
 
   return (
-    <div className="mat -mx-4 px-4 py-5 sm:mx-0 sm:px-8 sm:py-7">
+    <div className="mat px-4 py-5 sm:px-8 sm:py-7">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm">
         <Link href={`/decks/${deckId}`} className="on-mat-2 hover:underline">
           {deckName}

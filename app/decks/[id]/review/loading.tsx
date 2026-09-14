@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/skeleton";
 /** The mat with an empty stack, so the review page lands in place before its cards arrive. */
 export default function Loading() {
   return (
-    <div aria-busy="true" aria-live="polite" className="mat -mx-4 px-4 py-5 sm:mx-0 sm:px-8 sm:py-7">
+    <div aria-busy="true" aria-live="polite" className="mat px-4 py-5 sm:px-8 sm:py-7">
       <p className="sr-only">Loading your cards</p>
       <div className="h-5 w-32 rounded bg-mat-line" />
       <div className="segments mt-3">
