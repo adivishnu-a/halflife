@@ -33,6 +33,7 @@
   --color-accent: #2a3f8f;
   --color-accent-2: #1f3072;
   --color-on-accent: #fffdf6;
+  --color-accent-ink: #2a3f8f;
   --color-accent-tint: #e2e6f6;
 
   --color-remembered: #1e7b47;
@@ -65,26 +66,27 @@
 /* Dark palette: the mat gets deeper, the cards keep their cream, dimmed a step for night. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-paper: #171613;
-    --color-paper-2: #221f1a;
-    --color-line: #3a362e;
+    --color-paper: #161512;
+    --color-paper-2: #262219;
+    --color-line: #3b372f;
     --color-stock: #ebe6d8;
     --color-stock-edge: #cfc8b5;
-    --color-sheet: #201e19;
-    --color-sheet-edge: #35312a;
+    --color-sheet: #211f1a;
+    --color-sheet-edge: #36322b;
     --color-deck-edge: #2a2721;
     --color-ink: #efeadf;
     --color-ink-2: #b4ad9e;
     --color-ink-3: #948d7e;
-    --color-on-ink: #171613;
+    --color-on-ink: #161512;
     --color-mat: #16203f;
     --color-mat-2: #101833;
     --color-mat-line: #2b3868;
     --color-on-mat: #f4f1e8;
     --color-on-mat-2: #aeb5d2;
-    --color-accent: #8ea2f0;
-    --color-accent-2: #6f86e6;
-    --color-on-accent: #101833;
+    --color-accent: #4160c4;
+    --color-accent-2: #2f49a0;
+    --color-on-accent: #fffdf6;
+    --color-accent-ink: #9db0f5;
     --color-accent-tint: #232c4d;
     --color-remembered: #46b877;
     --color-remembered-2: #2f9a5c;
@@ -93,30 +95,31 @@
     --color-forgot-2: #c55f44;
     --color-forgot-tint: #3d241c;
     --color-on-grade: #101833;
-    --color-focus: #8ea2f0;
+    --color-focus: #9db0f5;
   }
 }
 :root[data-theme="dark"] {
-  --color-paper: #171613;
-  --color-paper-2: #221f1a;
-  --color-line: #3a362e;
+  --color-paper: #161512;
+  --color-paper-2: #262219;
+  --color-line: #3b372f;
   --color-stock: #ebe6d8;
   --color-stock-edge: #cfc8b5;
-  --color-sheet: #201e19;
-  --color-sheet-edge: #35312a;
+  --color-sheet: #211f1a;
+  --color-sheet-edge: #36322b;
   --color-deck-edge: #2a2721;
   --color-ink: #efeadf;
   --color-ink-2: #b4ad9e;
   --color-ink-3: #948d7e;
-  --color-on-ink: #171613;
+  --color-on-ink: #161512;
   --color-mat: #16203f;
   --color-mat-2: #101833;
   --color-mat-line: #2b3868;
   --color-on-mat: #f4f1e8;
   --color-on-mat-2: #aeb5d2;
-  --color-accent: #8ea2f0;
-  --color-accent-2: #6f86e6;
-  --color-on-accent: #101833;
+  --color-accent: #4160c4;
+  --color-accent-2: #2f49a0;
+  --color-on-accent: #fffdf6;
+  --color-accent-ink: #9db0f5;
   --color-accent-tint: #232c4d;
   --color-remembered: #46b877;
   --color-remembered-2: #2f9a5c;
@@ -125,7 +128,7 @@
   --color-forgot-2: #c55f44;
   --color-forgot-tint: #3d241c;
   --color-on-grade: #101833;
-  --color-focus: #8ea2f0;
+  --color-focus: #9db0f5;
 }
 
 @layer base {
@@ -171,7 +174,7 @@
   textarea {
     font: inherit;
     color: inherit;
-    caret-color: var(--color-accent);
+    caret-color: var(--color-accent-ink);
   }
   input::placeholder,
   textarea::placeholder {

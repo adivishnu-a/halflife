@@ -60,7 +60,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         <fieldset>
           <legend className="label">Scheduler</legend>
           <div className="space-y-2">
-            <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-line p-3 has-[:checked]:border-accent">
+            <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-line p-3 has-[:checked]:border-accent-ink">
               <input type="radio" name="scheduler" value="classic" defaultChecked={settings.scheduler === "classic"} className="mt-1 accent-accent" />
               <span>
                 <span className="font-medium">Classic</span>
@@ -70,7 +70,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
                 </span>
               </span>
             </label>
-            <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-line p-3 has-[:checked]:border-accent">
+            <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-line p-3 has-[:checked]:border-accent-ink">
               <input type="radio" name="scheduler" value="halflife" defaultChecked={settings.scheduler === "halflife"} className="mt-1 accent-accent" />
               <span>
                 <span className="font-medium">Halflife</span>

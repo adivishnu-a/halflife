@@ -47,7 +47,7 @@ export function SiteHeader({ user }: { user: HeaderUser | null }) {
     <Link
       href="/account"
       aria-current={pathname.startsWith("/account") ? "page" : undefined}
-      className={`${linkClass(pathname.startsWith("/account"))} ${isAnonymous ? "text-accent" : ""}`}
+      className={`${linkClass(pathname.startsWith("/account"))} ${isAnonymous ? "text-accent-ink" : ""}`}
     >
       {isAnonymous ? "Keep my progress" : user.username}
     </Link>
