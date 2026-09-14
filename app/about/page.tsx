@@ -64,6 +64,10 @@ export default function AboutPage() {
           as one file, and deleting the account deletes everything. Reviews are shared with the model as numbers only,
           never card text, and you can turn that off in Settings.
         </p>
+        <p>
+          The only measurement beyond that is Vercel&apos;s: a cookieless count of page views, and how fast pages load
+          on real devices. Neither knows who you are.
+        </p>
       </section>
 
       <section className="space-y-3">

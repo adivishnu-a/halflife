@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import type { ReactNode } from "react";
@@ -47,6 +49,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           {children}
         </main>
         <SiteFooter />
+        {/* Vercel's cookieless page-view counts and real-user web vitals. Both are off outside production. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
