@@ -37,13 +37,20 @@ export function useValidation() {
       if (!(el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement)) continue;
       if (!el.name) continue;
       const message = messageFor(el);
+      // Every <FieldError> is rendered with id "<input id>-error", so the
+      // message is tied to its field for screen readers, not only announced.
+      const errorId = el.id ? `${el.id}-error` : null;
+      const described = (el.getAttribute("aria-describedby") ?? "").split(/\s+/).filter((t) => t && t !== errorId);
       if (message) {
         next[el.name] = message;
         el.setAttribute("aria-invalid", "true");
+        if (errorId) described.push(errorId);
         first ??= el;
       } else {
         el.removeAttribute("aria-invalid");
       }
+      if (described.length) el.setAttribute("aria-describedby", described.join(" "));
+      else el.removeAttribute("aria-describedby");
     }
     setErrors(next);
     first?.focus();

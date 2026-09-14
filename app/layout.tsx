@@ -30,7 +30,11 @@ export const viewport: Viewport = {
 };
 
 // Applies a saved theme before first paint, so there is no flash of the wrong palette.
-const themeScript = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
+// Runs before paint: applies a chosen theme, and tells the server which time
+// zone to write day labels in, so "tomorrow" means the reader's tomorrow.
+const themeScript =
+  `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}` +
+  `try{document.cookie="tz="+encodeURIComponent(Intl.DateTimeFormat().resolvedOptions().timeZone)+";path=/;max-age=31536000;samesite=lax"}catch(e){}`;
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const session = await getSession();

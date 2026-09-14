@@ -33,10 +33,12 @@ export function WhyThisDate({
   state,
   targetRetention,
   now = new Date(),
+  timeZone,
 }: {
   state: WhyState;
   targetRetention: number;
   now?: Date;
+  timeZone?: string;
 }) {
   const daysSinceFirst = state.firstSeenAt ? (now.getTime() - state.firstSeenAt.getTime()) / DAY_MS : undefined;
   const features = featurize(
@@ -74,7 +76,7 @@ export function WhyThisDate({
           <>
             <dt className="muted">Due</dt>
             <dd>
-              {formatDue(state.dueAt, now)}
+              {formatDue(state.dueAt, now, timeZone)}
               <span className="faint"> · set by {classic ? "Classic (SM-2)" : "Halflife (model)"}</span>
             </dd>
           </>

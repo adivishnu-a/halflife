@@ -7,6 +7,7 @@ import { getDeck, listCards } from "@/lib/decks";
 import { plural } from "@/lib/format";
 import { requireUserId } from "@/lib/session";
 import { getSettings } from "@/lib/settings";
+import { getTimeZone } from "@/lib/timezone";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +25,7 @@ export default async function DeckPage({
   const userId = await requireUserId();
   const deck = await getDeck(userId, id);
   if (!deck) notFound();
-  const [cards, settings] = await Promise.all([listCards(userId, id), getSettings(userId)]);
+  const [cards, settings, timeZone] = await Promise.all([listCards(userId, id), getSettings(userId), getTimeZone()]);
   const now = new Date();
   const due = cards.filter((c) => c.state?.dueAt && c.state.dueAt <= now).length;
   const fresh = cards.filter((c) => !c.state).length;
@@ -64,7 +65,7 @@ export default async function DeckPage({
 
       <section>
         <h2 className="mb-3 text-xl font-bold">Cards</h2>
-        <CardList cards={cards.slice(0, shown)} targetRetention={settings.targetRetention} now={now.getTime()} />
+        <CardList cards={cards.slice(0, shown)} targetRetention={settings.targetRetention} now={now.getTime()} timeZone={timeZone} />
         {shown < cards.length && (
           <div className="mt-4 flex flex-wrap items-center gap-4">
             <Link href={`/decks/${deck.id}?show=${shown + PAGE}`} scroll={false} className="btn btn-secondary">

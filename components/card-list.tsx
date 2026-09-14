@@ -12,11 +12,13 @@ export function CardList({
   cards,
   targetRetention,
   now: nowMs,
+  timeZone,
 }: {
   cards: CardRow[];
   targetRetention: number;
-  /** Render time from the server, so server and client compute the same numbers. */
+  /** Render time and zone from the server, so server and client write the same labels. */
   now: number;
+  timeZone: string;
 }) {
   if (cards.length === 0) {
     return (
@@ -38,7 +40,7 @@ export function CardList({
                 {!card.state
                   ? "new"
                   : card.state.dueAt
-                    ? `due ${formatDue(card.state.dueAt, now)}`
+                    ? `due ${formatDue(card.state.dueAt, now, timeZone)}`
                     : "seen"}
               </span>
             </summary>
@@ -47,7 +49,7 @@ export function CardList({
               <div>
                 <h3 className="mb-2 text-sm font-medium">Why this date</h3>
                 {card.state ? (
-                  <WhyThisDate state={card.state} targetRetention={targetRetention} now={now} />
+                  <WhyThisDate state={card.state} targetRetention={targetRetention} now={now} timeZone={timeZone} />
                 ) : (
                   <p className="text-sm muted">Not reviewed yet. After the first review the model predicts a half-life and the scheduler sets a date.</p>
                 )}

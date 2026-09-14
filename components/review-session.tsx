@@ -51,6 +51,7 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
   const [failed, setFailed] = useState<Pending[]>([]);
   const [tomorrow, setTomorrow] = useState<number | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const doneRef = useRef<HTMLHeadingElement>(null);
 
   const current = queue[index];
   const finished = index >= queue.length;
@@ -122,8 +123,12 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
   }, [finished, tomorrow, deckId]);
 
   useEffect(() => {
-    cardRef.current?.focus({ preventScroll: true });
-  }, [index]);
+    // The card takes focus on each new card and again when its answer shows,
+    // since the Show answer button unmounts under the keyboard user. A screen
+    // reader reads the card, and the next Tab is Forgot. At the end the
+    // heading takes focus instead, so it is never dropped on the body.
+    (cardRef.current ?? doneRef.current)?.focus({ preventScroll: true });
+  }, [index, revealed]);
 
   const retryFailed = () => {
     const batch = failed;
@@ -212,7 +217,9 @@ export function ReviewSession({ deckId, deckName, cards, scheduler, targetRetent
 
       {finished ? (
         <section className="stock rise mt-4 p-6 sm:p-8">
-          <h1 className="text-2xl font-bold">Session done</h1>
+          <h1 ref={doneRef} tabIndex={-1} className="text-2xl font-bold outline-none">
+            Session done
+          </h1>
           <dl className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-3">
             <div>
               <dt className="text-sm muted">Reviewed</dt>
